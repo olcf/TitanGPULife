@@ -1,0 +1,54 @@
+\documentclass[times]{cpeauth}
+
+\usepackage{graphicx}
+\usepackage[section]{placeins}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\newcommand{\fix}[1]{\textcolor{red}{#1}}
+\newcommand{\pkg}[1]{{\tt #1}}
+
+\begin{document}
+\runningheads{G. Ostrouchov \it{et al.}}{GPU Reliability on Titan Supercomputer}
+
+\title{An Evaluation Of GPU Reliability on Titan Supercomputer}
+
+\author{George Ostrouchov\affil{1}\affil{2}\affil{4}\corrauth,
+  Don Maxwell\affil{2},
+  Rizwan Ashraf\affil{3},
+  Christian Engelman\affil{1},
+  and James Rogers\affil{2}
+}
+
+\address{
+  \affilnum{1}Computer Science and Mathematics Division, Oak
+  Ridge National Laboratory, Oak Ridge TN, USA\break
+  \affilnum{2}National Center for Computational Sciences Division, Oak
+  Ridge National Laboratory, Oak Ridge TN, USA\break
+  \affilnum{3}Department of Electrical Engineering and Computer
+  Science,University of Tennessee, Knoxville TN, USA\break
+  \affilnum{4}Department of Business Analytics and Statistics,
+  University of Tennessee, Knoxville TN, USA}
+
+\corraddr{George Ostrouchov, Computer Science and Mathematics
+  Division, Oak Ridge National Laboratory, Oak Ridge TN, E-mail:
+  ostroughovg@ornl.gov }
+
+\maketitle
+
+\input{abstract}
+\keywords{GPU, reliability, supercomputer, NVIDIA,
+  Cray, large-scale systems, Cox regression.}
+
+\input{intro}
+\input{related}
+\input{dataprep}
+\input{dataclean}
+\input{tbf}
+\input{survival}
+\input{discussion}
+\input{acknowledgments}
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}
