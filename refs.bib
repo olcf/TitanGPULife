@@ -23,4 +23,249 @@
   url =		 "https://doi.org/10.1007/978-3-319-19425-7_20"
 }
 
- 
+@conference{nie17characterizing,
+  author        = "Bin Nie
+                   and Ji Xue
+                   and Saurabh Gupta
+                   and Christian Engelmann
+                   and Evgenia Smirni
+                   and Devesh Tiwari",
+  title         = "Characterizing Temperature, Power, and Soft-Error Behaviors
+                   in Data Center Systems: Insights, Challenges, and
+                   Opportunities",
+  booktitle     = "Proceedings of the \href{http://mascots2017.cs.ucalgary.ca}
+                   {$25^{th}$ IEEE International Symposium on the Modeling,
+                   Analysis, and Simulation of Computer and Telecommunication
+                   Systems (MASCOTS) 2017}",
+  pages         = "22--31",
+  month         = sep # "~20-22, ",
+  year          = "2017",
+  address       = "Banff, AB, Canada",
+  publisher     = "\href{http://www.computer.org}{IEEE Computer Society, Los
+                   Alamitos, CA, USA}",
+  issn          = "2375-0227",
+  isbn          = "978-1-5386-2764-8",
+  doi           = "10.1109/MASCOTS.2017.12",
+  url           = "http://www.christian-engelmann.info/publications/nie17characterizing.pdf",
+  url2          = "",
+  abstract      = "GPUs have become part of the mainstream high performance
+                   computing facilities that increasingly require more
+                   computational power to simulate physical phenomena quickly
+                   and accurately. However, GPU nodes also consume significantly
+                   more power than traditional CPU nodes, and high power
+                   consumption introduces new system operation challenges,
+                   including increased temperature, power/cooling cost, and
+                   lower system reliability. This paper explores how power
+                   consumption and temperature characteristics affect
+                   reliability, provides insights into what are the implications
+                   of such understanding, and how to exploit these insights
+                   toward predicting GPU errors using neural networks.",
+  pts           = "100351",
+  note          = "Acceptance rate 30.95\% (26/84)"
+}
+
+@conference{nie18machine,
+  author        = "Bin Nie
+                   and Ji Xue
+                   and Saurabh Gupta
+                   and Tirthak Patel
+                   and Christian Engelmann
+                   and Evgenia Smirni
+                   and Devesh Tiwari",
+  title         = "Machine Learning Models for GPU Error Prediction in a Large
+                   Scale HPC System",
+  booktitle     = "Proceedings of the \href{http://www.dsn.org}
+                   {$48^{th}$ IEEE/IFIP International Conference on Dependable
+                    Systems and Networks (DSN) 2018}",
+  pages         = "95--106",
+  month         = jun # "~25-28, ",
+  year          = "2018",
+  address       = "Luxembourg City, Luxembourg",
+  publisher     = "\href{http://www.computer.org}{IEEE Computer Society, Los
+                   Alamitos, CA, USA}",
+  issn          = "2158-3927",
+  isbn          = "978-1-5386-5596-2",
+  doi           = "10.1109/DSN.2018.00022",
+  url           = "http://www.christian-engelmann.info/publications/nie18machine.pdf",
+  abstract      = "Recently, GPUs have been widely deployed on large-scale HPC
+                   systems to provide powerful computational capability for
+                   scientific applications from various domains. As those
+                   applications are normally long-running, investigating the
+                   characteristics of GPU errors becomes imperative. Therefore,
+                   in this paper, we firstly study the conditions that trigger
+                   GPU errors with six-month trace data collected from a
+                   large-scale operational HPC system. Then, we resort to
+                   machine learning techniques to predict the occurrence of
+                   GPU errors, by taking advantage of the temporal and spatial
+                   dependency of the collected data. As discussed in the
+                   evaluation section, the prediction framework is robust and
+                   accurate under different workloads.",
+  pts           = "110650",
+  note          = "Acceptance rate 27.2\% (62/228)"
+}
+
+@conference{kumar18understanding,
+  author        = "Mohit Kumar
+                   and Saurabh Gupta
+                   and Tirthak Patel
+                   and Michael Wilder
+                   and Weisong Shi
+                   and Song Fu
+                   and Christian Engelmann
+                   and Devesh Tiwari",
+  title         = "Understanding and Analyzing Interconnect Errors and Network
+                   Congestion on a Large Scale HPC System",
+  booktitle     = "Proceedings of the \href{http://www.dsn.org}
+                   {$48^{th}$ IEEE/IFIP International Conference on Dependable
+                    Systems and Networks (DSN) 2018}",
+  pages         = "107--114",
+  month         = jun # "~25-28, ",
+  year          = "2018",
+  address       = "Luxembourg City, Luxembourg",
+  publisher     = "\href{http://www.computer.org}{IEEE Computer Society, Los
+                   Alamitos, CA, USA}",
+  issn          = "2158-3927",
+  isbn          = "978-1-5386-5596-2",
+  doi           = "10.1109/DSN.2018.00023",
+  url           = "http://www.christian-engelmann.info/publications/kumar18understanding.pdf",
+  abstract      = "Today's High Performance Computing (HPC) systems are capable
+                   of delivering performance in the order of petaflops due to
+                   the fast computing devices, network interconnect, and
+                   back-end storage systems. In particular, interconnect
+                   resilience and congestion resolution methods have a major
+                   impact on the overall interconnect and application
+                   performance. This is especially true for scientific
+                   applications running multiple processes on different compute
+                   nodes as they rely on fast network messages to communicate
+                   and synchronize frequently. Unfortunately, the HPC community
+                   lacks state-of-practice experience reports that detail how
+                   different interconnect errors and congestion events occur
+                   on large-scale HPC systems. Therefore, in this paper, we
+                   process and analyze interconnect data of the Titan
+                   supercomputer to develop a thorough understanding of
+                   interconnects faults, errors and congestion events. We also
+                   study the interaction between interconnect, errors, network
+                   congestion and application characteristics.",
+  pts           = "110648",
+  note          = "Acceptance rate 27.2\% (62/228)"
+}
+
+@conference{gupta17failures,
+  author        = "Saurabh Gupta
+                   and Tirthak Patel
+                   and Christian Engelmann
+                   and Devesh Tiwari",
+  title         = "Failures in Large Scale Systems: Long-term Measurement,
+                   Analysis, and Implications",
+  booktitle     = "Proceedings of the
+                   \href{http://sc17.supercomputing.org}{$30^{th}$ IEEE/ACM
+                   International Conference on High Performance Computing,
+                   Networking, Storage and Analysis (SC) 2017}",
+  pages         = "44:1--44:12",
+  month         = nov # "~12-17, ",
+  year          = "2017",
+  address       = "Denver, CO, USA",
+  publisher     = "\href{http://www.acm.org}{ACM Press, New York, NY, USA}",
+  isbn          = "978-1-4503-5114-0",
+  doi           = "10.1145/3126908.3126937",
+  url           = "http://www.christian-engelmann.info/publications/gupta17failures.pdf",
+  url2          = "http://www.christian-engelmann.info/publications/gupta17failures.ppt.pdf",
+  abstract      = "Resilience is one of the key challenges in maintaining high
+                   efficiency of future extreme scale supercomputers.
+                   Unfortunately, field-data based reliability studies are far
+                   in between and not exhaustive. Most HPC researchers and
+                   system practitioners still rely on outdated studies to
+                   understand HPC reliability characteristics and plan for
+                   future HPC systems. While the complexity of managing system
+                   reliability has increased, the public knowledge sharing about
+                   lessons learned from HPC centers has not increased in the
+                   same proportion. To bridge this gap, in this work, we compare
+                   and contrast the reliability characteristics of multiple
+                   large-scale HPC production systems, and discuss new
+                   take-aways and con rm previous findings which continue to be
+                   valid.",
+  pts           = "100355",
+  note          = "Acceptance rate 18.7\% (61/327)"
+}
+
+@conference{bautista-gomez16reducing,
+  author        = "Leonardo Bautista-Gomez
+                   and Ana Gainaru
+                   and Swann Perarnau
+                   and Devesh Tiwari
+                   and Saurabh Gupta
+                   and Franck Cappello
+                   and Christian Engelmann
+                   and Marc Snir",
+  title         = "Reducing Waste in Extreme Scale Systems Through Introspective
+                   Analysis",
+  booktitle     = "Proceedings of the \href{http://www.ipdps.org}
+                   {$30^{th}$ IEEE International Parallel and Distributed
+                   Processing Symposium (IPDPS) 2016}",
+  pages         = "212--221",
+  month         = may # "~23-27, ",
+  year          = "2016",
+  address       = "Chicago, IL, USA",
+  publisher     = "\href{http://www.computer.org}{IEEE Computer Society, Los
+                   Alamitos, CA, USA}",
+  issn          = "1530-2075",
+  doi           = "10.1109/IPDPS.2016.100",
+  url           = "http://www.christian-engelmann.info/publications/bautista-gomez16reducing.pdf",
+  url2          = "http://www.christian-engelmann.info/publications/bautista-gomez16reducing.ppt.pdf",
+  abstract      = "Resilience is an important challenge for extreme-scale 
+                   supercomputers. Today, failures in supercomputers are 
+                   assumed to be uniformly distributed in time. However, recent 
+                   studies show that failures in high-performance computing 
+                   systems are partially correlated in time, generating periods 
+                   of higher failure density. Our study of the failure logs of 
+                   multiple supercomputers show that periods of higher failure 
+                   density occur with up to three times more than the average. 
+                   We design a monitoring system that listens to hardware 
+                   events and forwards important events to the runtime to 
+                   detect those regime changes. We implement a runtime capable 
+                   of receiving notifications and adapt dynamically. In 
+                   addition, we build an analytical model to predict the gains 
+                   that such dynamic approach could achieve. We demonstrate that 
+                   in some systems, our approach can reduce the wasted time.",
+  pts           = "62159",
+  note          = "Acceptance rate 23.0\% (114/496)"
+}
+
+@INPROCEEDINGS{7056044, 
+author={D. {Tiwari} and S. {Gupta} and J. {Rogers} and D. {Maxwell} and P. {Rech} and S. {Vazhkudai} and D. {Oliveira} and D. {Londo} and N. {DeBardeleben} and P. {Navaux} and L. {Carro} and A. {Bland}}, 
+booktitle={2015 IEEE 21st International Symposium on High Performance Computer Architecture (HPCA)}, 
+title={Understanding GPU errors on large-scale HPC systems and the implications for system design and operation}, 
+year={2015}, 
+volume={}, 
+number={}, 
+pages={331-342}, 
+keywords={graphics processing units;parallel machines;GPU error;large-scale HPC system;system design;system operation;graphics hardware performance;programmability;graphics-specific accelerator;general-purpose computing device;performance efficiency;resilience characteristics;large-scale computing system;large-scale GPU-enabled system;Titan supercomputer;Oak Ridge Leadership Computing Facility;Los Alamos National Laboratory;neutron-beam test;Los Alamos Neutron Science Center;LANSCE;ISIS;Rutherford Appleron Laboratories;neutron-beam experiment;GPU architect;HPC computing facility;GPU resilience;Graphics processing units;Neutrons;Computer crashes;Error correction codes;Resilience;Laboratories;Supercomputers}, 
+doi={10.1109/HPCA.2015.7056044}, 
+ISSN={2378-203X}, 
+month={Feb},}
+
+@INPROCEEDINGS{8665764, 
+author={C. {Zimmer} and D. {Maxwell} and S. {McNally} and S. {Atchley} and S. S. {Vazhkudai}}, 
+booktitle={SC18: International Conference for High Performance Computing, Networking, Storage and Analysis}, 
+title={GPU Age-Aware Scheduling to Improve the Reliability of Leadership Jobs on Titan}, 
+year={2018}, 
+volume={}, 
+number={}, 
+pages={83-93}, 
+keywords={graphics processing units;mainframes;scheduling;job failures;leadership jobs;application failures;low-failure rate;high-failure rate GPUs;low-failure GPU hours;GPU age-aware scheduling;OLCF's Titan supercomputer;Graphics processing units;Peer-to-peer computing;Reliability;Job shop scheduling;Predictive models;Supercomputers}, 
+doi={10.1109/SC.2018.00010}, 
+ISSN={null}, 
+month={Nov},}
+
+@INPROCEEDINGS{6903564, 
+author={D. {Tiwari} and S. {Gupta} and S. S. {Vazhkudai}}, 
+booktitle={2014 44th Annual IEEE/IFIP International Conference on Dependable Systems and Networks}, 
+title={Lazy Checkpointing: Exploiting Temporal Locality in Failures to Mitigate Checkpointing Overheads on Extreme-Scale Systems}, 
+year={2014}, 
+volume={}, 
+number={}, 
+pages={25-36}, 
+keywords={checkpointing;parallel machines;lazy checkpointing;failure temporal locality;checkpointing overhead mitigation;extreme-scale systems;computational power;supercomputers;large-scale scientific applications;astrophysics;fusion;climate;combustion;long-running simulations;multiple system failures;resilience mechanism;application state storage;permanent storage;failure recovery;excessive I/O overhead;checkpoint size;resource utilization;system failure temporal characteristics;large-scale machines;extreme-scale machines;Checkpointing;Computational modeling;Lead;Supercomputers;Analytical models;Bandwidth;Exponential distribution;checkpointing;resilience;system failures;locality;extreme-scale;supercomputing;storage}, 
+doi={10.1109/DSN.2014.101}, 
+ISSN={2158-3927}, 
+month={June},}

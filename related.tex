@@ -1,3 +1,22 @@
 \section{Related Work}
 \label{sec:related}
 \fix{Christian's section}
+
+Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects.
+%
+Tiwari et al~\cite{7056044} analyzed the types of GPU errors on Titan and used neutron beam experiments to further understand GPU soft errors.
+%
+Nie et al.~\cite{nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models.
+%
+Tiwari et al. and Nie et al. did not address the failure mode discussed in this paper.
+%
+Zimmer et al.~\cite{8665764} developed a new job scheduling strategy for Titan to counter the GOU failures discussed in this paper and to improve system utilization and productivity.
+
+
+Work by Kumar et al.~\cite{kumar18understanding} analyzed Titan's interconnect faults, errors and congestion events to improve interconnects resilience and congestion resolution methods.
+%
+Gupta et al.~\cite{gupta17failures} performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation.
+%
+Bautista-Gomez et al.~\cite{bautista-gomez16reducing} used failure data from Titan to adapt the checkpoint frequency to the current reliability of the system using dynamic checkpointing.
+%
+Tiwari et al.~\cite{6903564} also used failure data from Titan and exploited temporal locality in the data to adapt the checkpoint frequency to the current reliability of the system using lazy checkpointing.
