@@ -4,23 +4,25 @@
 
 Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects.
 %
-Tiwari et al~\cite{7056044} analyzed the types of GPU errors on Titan and used neutron beam experiments to further understand GPU soft errors.
+Tiwari et al~\cite{7056044} analyzed the types of GPU errors on Titan and on a GPU cluster at Los Alamos National Laboratory. It also used neutron beam experiments at the Los Alamos Neutron Science Center and at Rutherford Appleton Laboratories to further understand GPU soft errors caused by neutron radiation triggered upsets (bit flips and timing errors).
 %
-Nie et al.~\cite{nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models.
+Nie et al.~\cite{nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models. The work primarily focused on correctable single-bit errors.
 %
-Tiwari et al. and Nie et al. did not address the failure mode discussed in this paper.
-%
-Zimmer et al.~\cite{8665764} developed a new job scheduling strategy for Titan to counter the GPU failures discussed in this paper and to improve system utilization and productivity.
+Tiwari et al. and Nie et al. did not address the atypical failure mode discussed in this paper.
+
+Zimmer et al.~\cite{8665764} developed a new job scheduling strategy for Titan to counter the GPU failures discussed in this paper and to improve system utilization and productivity. The solution used reordering of compute nodes for resource allocation, scheduling larger jobs on more reliable and smaller jobs on less reliable nodes.
 
 
-Work by Kumar et al.~\cite{kumar18understanding} analyzed Titan's interconnect faults, errors and congestion events to improve interconnects resilience and congestion resolution methods.
+Work by Kumar et al.~\cite{kumar18understanding} analyzed Titan's interconnect faults, errors and congestion events to improve interconnects resilience and congestion resolution methods. The results show that the magnitude of interconnect errors is very high with an uneven distribution across different types of links is uneven. They also show that congestion is highly frequent and bursty.
 %
-Gupta et al.~\cite{gupta17failures} performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation.
-%
+Gupta et al.~\cite{gupta17failures} performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation. This work resulted in a lot of lessons learned, including that the mean-time-to-failure (MTTF) can change drastically and non-monotonically over time.
+
 Bautista-Gomez et al.~\cite{bautista-gomez16reducing} used failure data from Titan to adapt the checkpoint frequency to the current reliability of the system using dynamic checkpointing.
 %
 Tiwari et al.~\cite{6903564} also used failure data from Titan and exploited temporal locality in the data to adapt the checkpoint frequency to the current reliability of the system using lazy checkpointing.
+%
+Both approaches, Bautista-Gomez et al. and Tiwari et al., aim at dealing with the drastically and non-monotonically changing MTBF of Titan to match current system reliability with an efficient recovery strategy.
 
 Other work in characterizing supercomputer faults, errors and failures focused on the various systems deployed around the world, primarily at US Department of Energy laboratories.
 %
-De et al.~\cite{8809553} developed an in-depth understanding of the failure characteristics of the IBM Blue Gene/Q Mira system at Argonne National Laboratory.
+Di et al.~\cite{8809553} developed an in-depth understanding of the failure characteristics of the IBM Blue Gene/Q Mira system at Argonne National Laboratory.
