@@ -2,10 +2,16 @@
 \label{sec:survival}
 \fix{George's survival analysis, check \protect\pkg{finalfit}} 
 
+Kaplan-Meier survival analysis gives the probability of survival
+beyond a given time. It is a nonparametric technique that makes no
+specific failure model assumptions, such as Weibull, Exponential,
+etc. It can also split the data into subpopulations and compute
+separate survival curves. 
 
-Kaplan-Meier survival analysis gives the probability of survival beyond a given time. It is a nonparametric technique that makes no specific failure model assumptions, such as Weibull, Exponential, etc. It can also split the data into subpopulations and compute separate survival curves.
-
-If $T$ is taken to be the random variable of a GPU fail time, then its probability density function is $f(t)$ and its cumulative distribution function $F(t) = Pr\{T < t\}$ gives the probability that a GPU fails by duration $t$. The survival function is then
+If $T$ is taken to be the random variable of a GPU fail time, then its
+probability density function is $f(t)$ and its cumulative distribution
+function $F(t) = Pr\{T < t\}$ gives the probability that a GPU fails
+by duration $t$. The survival function is then 
 \begin{displaymath}
   S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx,
 \end{displaymath}
@@ -18,7 +24,9 @@ A sister concept to the survival function is the hazard function:
 which is what is sometimes called the "bathtub" curve in reliability.
 
 
-The Cox proportional hazards (CPH) regression analys \cite{Cox1972,Harrell2015} takes the hazard function above and a set of covariates $x$ and models $k$s GPU hazard as
+The Cox proportional hazards (CPH) regression analys
+\cite{Cox1972,Harrell2015} takes the hazard function above and a set
+of covariates $x$ and models $k$s GPU hazard as 
 \begin{displaymath}
   H_k(t) = H_0(t)e^{\sum\limits_{i=1}^n{\beta x}}
 \end{displaymath}

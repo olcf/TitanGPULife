@@ -4,7 +4,8 @@
   location, its use in cleaning data, etc.}
 
 A typical GPU data record produced by the methods in the last section
-is of the following form
+is of the form shown in Fig.~\ref{fig:dataraw},
+\begin{figure}
 {\small
 \begin{verbatim}
 0323812007945 | c17-4c1s3n1 | 01/10/2013 02:54:45 | 02/02/2013 11:32:29
@@ -19,6 +20,9 @@ is of the following form
  | | DBE | 11/02/2018 14:42:34
 \end{verbatim}
 }
+\caption{Raw data.}
+\label{fig:dataraw}
+\end{figure}
 \noindent where records for three GPUs are shown. Each record starts
 with a serial number and locations are coded with {\tt c{\it
     col-row}c{\it cage}s{\it slot}n{\it node}}. The first GPU record
