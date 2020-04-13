@@ -1,8 +1,6 @@
 \section{Survival Analysis}
 \label{sec:survival}
-\fix{George's survival analysis, check \protect\pkg{finalfit}} 
-
-Kaplan-Meier survival analysis gives the probability of survival
+ Kaplan-Meier survival analysis (KM) gives the probability of survival
 beyond a given time. It is a nonparametric technique that makes no
 specific failure model assumptions, such as Weibull, Exponential,
 etc. It can also split the data into subpopulations and compute
@@ -15,7 +13,27 @@ by duration $t$. The survival function is then
 \begin{displaymath}
   S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx,
 \end{displaymath}
-which is the probability of being operational just before duration $t$.
+which is the probability of being operational at duration
+$t$.
+
+We use reliability censoring concepts to use information from units
+that were proactively removed before failing as well as those still in
+operation till the end. We use the R package {\tt survival} for the KM
+analysis.
+\begin{figure}
+  \centering
+  \includegraphics[width=6in]{figs/km_cage-node_o001.pdf}
+  \caption{Survival probability from Kaplan-Meier analysis for {\tt
+      old} batch GPUs, stratified by {\tt cage} and {\tt node}.}
+  \label{fig:km-old-cage-node}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=6in]{figs/km_cage-node_c001.pdf}
+  \caption{Here we consider the effect of cage on survival among the
+    old batch.}
+  \label{fig:km-all-cage-node}
+\end{figure}
 
 A sister concept to the survival function is the hazard function:
 \begin{displaymath}
@@ -63,8 +81,14 @@ covariates.
  
 
 \begin{figure}
-  \includegraphics[width=5in]{cox.pdf}
-  \caption{GPU hazard ratios from Cox regression model.}
+  \includegraphics[width=5in]{figs/cox_o001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\tt old}
+    batch.}
+\end{figure}
+\begin{figure}
+  \includegraphics[width=5in]{figs/cox_n001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\tt new}
+    batch.}
 \end{figure}
 
 Higher numbered columns appear to have a higher (up to about 2x)
@@ -120,6 +144,6 @@ Cox models.
 
 
 \begin{figure}
-  \includegraphics[width=5in]{glmnet.pdf}
+  \includegraphics[width=5in]{figs/glmnet001.pdf}
   \caption{GPU variable importance from glmnet penalized regression analysis.}
 \end{figure}

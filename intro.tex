@@ -1,21 +1,26 @@
 \section{Introduction}
 \label{sec:intro}
-\fix{Dropped Jim's initial email here.}
-The Cray XK7 Titan is rapidly nearing its decommissioning date for
-DOE/ASCR. The last production runs will be in July of this year, and
-then we will stop services, clean up a few things and turn it off. 
+The Cray XK7 Titan supercomputer was the \#1 system in the world for a
+very long time, and has remained a critically important computer
+system through the end of its life in the Summer of 2019. It defied
+scale with 18,688 individual compute nodes and delivered tens of
+billions of computing hours to the U.S. Oepartment of Energy
+mission-critical programs for nearly 7 years.
  
-This system was \#1 in the world for a very long time, and has remained
-a critically important computer system. It defied scale with 18,688
-individual compute nodes, and delivered tens of billions of computing
-hours to DOE mission-critical programs for nearly 7 years. 
- 
-This was quite an interesting machine from a reliability perspective.
-We were forced to execute three very significant rework cycles, two on
+Titan was quite an interesting machine from a reliability perspective.
+Its operation was forced to execute three very significant rework cycles, two on
 the mechanical assembly affecting the PCIe connector from the GPU
-daughtercard to the motherboard, and more recently, a replacement of
-about 11,000 GPU assemblies because of a failing resistor on a printed
-circuit board. 
+daughtercard to the motherboard, and a replacement of about 11,000 GPU
+assemblies because of a failing resistor on a printed circuit board.
+
+Figure~\ref{fig:chronology} illustrates the chronology of the rework
+cycles. It shows the number of GPU changes at periodic inventories.
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\textwidth]{figs/chronology.pdf}
+  \caption{Daily volume of GPU swaps with labels on most frequent dates.}
+  \label{fig:chronology}
+\end{figure}
  
 We have conducted a good bit of statistical analysis on the failure
 rates of these GPU assemblies, but I want to propose a different topic
@@ -34,7 +39,7 @@ I am looking for help, very specifically with the statistics portion
 of this, i.e. what do the failure rates for specific components look
 like? What distributions do those failure rates follow? How could
 appropriate models extrapolate failure rates beyond the end of service
-date (the dotted lines…) ? 
+date (the dotted lines) ? 
  
 I have submitted an abstract to a Cray-focused user group and workshop
 on this topic, and it has been accepted.  I would like to execute this
