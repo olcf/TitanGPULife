@@ -20,20 +20,20 @@ We use reliability censoring concepts to use information from units
 that were proactively removed before failing as well as those still in
 operation till the end. We use the R package {\tt survival} for the KM
 analysis.
-\begin{figure}
+\begin{figure*}
   \centering
   \includegraphics[width=6in]{figs/km_cage-node_o001.pdf}
   \caption{Survival probability from Kaplan-Meier analysis for {\tt
       old} batch GPUs, stratified by {\tt cage} and {\tt node}.}
   \label{fig:km-old-cage-node}
-\end{figure}
-\begin{figure}
+\end{figure*}
+\begin{figure*}
   \centering
   \includegraphics[width=6in]{figs/km_cage-node_c001.pdf}
   \caption{Comparison of the old and new batches, focusing only on
     three years of operation of the new batch so far.}
   \label{fig:km-all-cage-node}
-\end{figure}
+\end{figure*}
 
 A sister concept to the survival function is the hazard function:
 \begin{displaymath}
@@ -80,16 +80,16 @@ the effect of each covariate is adjusted for all the other
 covariates. 
  
 
-\begin{figure}
-  \includegraphics[width=5in]{figs/cox_o001.pdf}
+\begin{figure*}
+  \includegraphics[width=6.5in]{figs/cox_o001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\tt old}
     batch.}
-\end{figure}
-\begin{figure}
-  \includegraphics[width=5in]{figs/cox_n001.pdf}
+\end{figure*}
+\begin{figure*}
+  \includegraphics[width=6.5in]{figs/cox_n001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\tt new}
     batch.}
-\end{figure}
+\end{figure*}
 
 Higher numbered columns appear to have a higher (up to about 2x)
 failure rate. There actually seems to be a hint of three groups that
