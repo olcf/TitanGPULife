@@ -30,8 +30,8 @@ analysis.
 \begin{figure}
   \centering
   \includegraphics[width=6in]{figs/km_cage-node_c001.pdf}
-  \caption{Here we consider the effect of cage on survival among the
-    old batch.}
+  \caption{Comparison of the old and new batches, focusing only on
+    three years of operation of the new batch so far.}
   \label{fig:km-all-cage-node}
 \end{figure}
 
@@ -110,16 +110,6 @@ Interestingly, nodes 2 and 3 have half the failure rate of nodes 0 and
 1. Is this related to the cage variable or is there a real location
 effect?
 
-Both loc and move are roughly the same, indicating that GPUs that were
-moved to another location had slighly (.75x) lower failure rate. This
-may just reflect a “repair effect” that extends the life of a GPU. It
-may have been removed and reinstalled for a reason that was not
-recorded. 
- 
-Oddly, the older batch has a very slighly lower hazard, although there
-is a lot of uncertainty here, indicating that something more
-complicated is at work and needs deeper investigation. 
-
 Now the multivariate Cox regression analysis, where each factor is
 adjusted for all the other factors. This can fix some uneven sampling
 and multivariate dependence. 
@@ -128,22 +118,5 @@ The col groups persist and are even stronger. The row effect is also
 stronger. The cage effect is out of this world! slot is still without
 any effect. node effect also persists and is a bit stronger. 
 
-It is strange that move and loc effects are opposite, whereas in the
-univariate analysis they were the same. They are also much
-stronger. The batch effect is opposite of what it was under univariate
-analysys and a bit stronger as well. This is a concern and it may be
-related to violation of the “proportionality assumption” of hazards
-not crossing. We see some crossing in the survival curves above
-already. 
-
 Let’s separate the “old” and “new” batches of GPUs and run separate
 Cox models. 
-
-
-
-
-
-\begin{figure}
-  \includegraphics[width=5in]{figs/glmnet001.pdf}
-  \caption{GPU variable importance from glmnet penalized regression analysis.}
-\end{figure}
