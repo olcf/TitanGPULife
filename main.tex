@@ -13,12 +13,19 @@
 \usepackage[section]{placeins}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\usepackage[pdftex,
-            bookmarksopen=true,
-            colorlinks,
-            linkcolor={black},
-            citecolor={black},
-            urlcolor={black}]{hyperref}
+%\usepackage[pdftex,
+%            bookmarksopen=true,
+%            colorlinks,
+%            linkcolor={black},
+%            citecolor={black},
+%            urlcolor={black}]{hyperref}
+\newcommand{\href}[2]{#2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The Double-blind Review Command
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newcommand{\doubleblind}[2]{#1} % Use this command for final submission
+\newcommand{\doubleblind}[2]{#2} % Use this command for review submission
 
 %%%%%%%%%%%%%%%%%
 % Custom Commands
@@ -36,22 +43,22 @@
 % Title & First-Page Acknowledgements
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{An Evaluation of GPU Reliability on Titan Supercomputer%
-\thanks{This work was sponsored by the U.S. Department of Energy's Office of
-Advanced Scientific Computing Research. This manuscript has been authored by
-UT-Battelle, LLC under Contract No. DE-AC05-00OR22725 with the U.S. Department
-of Energy. The United States Government retains and the publisher, by accepting
-the article for publication, acknowledges that the United States Government
-retains a non-exclusive, paid-up, irrevocable, world-wide license to publish or
-reproduce the published form of this manuscript, or allow others to do so, for
-United States Government purposes. The Department of Energy will provide public
-access to these results of federally sponsored research in accordance with the
-DOE Public Access Plan (http://energy.gov/downloads/doe-public-access-plan).}
-}
+\doubleblind{\thanks{This work was sponsored by the U.S. Department of Energy's
+Office of Advanced Scientific Computing Research. This manuscript has been
+authored by UT-Battelle, LLC under Contract No. DE-AC05-00OR22725 with the U.S.
+Department of Energy. The United States Government retains and the publisher,
+by accepting the article for publication, acknowledges that the United States
+Government retains a non-exclusive, paid-up, irrevocable, world-wide license to
+publish or reproduce the published form of this manuscript, or allow others to
+do so, for United States Government purposes. The Department of Energy will
+provide public access to these results of federally sponsored research in
+accordance with the DOE Public Access Plan
+(http://energy.gov/downloads/doe-public-access-plan).}{}}}
 
 %%%%%%%%%
 % Authors
 %%%%%%%%%
-\author{%
+\author{\doubleblind{
 \IEEEauthorblockN{1\textsuperscript{st} George Ostrouchov}
 \IEEEauthorblockA{\textit{Computer Science and Mathematics Division}\\
 \textit{Oak Ridge National Laboratory}\\
@@ -80,8 +87,7 @@ engelmannc@ornl.gov}
 \IEEEauthorblockA{\textit{National Center for Computational Sciences Division}\\
 \textit{Oak Ridge National Laboratory}\\
 Oak Ridge, TN, USA\\
-jrogers@ornl.gov}
-}
+jrogers@ornl.gov}}{}}
 
 \maketitle
 
@@ -102,25 +108,52 @@ GPU, reliability, supercomputer, NVIDIA, Cray, large-scale systems, Cox regressi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Sections
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%
+% Introduction
+%%%%%%%%%%%%%%
 \input{intro}
+
+%%%%%%%%%%%%%%
+% Related Work
+%%%%%%%%%%%%%%
 \input{related}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Data Collection and Preprocessing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{dataprep}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Viewing and Cleaning the Data
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{dataclean}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Time Between Failures Analysis
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{tbf}
+
+%%%%%%%%%%%%%%%%%%%
+% Survival Analysis
+%%%%%%%%%%%%%%%%%%%
 \input{survival}
+
+%%%%%%%%%%%%
+% Discussion
+%%%%%%%%%%%%
 \input{discussion}
-\input{acknowledgments}
+
+%%%%%%%%%%%%%%%%%
+% Acknowledgments
+%%%%%%%%%%%%%%%%%
+\doubleblind{\input{acknowledgments}}{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % References
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{IEEEtran}
 \bibliography{refs}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Appoendix
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\input{appendixA}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End of Document
