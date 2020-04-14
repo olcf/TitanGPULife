@@ -1,7 +1,12 @@
+% !TEX root = main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 @article{Cox1972,
   author =	 {D. R. Cox},
   journal =	 {Journal of the Royal Statistical Society. Series B
-                  (Methodological)},
+              (Methodological)},
   number =	 {2},
   pages =	 {187--220},
   title =	 {Regression Models and Life-Tables},
@@ -10,17 +15,17 @@
 }
 
 @Inbook{Harrell2015,
-  author =	 "Harrell, Frank E.",
-  title =	 "Cox Proportional Hazards Regression Model",
-  bookTitle =	 "Regression Modeling Strategies: With Applications to
-                  Linear Models, Logistic and Ordinal Regression, and
-                  Survival Analysis",
-  year =	 "2015",
-  publisher =	 "Springer International Publishing",
-  address =	 "Cham",
-  pages =	 "475--519",
-  doi =		 "10.1007/978-3-319-19425-7_20",
-  url =		 "https://doi.org/10.1007/978-3-319-19425-7_20"
+  author        = "Frank E. Harrell",
+  title         = "Cox Proportional Hazards Regression Model",
+  booktitle     = "Regression Modeling Strategies: With Applications to Linear
+                   Models, Logistic and Ordinal Regression, and Survival
+                   Analysis",
+  year          = "2015",
+  publisher     = "Springer International Publishing",
+  address       = "Cham",
+  pages         = "475--519",
+  isbn          = "978-3-319-19425-7",
+  doi           = "10.1007/978-3-319-19425-7_20"
 }
 
 @conference{nie17characterizing,
@@ -45,23 +50,7 @@
                    Alamitos, CA, USA}",
   issn          = "2375-0227",
   isbn          = "978-1-5386-2764-8",
-  doi           = "10.1109/MASCOTS.2017.12",
-  url           = "http://www.christian-engelmann.info/publications/nie17characterizing.pdf",
-  url2          = "",
-  abstract      = "GPUs have become part of the mainstream high performance
-                   computing facilities that increasingly require more
-                   computational power to simulate physical phenomena quickly
-                   and accurately. However, GPU nodes also consume significantly
-                   more power than traditional CPU nodes, and high power
-                   consumption introduces new system operation challenges,
-                   including increased temperature, power/cooling cost, and
-                   lower system reliability. This paper explores how power
-                   consumption and temperature characteristics affect
-                   reliability, provides insights into what are the implications
-                   of such understanding, and how to exploit these insights
-                   toward predicting GPU errors using neural networks.",
-  pts           = "100351",
-  note          = "Acceptance rate 30.95\% (26/84)"
+  doi           = "10.1109/MASCOTS.2017.12"
 }
 
 @conference{nie18machine,
@@ -85,23 +74,7 @@
                    Alamitos, CA, USA}",
   issn          = "2158-3927",
   isbn          = "978-1-5386-5596-2",
-  doi           = "10.1109/DSN.2018.00022",
-  url           = "http://www.christian-engelmann.info/publications/nie18machine.pdf",
-  abstract      = "Recently, GPUs have been widely deployed on large-scale HPC
-                   systems to provide powerful computational capability for
-                   scientific applications from various domains. As those
-                   applications are normally long-running, investigating the
-                   characteristics of GPU errors becomes imperative. Therefore,
-                   in this paper, we firstly study the conditions that trigger
-                   GPU errors with six-month trace data collected from a
-                   large-scale operational HPC system. Then, we resort to
-                   machine learning techniques to predict the occurrence of
-                   GPU errors, by taking advantage of the temporal and spatial
-                   dependency of the collected data. As discussed in the
-                   evaluation section, the prediction framework is robust and
-                   accurate under different workloads.",
-  pts           = "110650",
-  note          = "Acceptance rate 27.2\% (62/228)"
+  doi           = "10.1109/DSN.2018.00022"
 }
 
 @conference{kumar18understanding,
@@ -126,28 +99,7 @@
                    Alamitos, CA, USA}",
   issn          = "2158-3927",
   isbn          = "978-1-5386-5596-2",
-  doi           = "10.1109/DSN.2018.00023",
-  url           = "http://www.christian-engelmann.info/publications/kumar18understanding.pdf",
-  abstract      = "Today's High Performance Computing (HPC) systems are capable
-                   of delivering performance in the order of petaflops due to
-                   the fast computing devices, network interconnect, and
-                   back-end storage systems. In particular, interconnect
-                   resilience and congestion resolution methods have a major
-                   impact on the overall interconnect and application
-                   performance. This is especially true for scientific
-                   applications running multiple processes on different compute
-                   nodes as they rely on fast network messages to communicate
-                   and synchronize frequently. Unfortunately, the HPC community
-                   lacks state-of-practice experience reports that detail how
-                   different interconnect errors and congestion events occur
-                   on large-scale HPC systems. Therefore, in this paper, we
-                   process and analyze interconnect data of the Titan
-                   supercomputer to develop a thorough understanding of
-                   interconnects faults, errors and congestion events. We also
-                   study the interaction between interconnect, errors, network
-                   congestion and application characteristics.",
-  pts           = "110648",
-  note          = "Acceptance rate 27.2\% (62/228)"
+  doi           = "10.1109/DSN.2018.00023"
 }
 
 @conference{gupta17failures,
@@ -167,25 +119,7 @@
   address       = "Denver, CO, USA",
   publisher     = "\href{http://www.acm.org}{ACM Press, New York, NY, USA}",
   isbn          = "978-1-4503-5114-0",
-  doi           = "10.1145/3126908.3126937",
-  url           = "http://www.christian-engelmann.info/publications/gupta17failures.pdf",
-  url2          = "http://www.christian-engelmann.info/publications/gupta17failures.ppt.pdf",
-  abstract      = "Resilience is one of the key challenges in maintaining high
-                   efficiency of future extreme scale supercomputers.
-                   Unfortunately, field-data based reliability studies are far
-                   in between and not exhaustive. Most HPC researchers and
-                   system practitioners still rely on outdated studies to
-                   understand HPC reliability characteristics and plan for
-                   future HPC systems. While the complexity of managing system
-                   reliability has increased, the public knowledge sharing about
-                   lessons learned from HPC centers has not increased in the
-                   same proportion. To bridge this gap, in this work, we compare
-                   and contrast the reliability characteristics of multiple
-                   large-scale HPC production systems, and discuss new
-                   take-aways and con rm previous findings which continue to be
-                   valid.",
-  pts           = "100355",
-  note          = "Acceptance rate 18.7\% (61/327)"
+  doi           = "10.1145/3126908.3126937"
 }
 
 @conference{bautista-gomez16reducing,
@@ -209,26 +143,7 @@
   publisher     = "\href{http://www.computer.org}{IEEE Computer Society, Los
                    Alamitos, CA, USA}",
   issn          = "1530-2075",
-  doi           = "10.1109/IPDPS.2016.100",
-  url           = "http://www.christian-engelmann.info/publications/bautista-gomez16reducing.pdf",
-  url2          = "http://www.christian-engelmann.info/publications/bautista-gomez16reducing.ppt.pdf",
-  abstract      = "Resilience is an important challenge for extreme-scale 
-                   supercomputers. Today, failures in supercomputers are 
-                   assumed to be uniformly distributed in time. However, recent 
-                   studies show that failures in high-performance computing 
-                   systems are partially correlated in time, generating periods 
-                   of higher failure density. Our study of the failure logs of 
-                   multiple supercomputers show that periods of higher failure 
-                   density occur with up to three times more than the average. 
-                   We design a monitoring system that listens to hardware 
-                   events and forwards important events to the runtime to 
-                   detect those regime changes. We implement a runtime capable 
-                   of receiving notifications and adapt dynamically. In 
-                   addition, we build an analytical model to predict the gains 
-                   that such dynamic approach could achieve. We demonstrate that 
-                   in some systems, our approach can reduce the wasted time.",
-  pts           = "62159",
-  note          = "Acceptance rate 23.0\% (114/496)"
+  doi           = "10.1109/IPDPS.2016.100"
 }
 
 @INPROCEEDINGS{7056044, 

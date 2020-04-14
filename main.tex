@@ -1,63 +1,128 @@
-\documentclass[times]{cpeauth}
-
+% !TEX root = main.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Header
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
 \usepackage{graphicx}
-\usepackage[section]{placeins}
-\usepackage{amsmath}
+\usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage[section]{placeins}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \usepackage[pdftex,
             bookmarksopen=true,
             colorlinks,
             linkcolor={black},
             citecolor={black},
             urlcolor={black}]{hyperref}
+
+%%%%%%%%%%%%%%%%%
+% Custom Commands
+%%%%%%%%%%%%%%%%%
 \newcommand{\fix}[1]{\textcolor{red}{#1}}
 \newcommand{\pkg}[1]{{\tt #1}}
 \newcommand{\indf}[1]{$\rightarrow$~\textcolor{blue}{#1}}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Body
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-\runningheads{G. Ostrouchov \it{et al.}}{GPU Reliability on Titan Supercomputer}
 
-\title{An Evaluation Of GPU Reliability on Titan Supercomputer}
-
-\author{George Ostrouchov\affil{1}\affil{2}\affil{4}\corrauth,
-  Don Maxwell\affil{2},
-  Rizwan Ashraf\affil{3},
-  Christian Engelman\affil{1},
-  and James Rogers\affil{2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Title & First-Page Acknowledgements
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{An Evaluation of GPU Reliability on Titan Supercomputer%
+\thanks{This work was sponsored by the U.S. Department of Energy's Office of
+Advanced Scientific Computing Research. This manuscript has been authored by
+UT-Battelle, LLC under Contract No. DE-AC05-00OR22725 with the U.S. Department
+of Energy. The United States Government retains and the publisher, by accepting
+the article for publication, acknowledges that the United States Government
+retains a non-exclusive, paid-up, irrevocable, world-wide license to publish or
+reproduce the published form of this manuscript, or allow others to do so, for
+United States Government purposes. The Department of Energy will provide public
+access to these results of federally sponsored research in accordance with the
+DOE Public Access Plan (http://energy.gov/downloads/doe-public-access-plan).}
 }
 
-\address{
-  \affilnum{1}Computer Science and Mathematics Division, Oak
-  Ridge National Laboratory, Oak Ridge TN, USA\break
-  \affilnum{2}National Center for Computational Sciences Division, Oak
-  Ridge National Laboratory, Oak Ridge TN, USA\break
-  \affilnum{3}Department of Electrical Engineering and Computer
-  Science,University of Tennessee, Knoxville TN, USA\break
-  \affilnum{4}Department of Business Analytics and Statistics,
-  University of Tennessee, Knoxville TN, USA}
-
-\corraddr{George Ostrouchov, Computer Science and Mathematics
-  Division, Oak Ridge National Laboratory, Oak Ridge TN, E-mail:
-  ostroughovg@ornl.gov }
+%%%%%%%%%
+% Authors
+%%%%%%%%%
+\author{%
+\IEEEauthorblockN{1\textsuperscript{st} George Ostrouchov}
+\IEEEauthorblockA{\textit{Computer Science and Mathematics Division}\\
+\textit{Oak Ridge National Laboratory}\\
+Oak Ridge, TN, USA\\
+ostroughovg@ornl.gov}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Don Maxwell}
+\IEEEauthorblockA{\textit{National Center for Computational Sciences Division}\\
+\textit{Oak Ridge National Laboratory}\\
+Oak Ridge, TN, USA\\
+maxwellde@ornl.gov}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Rizwan Ashraf}
+\IEEEauthorblockA{\textit{Department of Electrical Engineering and Computer Science}\\
+\textit{University of Tennessee}\\
+Knoxville, TN, USA\\
+rizwan.ashraf@knights.ucf.edu}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Christian Engelmann}
+\IEEEauthorblockA{\textit{Computer Science and Mathematics Division}\\
+\textit{Oak Ridge National Laboratory}\\
+Oak Ridge, TN, USA\\
+engelmannc@ornl.gov}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} James Rogers}
+\IEEEauthorblockA{\textit{National Center for Computational Sciences Division}\\
+\textit{Oak Ridge National Laboratory}\\
+Oak Ridge, TN, USA\\
+jrogers@ornl.gov}
+}
 
 \maketitle
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Abstract
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{abstract}
 \input{abstract}
-\keywords{GPU, reliability, supercomputer, NVIDIA,
-  Cray, large-scale systems, Cox regression.}
+\end{abstract}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Keywords
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{IEEEkeywords}
+GPU, reliability, supercomputer, NVIDIA, Cray, large-scale systems, Cox regression
+\end{IEEEkeywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Sections
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\input{intro}
 \input{related}
-\input{dataprep}
-\input{dataclean}
+%\input{dataprep}
+%\input{dataclean}
 \input{tbf}
-\input{survival}
+%\input{survival}
 \input{discussion}
 \input{acknowledgments}
 
-\bibliographystyle{unsrt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{IEEEtran}
 \bibliography{refs}
 
-\input{appendixA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Appoendix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\input{appendixA}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of Document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
