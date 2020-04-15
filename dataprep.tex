@@ -7,7 +7,8 @@
 Data on GPU life times is constructed from two sources: inventory runs
 and failure event records. Two types of failure events were collected:
 Double Bit Error (DBE) and Off the Bus (OTB). DBE was found to be the
-``signature'' error of eventual GPU failures.
+``signature'' error of eventual GPU failures and a trigger for their
+replacement. 
 
 An inventory of GPU serial numbers and their locations is recorded
 each time the system boots. \fix{Don, you mentioned that this was more
@@ -17,7 +18,7 @@ typically occurs over a span of \fix{??} minutes. A separate file is
 produced at each boot time.
 
 The DBE and OTB events are also recorded separately from boot
-time inventories. This is recorded as . . . files.
+time inventories. This was recorded as \fix{ . . . } files.
 
 Inventories are taken at boot time, which can occur anywhere from
 several times per day to more than a month
@@ -33,8 +34,8 @@ appear in the data.
   \label{fig:inventory}
 \end{figure}
 \fix{George: Add color for another variable? (new-old, date)??}
-Notably, there was a period of over a month that Titan operated
-without a single reboot.
+Notably, there was a period of over a month and many periods of over a
+week that Titan operated without a single reboot.
 
 Initial processing updates an inventory by checking the Serial Number
 (SN) and Location of each GPU and creating or updating a separate
@@ -70,9 +71,9 @@ shows installation in locations {\tt c17-4c1s3n1}, {\tt c21-1c2s5n0},
 not seen again. The second is intalled in location {\tt c18-4c1s5n1},
 where it stays until the last data collection date on March 3, 2019,
 at 3:19:11 AM. The third GPU is first installed in locations {\tt
-  c5-4c0s7n0}, {\tt c3-3c1s5n0},{\tt c0-6c1s7n2}, {\tt c23-6c1s7n2},
-where a ``DBE'' is observed on November 2, 2018, and it is not seen
-again.
+  c5-4c0s7n0}, {\tt c3-3c1s5n0}, {\tt c0-6c1s7n2}, and {\tt
+  c23-6c1s7n2}, where a ``DBE'' is observed on November 2, 2018, and
+it is not seen again.
 
 The location references are cabinet column (0-24), row (0-7), cage
 (0-3), slot (0-7), and node (0-3) with respect to the layout shown in
