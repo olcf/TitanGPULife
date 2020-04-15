@@ -75,3 +75,31 @@ at 3:19:11 AM. The third GPU is first installed in locations {\tt
   c5-4c0s7n0}, {\tt c3-3c1s5n0},{\tt c0-6c1s7n2}, {\tt c23-6c1s7n2},
 where a ``DBE'' is observed on November 2, 2018, and it is not seen
 again.
+
+The location references are cabinet row (0-24), column (0-7), cage
+(0-3), slot (0-7), and node (0-3) with respect to the layout shown in
+Figure~\ref{fig:layout}.
+\begin{figure}
+  \centering
+  \begin{minipage}{0.49\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/TitanCabinet.png}
+  \end{minipage}
+  \begin{minipage}{0.49\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/TitanBlade.png}
+    
+    \vspace{5em}
+    \includegraphics[width=\columnwidth]{figs/TitanLayout.png}
+  \end{minipage}
+  \caption{Titan cabinet, blade, and floor layout. Note cooling
+    airflow is bottom to top within cabinet.}
+  \label{fig:layout}
+\end{figure}
+
+\fix{The logical 3d torus layout is $25\times 16\times 24$. How does
+  the 16 dimension map onto this? Are the 4 nodes actually very far
+  apart in terms of the network layout?}
+
+\fix{Where does cool air arrive? Is it just dumped out at the top of
+  the heat exchanger and circulate down? I noticed airholes in some
+  floor tiles (more on the right than on the left). Is there cool air
+  under the floor?}
