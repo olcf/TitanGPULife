@@ -4,42 +4,41 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Viewing and Cleaning the Data}
 \label{section:dataclean}
-As we need to recover durations from this data, correct processing
-involves time adjustments for switching between daylight saving time
-and standard time. We perform this by setting a reference time zone
-(Eastern time) and converting all date-times from strings into
-date-time variables \fix{(is there a name for this?)} with the R
+As we need to recover durations in operation from this data, correct
+processing involves time adjustments for switching between daylight
+saving time and standard time and leap years. We perform this by
+setting a reference time zone (Eastern time) and converting all
+date-times from strings into POSIX date-time variables with the R
 \pkg{lubridate} package \cite{lubridate}, which enables appropriate
-date arithmetic.
+date arithmetic and sensible date constructs for graphs.
 
-\fix{Other processing:} enable missing values, and create some new
-variables. The event is “life” when both insert and remove are
-present, “life0” when insert = remove, otherwise it is whatever string
-is in insert, which is “DBE” or “Off The BUS”. Also separate location
-into its components and fill in (repeat) serial numbers and locations
-for all records.
+As most analysis software uses table-like data, we fill the needed
+repeats of values missing in the raw data (see
+Fig.~\ref{fig:dataraw}. First, we reduce the data to the GPU that were
+removed later than 2013 to focus our analysis epoch on units installed
+in the second rework cycle. After this reduction, there were stil six
+older units remaining, which we also removed to have a clean third
+epoch set of units for the analysis. We do some further processing to
+handle time overlaps in a tiny fraction (under 0.0007 in GPU life and
+0.0002 in location life) of recorded life in the raw records by simply
+dropping the overlapping life times.
 
-Reduce to only “life” records and mark them with ending DBE, OTB,
-“out”, or none events. The result is just insert and remove with event
-marks to indicate DBE or OTB or “out” (last seen). bad indicates that
-a DBE or OTB occurred yet the GPU was not taken out. For a first cut,
-keep the bad ones in. Also keep duration to later aggregate into full
-life times.
+Next, we aggregate into one record per serial number with a total life
+time the first insert time, the last remove time, and a number of
+other quantities such as location where the longest time is spent, the
+proportion of time at the longest location, and the number of DBE or
+OTB events.
 
-Next, aggregate into one record per serial number with total life time
-and first insert time. For proper censoring treatment: Indicate if
-event occurred or still in service: out = fail, dbe = fail, otb =
-fail, NA = right censored (still in service). Add some other
-variables, such as GPU in single location or moved one or more times,
-mark new\_batch group, etc. to use in modeling later.
-
-To get some intuition for the GPU lifetimes on Titan, we give two views of
-a hundred GPUs (Figure~\ref{fig:gpuview}) and a hundred locations
-(Figure~\ref{fig:locview}). The GPU view is ``by serial number'' that
-shows when each GPU was installed and removed at various locations as
-well as its DBE and OTB events. The second view by location, shows
-when different GPUs were installed and removed at a location, and
-their OTB and DBE events.
+To get some intuition for the GPU lifetimes on Titan, we give two
+views of 80 randomly selected GPUs (Figure~\ref{fig:gpuview}) and 80
+randomly selected locations (Figure~\ref{fig:locview}). The GPU view
+visually documents the life of the unit: when it was installed and
+removed at various locations, its DBE and OTB events, and the last
+time it was seen. The location view documents the life of a location:
+when different GPUs were installed and removed, their OTB and DBE
+events, and whether a removal was the last time the unit was seen on
+the system. These views were critical to understanding the data and to
+verifying various processing decisions.
 \begin{figure*}[tb]
   \includegraphics[width=6.5in]{figs/sample_sn.pdf}
   \caption{GPU serial number view of life and failures. Legend: black
@@ -56,12 +55,20 @@ their OTB and DBE events.
     events, and black ] are ``last seen'' events.}
   \label{fig:locview}
 \end{figure*}
-The serial number view clearly shows the two batches and the more
-frequent OTB and DBE events in the old batch. It is also clear from
-this view that most new GPUs stay at the initial install location
-whereas the old GPUs were occasionally reinstalled at new locations.
+
+The third rework cycle was used to label GPUs as old batch and new
+batch. The two batches are clearly identifiable in the GPU view. Also,
+more frequent OTB and DBE events are apparent in the old batch. It is
+also clear from this view that most new GPUs stay at the initial
+install location whereas the old GPUs were occasionally reinstalled at
+new locations. Nevertheless, a separate analysis determined that the
+vast majority of time of the vast majority of units is spent at one
+location by both the new and the old units.
+
 The location view shows that each location was operational almost all
 the time with small gaps when GPUs were changed out.
 
 \fix{Were the GPUs swapped out as a blade or were individual GPUs
-  swapped on a blade?}
+  swapped on a blade? Seems it was the full blade - this may further
+  refine censoring. A DBE on one GPU triggers the replacement of the
+  blade with the other three good gpus?}
