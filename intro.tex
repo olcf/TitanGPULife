@@ -12,55 +12,53 @@ scale with 18,688 individual compute nodes and delivered tens of
 billions of computing hours to the U.S. Oepartment of Energy
 mission-critical programs for nearly 7 years.
  
-Titan was quite an interesting machine from a reliability perspective.
-Its operation was forced to execute three very significant rework cycles, two on
-the mechanical assembly affecting the PCIe connector from the GPU
-daughtercard to the motherboard, and a replacement of about 11,000 GPU
-assemblies because of a failing resistor on a printed circuit board.
+From a realiability perspective, Titan was a very interesting
+machine. Its operation was forced to execute three very significant
+rework cycles, two on the mechanical assembly affecting the PCIe
+connector from the GPU daughtercard to the motherboard, and a
+replacement of about 11,000 GPU assemblies because of a failing
+resistor on a printed circuit board. We write primarily about the epoch
+that includes this last rework cycle. This includes Titan's most
+stable and failure free period and contains the most reliable data on
+GPU operation.
 
 Figure~\ref{fig:chronology} illustrates the chronology of the rework
-cycles. It shows the number of GPU changes at periodic inventories.
+cycles and stable periods as indicated by the number of GPU changes at
+periodic inventories.
 \begin{figure*}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figs/chronology001.pdf}
   \caption{Daily volume of GPU swaps with labels on most frequent dates.}
   \label{fig:chronology}
 \end{figure*}
+After an initial fairly stable break-in period, the first rework cycle
+begins in early 2013 and ends by May. \fix{Details?}. The second
+rework cycle begins in late August of 2013 and ends by mid
+December. This is followed by a very long and stable period until
+about mid 2016, when GPU failures begin to rise. This results in the
+final rework cycle, replacing 11,000 GPUs throughout all of 2017. 
+
+While the 2016 resistor failures were a surprise, there is a known
+phenomenon \cite{referenceneeded} that describes a two phase process
+that leads to failure. It also explains why there was a very stable
+period preceeding the failures. There is specific decay associated
+with the electronic components where, as these products age, they will
+eventually fail thresholds for guard band margin and other things. In
+a lot of cases, they will just fail as well. \fix{Give a reference and
+  expand?}
+
+Our analysis focuses on GPUs that were installed in the second rework
+cycle and later, essentialy units installed near the beginning of 2014
+and later.
+
+We begin by describing related work in Sec.~\ref{sec:related}. Our
+data collection is desctibed in Sec.~\ref{sec:dataprep} and the data
+cleaning, checking, and lifetime summarization process in
+Sec.~\ref{sec:dataclean}. A timme between failures analysis is given
+in Sec.~\ref{sec:tbf}. Survival analysis based on Kaplan-Meier
+modeling and Cox regression modeling of relative hazard rates are in
+Sec.~\ref{sec:survival}. Finally, we discuss our main conclusions and
+recommendations in Sec.~\ref{sec:discussion}.
  
-We have conducted a good bit of statistical analysis on the failure
-rates of these GPU assemblies, but I want to propose a different topic
-that I have not seen for other/similar systems.  I want to complete
-the statistical analysis of the failure rates as we near end of life,
-looking for the opposite side of the “bathtub curve”.  There is
-specific decay associated with the electronic components where, as
-these products age, they will eventually fail thresholds for guard
-band margin and other things. In a lot of cases, they will just fail
-as well. 
- 
-This machine is quite large, was very important to many people, and I
-think this analysis could be very intriguing. 
- 
-I am looking for help, very specifically with the statistics portion
-of this, i.e. what do the failure rates for specific components look
-like? What distributions do those failure rates follow? How could
-appropriate models extrapolate failure rates beyond the end of service
-date (the dotted lines) ? 
- 
-I have submitted an abstract to a Cray-focused user group and workshop
-on this topic, and it has been accepted.  I would like to execute this
-statistical analysis and generate a short presentation (30 minutes)
-and a short paper (4-8 pages is a likely target).  Presentation is
-targeted for May 7-9 (TBD). An initial/working version of the paper
-would be due earlier. If we miss that target (April 12), no big
-deal. We can finish on a similar schedule as the presentation.  I have
-all of the raw data for the component failures, and need the
-statistical help to complete the analysis. 
- 
-Because there is a huge swing in the failure rates of the GPUS from
-2016/17 when the resistor problem escalated rapidly out of control, it
-is statistically interesting, where we inject fresh material in to an
-existing machine. We’d likely want to categorically separate new GPU
-assemblies from old and could track the early life failures from those
-new 11,000 parts versus the continued failure of the remaining 6000. 
 
 
