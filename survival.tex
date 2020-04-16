@@ -4,8 +4,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Survival Analysis}
 \label{section:survival}
+The construction of a GPU life time is more complex than it initially
+appears because the units are observed only at reboot time and because
+most units were proactively replaced to prevent failure.
 
- Kaplan-Meier survival analysis (KM) gives the probability of survival
+We consider both OTB and DBE as failures for units that are removed
+from the system and we record the inspection time as the failure
+time. Most of the time, this is the last time such a unit is seen on
+the system. In some cases, the last time seen is at a different time
+but we still record its removal time as the failure time.
+
+A key concept in survival analysis and in reliability is censoring,
+which is about using information from study subjects whose exact
+failure times are not available. This applies to our study because of
+proactive GPU replacement before failure but also because of
+observation only at inspection times (reboots). We use censoring
+concepts on the proactive replacements. This allows us to use all of
+the GPU life time data, including units that did not fail. But we
+ignore the inspection time censoring, treating removal times as exact
+failure times to reduce the complexity of this analysis. Because of
+the weight of so much data, this would not make any difference in our
+conclusions.
+
+Kaplan-Meier survival analysis (KM) gives the probability of survival
 beyond a given time. It is a nonparametric technique that makes no
 specific failure model assumptions, such as Weibull, Exponential,
 etc. It can also split the data into subpopulations and compute
