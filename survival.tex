@@ -5,26 +5,35 @@
 \section{Survival Analysis}
 \label{section:survival}
 The construction of a GPU life time is more complex than it initially
-appears because the units are observed only at reboot time and because
-most units were proactively replaced to prevent failure.
+appears because the units are observed only at reboot time, because
+most units were proactively replaced to prevent failure, and because
+some units continue in operation after OTB and DBE events (a second
+reboot may be successful).
 
-We consider both OTB and DBE as failures for units that are removed
-from the system and we record the inspection time as the failure
-time. Most of the time, this is the last time such a unit is seen on
-the system. In some cases, the last time seen is at a different time
-but we still record its removal time as the failure time.
+A unit that experiences at least one OTB or DBE event and is removed
+from the system is considered failed and its operation time until the
+last seen time is taken as its life time. Although most failed units
+experience one of these events at the last seen time, this is
+imperfect because some units experience OTB or DBE events at a time
+different from its last seen time. We found this definition of life
+time the most pragmatic for the study with few imperfect
+observations. One exception is if the last seen time is the final
+Titan shutdown time, in which case such a unit is not considered
+failed.
 
-A key concept in survival analysis and in reliability is censoring,
-which is about using information from study subjects whose exact
-failure times are not available. This applies to our study because of
-proactive GPU replacement before failure but also because of
-observation only at inspection times (reboots). We use censoring
-concepts on the proactive replacements. This allows us to use all of
-the GPU life time data, including units that did not fail. But we
-ignore the inspection time censoring, treating removal times as exact
-failure times to reduce the complexity of this analysis. Because of
-the weight of so much data, this would not make any difference in our
-conclusions.
+A key concept in survival analysis and in reliability analysis is
+censoring, which is about using information from study subjects whose
+exact failure times are not available or that have not failed. This
+applies to our study because of proactive GPU replacement before
+failure, because most units were still in operation when the system
+was shut down, and also because of observation only at inspection
+times (reboots). We use censoring concepts on the proactive
+replacements and units still in operation at the end. This allows us
+to use all of the GPU life time data, including units that did not
+fail. But we ignore the inspection time censoring, treating removal
+times as exact failure times to reduce the complexity of this
+analysis. We expect that because of the volume of data, this would
+hardly make a difference in our conclusions.
 
 Kaplan-Meier survival analysis (KM) gives the probability of survival
 beyond a given time. It is a nonparametric technique that makes no
