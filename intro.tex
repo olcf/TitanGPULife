@@ -9,7 +9,7 @@ The Cray XK7 Titan supercomputer was the \#1 system in the world for a
 very long time, and has remained a critically important computer
 system through the end of its life in the Summer of 2019. It defied
 scale with 18,688 individual compute nodes and delivered tens of
-billions of computing hours to the U.S. Oepartment of Energy
+billions of computing hours to the U.S. Department of Energy
 mission-critical programs for nearly 7 years.
  
 From a realiability perspective, Titan was a very interesting
@@ -28,17 +28,23 @@ periodic inventories.
 \begin{figure*}[tbp]
   \centering
   \includegraphics[width=\textwidth]{figs/chronology001.pdf}
-  \caption{Daily volume of GPU swaps with labels on most frequent dates.}
+  \caption{Volume of GPU swaps detected at inventories. The break-in
+    period before 2014 involved working out mechanical assembly issues
+    at PCIe connectors
+    frequent dates.}
   \label{fig:chronology}
 \end{figure*}
-After an initial fairly stable break-in period, the first rework cycle
-begins in early 2013 and ends by May. \fix{Details?}. The second
-rework cycle begins in late August of 2013 and ends by mid
-December. This is followed by a very long and stable period until
-about mid 2016, when GPU failures begin to rise. This results in the
-final rework cycle, replacing 11,000 GPUs throughout all of 2017. 
+The first two rework cycles before 2014 can be characterized as a
+break-in period on a new system that is first of its kind and pushes
+many technological boundaries, in this case mainly regarding blade
+mechanical assembly. The resulting field engineering generated high
+GPU swap counts. Late 2013 begins a very long period of stable
+operation with very few issues until about mid 2016, when GPU failures
+begin to rise. This results in the final rework cycle, replacing
+11,000 GPUs throughout much of 2017.
 
-While the 2016 resistor failures were a surprise, there is a known
+The failures were traced to a failing resistor on the circuitboard
+(not the GPU iself) While the 2016 resistor failures were a surprise, there is a known
 phenomenon \cite{referenceneeded} that describes a two phase process
 that leads to failure. It also explains why there was a very stable
 period preceeding the failures. There is specific decay associated
