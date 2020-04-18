@@ -6,7 +6,7 @@
 \label{section:dataclean}
 \begin{figure*}[bt]
   \includegraphics[width=6.5in]{figs/sample_sn.pdf}
-  \caption{GPU serial number view of life and failures. Legend: black
+  \caption{Serial number view of GPU life and failures. Legend: black
     dots are installs, black lines are lifetimes at installed
     location, blue squares are OTB events, red triangles are DBE
     events, and black ] are ``last seen'' events.}
@@ -42,14 +42,14 @@ views of 80 randomly selected GPUs (Figure~\ref{fig:gpuview}) and 80
 randomly selected locations (Figure~\ref{fig:locview}).
 \begin{figure*}[tb]
   \includegraphics[width=6.5in]{figs/sample_loc.pdf}
-  \caption{GPU location view of life and failures.  Legend: black
-    dots are installs, black lines are lifetimes at installed
-    location, blue squares are OTB events, red triangles are DBE
-    events, and black ] are ``last seen'' events.}
+  \caption{Location view of GPU life and failures.  Legend: black dots
+    are installs, black lines are lifetimes at installed location,
+    blue squares are OTB events, red triangles are DBE events, and
+    black ] are ``last seen'' events.}
   \label{fig:locview}
 \end{figure*}
 The GPU view
-visually documents the life of the unit: when it was installed and
+visually documents the life of each GPU unit: when it was installed and
 removed at various locations, its DBE and OTB events, and the last
 time it was seen. The location view documents the life of a location:
 when different GPUs were installed and removed, their OTB and DBE
@@ -67,9 +67,11 @@ determined that the vast majority of time of the vast majority of
 units is spent at one location by both the new and the old units.
 
 The location view shows that each location was operational almost all
-the time with small gaps when GPUs were changed out.
-
-\fix{Were the GPUs swapped out as a blade or were individual GPUs
-  swapped on a blade? Seems it was the full blade - this may further
-  refine censoring. A DBE on one GPU triggers the replacement of the
-  blade with the other three good gpus?}
+the time with small gaps when GPUs were changed out. It is also
+notable that OTB and DBE events are associated with a single GPU
+although four GPUs are together on a blade. The proactive replacements
+in the rework cycle were done by full blades. Events on single GPUs
+were usually first swapped for a new blade, the failed GPU was
+replaced on the blade, and the fixed blade then reused elsewhere. The
+survival analysis of Sec.~\ref{section:survival} handles these nuances
+by appropriate censoring.
