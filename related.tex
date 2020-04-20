@@ -6,19 +6,24 @@
 \label{section:related}
 
 Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects.
-%
+
 Tiwari et al~\cite{7056044} analyzed the types of GPU errors on Titan and on a GPU cluster at Los Alamos National Laboratory. It also used neutron beam experiments at the Los Alamos Neutron Science Center and at Rutherford Appleton Laboratories to further understand GPU soft errors caused by neutron radiation triggered upsets (bit flips and timing errors).
 %
-Nie et al.~\cite{nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models. The work primarily focused on correctable single-bit errors.
+Tiwari et al~\cite{10.1145/2807591.2807666} further analyzed the types of GPU errors on Titan, including software/firmware related errors and failures, ECC double-bit errors, and GPU ``off the bus'' and ECC page retirement events. This work observed a ECC double-bit mean-time between errors (MTBE) of \~160 hours, or \~ one per week, with 86\% in GPU memory and the rest in the GPU register file. The experienced GPU ``off the bus'' events were caused by a system integration issue that was fixed and not an inherent GPU or GPU memory architecture flaw.
 %
-Tiwari et al. and Nie et al. did not address the atypical failure mode discussed in this paper.
+Nie et al.~\cite{7446091,nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models. The work primarily focused on correctable single-bit errors.
+%
+Tiwari et al. and Nie et al. did not address the atypical failure mode discussed in this paper and only used Titan error and failure data from June 2013 to February 2015.
 
 Zimmer et al.~\cite{8665764} developed a new job scheduling strategy for Titan to counter the GPU failures discussed in this paper and to improve system utilization and productivity. The solution used reordering of compute nodes for resource allocation, scheduling larger jobs on more reliable and smaller jobs on less reliable nodes.
 
-
+Ezell~\cite{osti_1086655} created a general understanding of Titan's interconnect failures using an application to stress test Titan's Gemini interconnect.
+%
 Work by Kumar et al.~\cite{kumar18understanding} analyzed Titan's interconnect faults, errors and congestion events to improve interconnects resilience and congestion resolution methods. The results show that the magnitude of interconnect errors is very high with an uneven distribution across different types of links is uneven. They also show that congestion is highly frequent and bursty.
 %
-Gupta et al.~\cite{gupta17failures} performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation. This work resulted in a lot of lessons learned, including that the mean-time-to-failure (MTTF) can change drastically and non-monotonically over time. \fix{RA: inconsistent use of MTTF and MTBF}
+Gupta et al.~\cite{7266836} investigated the spatial and temporal properties of failures on Titan and their impact on resilience mechanisms and the implications for efficient system operation.
+%
+Gupta et al.~\cite{gupta17failures} also performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation. This work resulted in a lot of lessons learned, including that the mean-time between failures (MTBF) can change drastically and non-monotonically over time.
 
 Bautista-Gomez et al.~\cite{bautista-gomez16reducing} used failure data from Titan to adapt the checkpoint frequency to the current reliability of the system using dynamic checkpointing.
 %
@@ -29,6 +34,3 @@ Both approaches, Bautista-Gomez et al. and Tiwari et al., aim at dealing with th
 Other work in characterizing supercomputer faults, errors and failures focused on the various systems deployed around the world, primarily at US Department of Energy laboratories.
 %
 Di et al.~\cite{8809553} developed an in-depth understanding of the failure characteristics of the IBM Blue Gene/Q Mira system at Argonne National Laboratory. This work showed that 99.4\% of job failures were due to user behavior, such as errors in the code or misconfiguration. Martino et al.~\cite{6903615} characterized the errors and failures of the Blue Waters Cray XE6/XK7 system at the National Center for Supercomputing Applications (NCSA), at the University of Illinois at Urbana-Champaign. Blue Waters's XK7 partition had the same architecture as Titan, but did not experience the same GPU failure mode as Titan that is detailed in this paper. The results showed that 74.4\% of system-wide outages in Blue Waters was caused by software.
-
-\fix{More references regarding GPU reliability}
-
