@@ -4,6 +4,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Survival Analysis}
 \label{section:survival}
+\renewcommand{\pkg}[1]{\textsf{#1}}
+\begin{figure*}
+  \centering
+  \includegraphics[width=7in]{figs/km_cage-node_a001.pdf}
+  \caption{Comparison of the old and new batches, including survival
+    differences based on {\tt cage} and {\tt node} GPU locations.}
+  \label{fig:km-all-cage-node}
+\end{figure*}
 The construction of a GPU life time is more complex than it initially
 appears because the units are observed only at reboot time, because
 most units were proactively replaced to prevent failure, and because
@@ -33,13 +41,16 @@ to use all of the GPU life time data, including units that did not
 fail. But we ignore the inspection time censoring, treating removal
 times as exact failure times to reduce the complexity of this
 analysis. We expect that because of the volume of data, this would
-hardly make a difference in our conclusions.
+make much difference in our conclusions. However, we are making our
+data publicly available and expect that others, especially in the
+survival analysis community, will dive deeper.
 
 Kaplan-Meier survival analysis (KM) gives the probability of survival
 beyond a given time. It is a nonparametric technique that makes no
 specific failure model assumptions, such as Weibull, Exponential,
-etc. It can also split the data into subpopulations and compute
-separate survival curves. 
+etc. The technique is able to use censored observations and can also
+split the data into subpopulations and compute separate survival
+curves.
 
 If $T$ is taken to be the random variable of a GPU fail time, then its
 probability density function is $f(t)$ and its cumulative distribution
@@ -48,31 +59,16 @@ by duration $t$. The survival function is then
 \begin{displaymath}
   S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx,
 \end{displaymath}
-which is the probability of being operational at duration
-$t$.
+which is the probability of being operational at duration $t$.  We use
+the R packages \pkg{survival} and \pkg{survminer} for the KM analysis,
+which is reported in Figure~\ref{fig:km-all-cage-node}. Within each
+batch, separate survival curves are computed for each cage by node
+combination. 
 
-We use reliability censoring concepts to use information from units
-that were proactively removed before failing as well as those still in
-operation till the end. We use the R package {\tt survival} for the KM
-analysis.
-\begin{figure*}
-  \centering
-  \includegraphics[width=7in]{figs/km_cage-node_a001.pdf}
-  \caption{Comparison of the old and new batches, including survival
-    differences based on {\tt cage} and {\tt node} GPU locations.}
-  \label{fig:km-all-cage-node}
-\end{figure*}
-
-A sister concept to the survival function is the hazard function:
-\begin{displaymath}
-  H(t) = \frac{f(t)}{S(t)},
-\end{displaymath}
-which is what is sometimes called the "bathtub" curve in reliability.
-
-
-The Cox proportional hazards (CPH) regression analys
-\cite{Cox1972,Harrell2015} takes the hazard function above and a set
-of covariates $x$ and models $k$s GPU hazard as 
+Another standard survival data methodology is a Cox proportional
+hazards (CPH) regression analys, which can include covariates and
+estimate relative risk based on the covariates
+\cite{Cox1972,Harrell2015}. The CPH regression function takes the form
 \begin{displaymath}
   H_k(t) = H_0(t)e^{\sum\limits_{i=1}^n{\beta x}}
 \end{displaymath}
@@ -109,12 +105,14 @@ covariates.
  
 
 \begin{figure}
-  \includegraphics[width=\columnwidth]{figs/cox_o001.pdf}
+  \centering
+  \includegraphics[width=0.8\columnwidth]{figs/cox_o001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\tt old}
     batch.}
 \end{figure}
 \begin{figure}
-  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
+  \centering
+  \includegraphics[width=0.8\columnwidth]{figs/cox_n001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\tt new}
     batch.}
 \end{figure}
