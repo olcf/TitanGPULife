@@ -7,7 +7,7 @@
 
 Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects.
 
-Tiwari et al~\cite{7056044} analyzed the types of GPU errors on Titan and on a GPU cluster at Los Alamos National Laboratory. It also used neutron beam experiments at the Los Alamos Neutron Science Center and at Rutherford Appleton Laboratories to further understand GPU soft errors caused by neutron radiation triggered upsets (bit flips and timing errors).
+Tiwari et al~\cite{Tiwari15Experience,7056044} analyzed the types of GPU errors on Titan and on a GPU cluster at Los Alamos National Laboratory. It also used neutron beam experiments at the Los Alamos Neutron Science Center and at Rutherford Appleton Laboratories to further understand GPU soft errors caused by neutron radiation triggered upsets (bit flips and timing errors).
 %
 Tiwari et al~\cite{10.1145/2807591.2807666} further analyzed the types of GPU errors on Titan, including software/firmware related errors and failures, ECC double-bit errors, and GPU ``off the bus'' and ECC page retirement events. This work observed a ECC double-bit mean-time between errors (MTBE) of \~160 hours, or \~ one per week, with 86\% in GPU memory and the rest in the GPU register file. The experienced GPU ``off the bus'' events were caused by a system integration issue that was fixed and not an inherent GPU or GPU memory architecture flaw.
 %
@@ -24,6 +24,8 @@ Work by Kumar et al.~\cite{kumar18understanding} analyzed Titan's interconnect f
 Gupta et al.~\cite{7266836} investigated the spatial and temporal properties of failures on Titan and their impact on resilience mechanisms and the implications for efficient system operation.
 %
 Gupta et al.~\cite{gupta17failures} also performed a study covering five supercomputers at Oak Ridge National Laboratory, including Titan, that concentrated on developing an understanding of which and how many errors and failure occur in supercomputers over multiple generations and over their years of operation. This work resulted in a lot of lessons learned, including that the mean-time between failures (MTBF) can change drastically and non-monotonically over time.
+%
+Meneses et al.~\cite{Meneses15Analyzing} analyzed the interplay and workload on Titan using failure and job submission logs. The results indicate that failures depend heavily on workload.
 
 Bautista-Gomez et al.~\cite{bautista-gomez16reducing} used failure data from Titan to adapt the checkpoint frequency to the current reliability of the system using dynamic checkpointing.
 %
