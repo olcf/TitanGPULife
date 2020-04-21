@@ -96,16 +96,16 @@ middle, associated with the unexpected resistor failures.
 
 To get more comparison power across the locations, we can use a
 technique that in a sense averages over time. Cox proportional hazards
-(CPH) regression analys, can include covariates and estimates relative
-risk averaged ofer time based on the covariates
+(CPH) regression analysis, can include covariates and estimates relative
+risk averaged over time based on the covariates
 \cite{Cox1972,Harrell2015}. The CPH regression function takes the form
 \begin{displaymath}
   h(t) = h_0(t)e^{b_1 x_1 + b_2 x_2 \ldots b_k x_k},
 \end{displaymath}
 where $x_i$ are covariates, $h_0(t)$ is the {\em baseline hazard}, and
 the $b_i$ are coefficients that measure the impact of the
-covariates. The quantity $e^{b_i}$ is the hazard ratio for covariate
-$i$.
+covariates. The quantity $e^{b_i}$ is the hazard ratio (increased
+average risk over baseline) for covariate $i$.
 
 CPH is considered a semi-parametric model as there are no assumptions
 about the shape of the baseline hazard function. But its main
