@@ -5,7 +5,7 @@
 \section{Discussion}
 \label{section:discussion}
 
-\fix{A short summary of the observations in this paper to facilitate the discussion below.}
+\fix{Possibly a short summary of the observations in this paper to facilitate the discussion below.}
 
 The experienced unexpected reliability issues with the Titan supercomputer raise
 several questions and discussion points. First, there is the mitigation component
@@ -13,32 +13,53 @@ that keeps the system operating at an acceptable level and possibly even restore
 some, if not all, of the lost capability. Second, there is the long-term planning
 component that addresses such scenarios in future-generation supercomputers.
 
+%%%%%%%%%%%%
+% Mitigation
+%%%%%%%%%%%%
+\subsection{Mitigation}
+\label{section:mitigation}
+
 In Titan, the mitigation component included replacing about 11,000 GPUs and
 changing the job scheduling strategy~\cite{8665764}. Replacing about 59\% of
 Titan's 18,688 GPUs helped to improve productivity by restoring some of the lost
 capability, but it was a costly and time-consuming effort. Changing the job
 scheduling strategy to run larger jobs on more reliable and smaller jobs on less
 reliable nodes played a crucial role in maintaining productivity at reduced
-capability.
+capability. However, jobs running on larger portions of the system, utilizing
+most or all of its resources, were still impacted by the failing GPUs and
+corresponding low system MTBF.
 
 The options of replacing failed components and employing reliability-aware
 resource management may not be available or cost effective for other
-supercomputing centers dealing with similar unexpected reliability issues in
-their systems. Replacement components may not be readily available and may have
-to be manufactured, which can be impossible for technology that is no longer
-supported by the original manufacturer. There is also a financial aspect, such
-as service contract and/or warranty expiration and the operational budget of a
-supercomputing center not having significant funds for replacement costs. There
-is also the time and financial cost for root-cause analysis and developing a
-hardware and software mitigation strategy in the first place. Reliability-aware
-resource scheduling also has its limitations, as the network architecture needs
-to be taken into account. Titan's 3D torus network creates certainly more
-challenges for efficient job allocations, than the fat tree network of Titan's
-successor, Summit~\cite{olcf:summit}. Nodes associated with the same job need to
-be close to each other on the network for performance. Alternatively, partially
-or completely replacing the aging and failing supercomputer with a new system,
-even if this solution offers less capability, may be more cost effective in the
-end.
+supercomputing centers dealing with similar unexpected reliability issues.
+%
+Replacement components may not be readily available and may have to be
+manufactured, which can be impossible for technology that is no longer supported
+by the original manufacturer. Experienced errors or failures may be caused by
+software, which can be difficult to fix if the software itself or the deployed
+version is no longer supported by the vendor.
+
+There is also a financial aspect, such as service contract and/or warranty
+expiration and the operational budget of a supercomputing center not having
+significant funds for replacement/reengineering costs or a manufacturer or
+vendor not paying for them.
+%
+There is additionally the time and financial cost for root-cause analysis and
+developing a hardware and/or software mitigation strategy in the first place.
+Fixing a problem requires finding and understanding it, which can be difficult 
+in today's complex systems and may require knowledge that only the original 
+manufacturer or vendor possesses.
+
+Reliability-aware resource scheduling also has its limitations, as the network
+architecture needs to be taken into account. Titan's 3D torus network creates
+certainly more challenges for efficient job allocations, than the fat tree
+network of Titan's successor, Summit~\cite{olcf:summit}. Nodes associated with
+the same job need to be close to each other on the network for maximum
+application performance.
+%
+Alternatively, partially or completely replacing the aging and failing
+supercomputer with a new system, even if this solution offers less capability,
+may be more cost effective in the end.
 
 Other mitigation components for Titan included matching the checkpointing
 interval of applications with the system's current
@@ -46,9 +67,15 @@ reliability~\cite{bautista-gomez16reducing, 6903564}. The experienced issue here
 was the lack of automated communication of system reliability information and
 the lack of flexibility in application-level checkpoint/restart implementations.
 Constantly measuring and reporting current system reliability is not an automated
-real-time task in currently deployed supercomputers. Applications are typically
-not designed to skip a checkpoint when system reliability is good or take more
-frequent checkpoints when system reliability is getting worse.
+real-time task in many currently deployed supercomputers. Applications are
+typically not designed to skip a checkpoint when system reliability is good or
+take more frequent checkpoints when system reliability is getting worse.
+
+%%%%%%%%%%%%%%%%%%%%
+% Long-term Planning
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Long-term Planning}
+\label{section:planning}
 
 The long-term planning component is one of the biggest lessons learned from the
 Titan reliability experience. Today's supercomputers are designed to deal with
@@ -61,17 +88,9 @@ reasonable and cost effective way. In addition to mitigation, better support for
 automated real-time reliability monitoring and reporting is needed, including
 for root-cause analysis.
 
-\fix{\begin{itemize}
-\item Cray and NVIDIA take care of the hardware and some systems and driver
-  software so moving and troubleshooting hardware is their cost.
-\item Checkpoint strategies, allocation strategies, job resource
-  management, are all under OLCF control. What can OLCF do/change to
-  mitigate fallout in terms of delivering computing to customers when
-  facing machine disasters like the two episodes (2013 and 2016) on Titan?
-\end{itemize}}
-
-\fix{RA: Recommendation for system operators if they see similar 
-wide-spread failures in their system well before the expected lifetime 
-of the machine. Should they replace all components or just partially
-upgrade the machine. Tradeoff?} 
-
+Supercomputer center policies regarding reliability monitoring, resource
+allocation and checkpointing strategies need to be powerful and flexible enough
+to facilitate mitigation for such unexpected reliability threats. System
+acquisition contracts may need to include performance requirements for degraded
+operation, such as a 60\% performance capability if the MTBF drops by a
+magnitude.
