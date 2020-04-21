@@ -81,26 +81,31 @@ blades are placed vertically within the cabinet, pairs of nodes too
 experience the same relationship with distance to the bottom, nodes 2
 and 3 having lower failure rates than nodes 0 and 1.
 
-The survival curves for the new batch are uninteresting as very few
-failures have occurred in the three years they have been in operation.
+Very few failures have occurred in the new batch and they are clarly
+less prone to failure at the 2.5 year mark. There is a slight change
+at the 3 year mark of cages 1 and 2 but it is also accompanied with a
+rise in uncertainty and survival is still well above levels in the old
+batch.
 
 We don't see a ``bathtub curve'' phenomenon, in fact the opposite is
 apparent in cages 1 and 2 of the old batch. The slope of the survival
 curve is related to the hazard rate. There does not seem to be an
 early ``infant mortality'' period nor a ``wearout'' phenomenon at the
-end.
+end. Rather, we see a steeper slope (higher hazard rate) in the
+middle, associated with the unexpected resistor failures.
 
-Another standard survival data methodology is a Cox proportional
-hazards (CPH) regression analys, which can include covariates and
-estimate relative risk based on the covariates
+To get more comparison power across the locations, we can use a
+technique that in a sense averages over time. Cox proportional hazards
+(CPH) regression analysis, can include covariates and estimates relative
+risk averaged over time based on the covariates
 \cite{Cox1972,Harrell2015}. The CPH regression function takes the form
 \begin{displaymath}
   h(t) = h_0(t)e^{b_1 x_1 + b_2 x_2 \ldots b_k x_k},
 \end{displaymath}
 where $x_i$ are covariates, $h_0(t)$ is the {\em baseline hazard}, and
 the $b_i$ are coefficients that measure the impact of the
-covariates. The quantity $e^{b_i}$ is the hazard ratio for covariate
-$i$.
+covariates. The quantity $e^{b_i}$ is the hazard ratio (increased
+average risk over baseline) for covariate $i$.
 
 CPH is considered a semi-parametric model as there are no assumptions
 about the shape of the baseline hazard function. But its main
@@ -109,9 +114,9 @@ tests for this, including graphical diagnostics in the \pkg{survminer}
 package as well as checking that survival curves for categorical
 covariates do not cross. We ran these diagnostics and concluded that
 the hazards for our location categories are approximately
-proportional. However, the {\em batch} survival functions do cross and
-so we fit the model to the new and the old batches separately. The
-results are presented in Figures~\ref{fig:cox-old}
+proportional. However, survival functions partitioned on {\em batch}
+do cross and so we fit the model to the new and the old batches
+separately. The results are presented in Figures~\ref{fig:cox-old}
 and~\ref{fig:cox-new}.
 \begin{figure}
   \centering
