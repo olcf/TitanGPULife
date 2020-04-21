@@ -6,16 +6,15 @@
 \label{section:dataprep}
 Data on GPU life times is constructed from two sources: inventory runs
 and failure event records. Two types of failure events were collected:
-Double Bit Error (DBE) and Off the Bus (OTB). DBE was found to be the
-``signature'' error of eventual GPU failures and a trigger for their
-replacement. \fix{RA: Should we point out that this replacement was only done later on?}
+Double Bit Error (DBE) and Off the Bus (OTB). Both errors were found
+to be the ``signature'' event of GPU failures and a trigger for their
+replacement.
 
 An inventory of GPU serial numbers and their locations is recorded
-each time the system boots. \fix{Don, you mentioned that this was more
-regular later - daily?} This typically occurs once every few days but
-can be as frequent as a few times per day. An inventory at boot time
-typically occurs over a span of \fix{??} minutes. A separate file is
-produced at each boot time.
+each time the system boots. This typically occurs once every few days
+but can be as frequent as a few times per day. An inventory at boot
+time typically occurs over a span of \fix{how many ??} minutes. A
+separate file is produced at each boot time.
 
 The DBE and OTB events are also recorded separately from boot
 time inventories. This was recorded as \fix{ . . . } files.
