@@ -49,17 +49,17 @@ Kaplan-Meier survival analysis (KM) gives the probability of survival
 beyond a given time. It is a nonparametric technique that makes no
 specific failure model assumptions, such as Weibull, Exponential,
 etc. The technique is able to use censored observations and can also
-split the data into subpopulations and compute separate survival
+split the data into subpopulations to compute separate survival
 curves.
 
 If $T$ is taken to be the random variable of a GPU fail time, then its
 probability density function is $f(t)$ and its cumulative distribution
 function $F(t) = Pr\{T < t\}$ gives the probability that a GPU fails
-by duration $t$. The survival function is then 
+by duration $t$. The survival function is then its complement
 \begin{displaymath}
-  S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx,
+  S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx.
 \end{displaymath}
-which is the probability of being operational at duration $t$.  We use
+It is the probability of being operational at duration $t$.  We use
 the R packages \pkg{survival} and \pkg{survminer} for the KM analysis,
 which is reported in Figure~\ref{fig:km-all-cage-node}. Within each
 batch, separate survival curves are computed for each cage by node
