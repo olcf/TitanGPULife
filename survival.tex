@@ -136,8 +136,26 @@ and~\ref{fig:cox-new}.
 We find that the average hazard ratios strongly correlate with
 detailed nuances of the system cooling architecture.  The figures give
 hazard ratios for each of the location variables, giving the ratio for
-each level compared to its first (0) level (the 0 level is always
-1). Due to the exponential nature of the CPH model, the horizontal
-hazard ratio axis is on a log scale. The estimates include
+each level compared to its first (0) level (consequently the 0 level
+is always 1). Due to the exponential nature of the CPH model, the
+horizontal hazard ratio axis is on a log scale. The estimates include
 uncertainty, which too is most reliably computed on a log scale (see,
-for example, \cite{Ostrouchov88}).
+for example, \cite{Ostrouchov88}). In the figures, we also include the
+number of units, N, at risk and the number of events that occurred in
+each category. All the factors ({\em col, row, cage, slot, node}) are
+balanced with respect to the nunber of units at risk and consequently
+nearly orthogonal (each level of a factor contains all levels of the
+other factors) providing an almost ``designed'' experiment nature to
+this analysis.
+
+Our interpretation of correlation with detailed nuances of the cooling
+system comes mostly from the hazard ratios for the old batch. The new
+batch has mot had many failure events and the uncertainty bars of
+nearly all ratios include 1, which is no difference. In the old batch,
+we see that {\em cage} has the strongest effect, putting the highest
+hazard ratio on cage 2, which is consistent with lowest survivals in
+the KM analysis earlier. Its ratio value near 20 has to be interpreted
+with caution because it is a time averaged value on a log scale. This
+aspect is not captured by the uncertainty, which accounts for the
+randomnes of the failures and not for the geometric time averaging
+\cite{coxhazardinterpret}.
