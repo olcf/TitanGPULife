@@ -67,6 +67,21 @@ which is reported in Figure~\ref{fig:km-all-cage-node}. Within each
 by {\em node} combination. Along with the survival curve estimate,
 this analysis provides 95\% confidence region for survival probability
 shaded around the curves.
+% Inserting figure here so it appears at top of next page
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{figs/cox_o001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\tt old}
+    batch.}
+  \label{fig:cox-old}
+\end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\tt new}
+    batch.}
+  \label{fig:cox-new}
+\end{figure}
 
 It appears that transport of cooling air provides a complete
 explanation for relative differences in cage and node survival rates
@@ -108,7 +123,7 @@ covariates. The quantity $e^{b_i}$ is the hazard ratio (increased
 average risk over baseline) for covariate $i$.
 
 CPH is considered a semi-parametric model as there are no assumptions
-about the shape of the baseline hazard function. But its main
+about the shape of the baseline hazard function. Its strongest
 assumption is that the hazards are proportional. There are a number of
 tests for this, including graphical diagnostics in the \pkg{survminer}
 package as well as checking that survival curves for categorical
@@ -118,20 +133,6 @@ proportional. However, survival functions partitioned on {\em batch}
 do cross and so we fit the model to the new and the old batches
 separately. The results are presented in Figures~\ref{fig:cox-old}
 and~\ref{fig:cox-new}.
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\columnwidth]{figs/cox_o001.pdf}
-  \caption{GPU hazard ratios from Cox regression model on {\tt old}
-    batch.}
-  \label{fig:cox-old}
-\end{figure}
-\begin{figure}
-  \centering
-  \includegraphics[width=0.8\columnwidth]{figs/cox_n001.pdf}
-  \caption{GPU hazard ratios from Cox regression model on {\tt new}
-    batch.}
-  \label{fig:cox-new}
-\end{figure}
 
 We find that the average hazard ratios strongly correlate with
 detailed nuances of the system cooling architecture.  The figures give
@@ -142,20 +143,30 @@ horizontal hazard ratio axis is on a log scale. The estimates include
 uncertainty, which too is most reliably computed on a log scale (see,
 for example, \cite{Ostrouchov88}). In the figures, we also include the
 number of units, N, at risk and the number of events that occurred in
-each category. All the factors ({\em col, row, cage, slot, node}) are
-balanced with respect to the number of units at risk and consequently
-nearly orthogonal (each level of a factor contains all levels of the
-other factors) providing an almost ``designed'' experiment nature to
-this analysis.
+each category.
 
-Our interpretation of correlation with detailed nuances of the cooling
-system comes mostly from the hazard ratios for the old batch. The new
-batch has mot had many failure events and the uncertainty bars of
-nearly all ratios include 1, which is no difference. In the old batch,
-we see that {\em cage} has the strongest effect, putting the highest
-hazard ratio on cage 2, which is consistent with lowest survivals in
-the KM analysis earlier. Its ratio value near 20 has to be interpreted
-with caution because it is a time averaged value on a log scale. This
+All the factors ({\em col, row, cage, slot, node}) in the old batch
+are balanced with respect to the number of units at risk and
+consequently nearly orthogonal (each level of a factor contains all
+levels of the other factors) seemingly an almost ``designed''
+experiment nature to this analysis. This is not the case for the new
+batch, where the cage levels have very different numbers of units at
+risk. But this also points out that even for the old batch the balance
+holds only at the outset and as life proceeds, failing units are
+replaced with new units and the balance degrades.
+
+Our interpretation of correlation with details of the cooling system
+comes mostly from the hazard ratios for the old batch. The new batch
+has mot had many failure events and the uncertainty bars of nearly all
+ratios include 1, which is no difference. In the old batch, we see
+that {\em cage} has the strongest effect, putting the highest hazard
+ratio on cage 2, which is consistent with lowest survivals in the KM
+analysis earlier. Its ratio value near 20 has to be interpreted with
+caution because it is a time averaged value on a log scale and suffers
+from the degrading balance mentioned in the previous paragraph. This
 aspect is not captured by the uncertainty, which accounts for the
 randomness of the failures and not for the geometric time averaging
-\cite{coxhazardinterpret}.
+\cite{coxhazardinterpret}. Consequently, we interpret the pattern of
+relative hazards rather than actual ratio magnitudes. More in-depth
+analysis with penalized estimation methods like \cite{bender2019} can
+take such balance issues in the exposure history into account.
