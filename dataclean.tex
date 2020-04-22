@@ -20,16 +20,18 @@ date-times from strings into POSIX date-time variables with the R
 \pkg{lubridate} package \cite{lubridate}, which enables appropriate
 date arithmetic and sensible date constructs for graphs.
 
-As most analysis software uses table-like data, we fill the needed
-repeats of values missing in the raw data (see
-Fig.~\ref{fig:dataraw}). First, we reduce the data to the GPU that
-were removed later than 2013 to focus our analysis epoch on units
-installed in the second rework cycle or later. After this reduction,
-there were stil six older units remaining, which we also removed to
-have a clean third epoch set of units for the analysis. We do some
-further processing to handle time overlaps in a tiny fraction (under
-0.0007 in GPU life and 0.0002 in location life) of recorded life in
-the raw records by simply dropping the overlapping life times.
+As most analysis software relies on rectangular table-like data, we
+fill the needed repeats of values missing in the raw data (see
+Fig.~\ref{fig:dataraw}). To focus our analysis on data after the first
+two rework cycles in the break-in period, we first reduce the data to
+the GPUs that were installed shortly before 2014 started. This was
+done by removing data for any units with a {\em remove} date before
+2014. After this reduction, there were stil six older units remaining,
+which we also removed to have a clean set of units for the
+analysis. We do some further processing to handle time overlaps in a
+tiny fraction (under 0.0007 in GPU life and 0.0002 in location life)
+of recorded life in the raw records by simply dropping the overlapping
+life times.
 
 Next, we aggregate into one record per serial number with a total life
 time the first insert time, the last remove time, and a number of
