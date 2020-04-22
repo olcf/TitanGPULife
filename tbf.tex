@@ -100,6 +100,15 @@ Even though the replacements helped to increase the MTBF due to DBE events by a 
 reliability is dictated by the components with the most age in the system. There is a re-emergence of upward trend towards 
 the end of life in the number of DBE failures in Figure~\ref{fig:NumFails_sys} which almost all of them are due to 
 older GPUs in the system. 
+\begin{figure}[bt]
+  \begin{center}
+    \includegraphics[width=\columnwidth]{figs/NumFailures_Quarterly_newOld.pdf}
+  \end{center}
+  \caption{The number of DBE and OTB failures observed over the lifetime of the machine.
+A distinction is made for GPU failures happening across old GPUs to highlight the number 
+of failures across the newer GPUs.}
+  \label{fig:NumFails_sys}
+\end{figure}
 
 To better understand the difference in reliability of newer and old portions of the machine, 
 Figure~\ref{fig:MTBF_sys_NewOld} shows the drastic difference in system MTBF measured in two hypothetical
@@ -115,12 +124,3 @@ in determining the overall reliability of the machine.
 The next section quantifies the survivability of this machine with its varied MTBF characteristics beyond its operational lifetime.
 \fix{George, can you please check the last sentence, where I make a connection with the next section.}
 
-\begin{figure}[bt]
-  \begin{center}
-    \includegraphics[width=\columnwidth]{figs/NumFailures_Quarterly_newOld.pdf}
-  \end{center}
-  \caption{The number of DBE and OTB failures observed over the lifetime of the machine.
-A distinction is made for GPU failures happening across old GPUs to highlight the number 
-of failures across the newer GPUs.}
-  \label{fig:NumFails_sys}
-\end{figure}

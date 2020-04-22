@@ -2,9 +2,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Survival Analysis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Survival Analysis}
-\label{section:survival}
-\renewcommand{\pkg}[1]{\textsf{#1}}
 \begin{figure*}
   \centering
   \includegraphics[width=7in]{figs/km_cage-node_a001.pdf}
@@ -12,6 +9,9 @@
     differences based on {\tt cage} and {\tt node} GPU locations.}
   \label{fig:km-all-cage-node}
 \end{figure*}
+\section{Survival Analysis}
+\label{section:survival}
+\renewcommand{\pkg}[1]{\textsf{#1}}
 In this section we apply survival analysis methods (time to event
 analysis), which use and combine information across the operational
 lifetimes of all GPUs \cite{survival}. For these analyses, we take
@@ -153,7 +153,8 @@ experiment nature to this analysis. This is not the case for the new
 batch, where the cage levels have very different numbers of units at
 risk. But this also points out that even for the old batch the balance
 holds only at the outset and as life proceeds, failing units are
-replaced with new units and the balance degrades.
+replaced with new units and the balance degrades because failures are
+location-dependent.
 
 Our interpretation of correlation with details of the cooling system
 comes mostly from the hazard ratios for the old batch. The new batch
@@ -169,4 +170,16 @@ randomness of the failures and not for the geometric time averaging
 \cite{coxhazardinterpret}. Consequently, we interpret the pattern of
 relative hazards rather than actual ratio magnitudes. More in-depth
 analysis with penalized estimation methods like \cite{bender2019} can
-take such balance issues in the exposure history into account.
+take such balance issues in the exposure history into account and
+provide time-dependent hazard estimates.
+
+In addition to the strong {\em cage} and {\em node} hazard rate
+differences that increase with distance from the bottom of the
+cabines, seen in both KM and CPH results, there is a weaker but
+peculiar pattern in the {\em row} and {\em col} hazard rates. The
+different behavior in {\em col} 0-11 from {\em col} 12-24 is likely
+due to separate supply lines of coolant to the two sets. But the
+interleaving pattern of the first set is still a mystery. We also have
+yet to explain the apparent row effects. A very minor
+airflow effect across slots also seems to be present as it mimics
+faster airflow for the middle slots.
