@@ -5,8 +5,6 @@
 \section{Discussion}
 \label{section:discussion}
 
-\fix{Possibly a short summary of the observations in this paper to facilitate the discussion below.}
-
 The experienced unexpected reliability issues with the Titan supercomputer raise
 several questions and discussion points. First, there is the mitigation component
 that keeps the system operating at an acceptable level and possibly even restores
@@ -55,7 +53,8 @@ architecture needs to be taken into account. Titan's 3D torus network creates
 certainly more challenges for efficient job allocations, than the fat tree
 network of Titan's successor, Summit~\cite{olcf:summit}. Nodes associated with
 the same job need to be close to each other on the network for maximum
-application performance.
+application performance. Also, node outages or less reliable nodes within a
+tight group of reliable nodes create resource allocation holes.
 %
 Alternatively, partially or completely replacing the aging and failing
 supercomputer with a new system, even if this solution offers less capability,

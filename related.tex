@@ -5,7 +5,7 @@
 \section{Related Work}
 \label{section:related}
 
-Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects.
+Prior work in investigating Titan's reliability includes a significant amount of work that covers different aspects. However, it did not investigate the atypical failure mode discussed in this paper and failure data over the full lifetime of the system.
 
 Tiwari et al~\cite{Tiwari15Experience,7056044} analyzed the types of GPU errors on Titan and on a GPU cluster at Los Alamos National Laboratory. It also used neutron beam experiments at the Los Alamos Neutron Science Center and at Rutherford Appleton Laboratories to further understand GPU soft errors caused by neutron radiation triggered upsets (bit flips and timing errors).
 %
@@ -13,7 +13,7 @@ Tiwari et al~\cite{10.1145/2807591.2807666} further analyzed the types of GPU er
 %
 Nie et al.~\cite{7446091,nie17characterizing,nie18machine} characterized the soft error behavior of Titan's GPUs in relation to temperature and power consumption to predict their increased occurrence by correlating data in temporal and spatial domains and using machine learning models. The work primarily focused on correctable single-bit errors.
 %
-Tiwari et al. and Nie et al. did not address the atypical failure mode discussed in this paper and only used Titan error and failure data from June 2013 to February 2015.
+Tiwari et al. and Nie et al. did not address the atypical failure mode discussed in this paper. It also only used Titan error and failure data from June 2013 to February 2015, excluding early failures and the failure mode discussed in this paper (which occurred after February 2015).
 
 Zimmer et al.~\cite{8665764} developed a new job scheduling strategy for Titan to counter the GPU failures discussed in this paper and to improve system utilization and productivity. The solution used reordering of compute nodes for resource allocation, scheduling larger jobs on more reliable and smaller jobs on less reliable nodes.
 
