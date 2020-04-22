@@ -12,16 +12,19 @@
 \section{Survival Analysis}
 \label{section:survival}
 \renewcommand{\pkg}[1]{\textsf{#1}}
-In this section we apply survival analysis methods (time to event
-analysis), which use and combine information across the operational
-lifetimes of all GPUs \cite{survival}. For these analyses, we take
-apart the location string of each GPU into variables {\em col, row,
-  cage, slot, and node} and study the influence of the locations on
-the GPU life times. The construction of a GPU life time is more
-complex than it initially appears because the units are observed only
-at reboot time, because most units were proactively replaced to
-prevent failure, and because some units continue in operation after
-OTB and DBE events (when a second reboot may be successful).
+Survival analysis (SA) methods, sometimes referred as time to event
+methods, focus on the effect of the machine on the GPU units. This is
+useful for determining factors that contribute to failures and
+potentially for root cause analysis. SA methods use and combine
+information across the operational lifetimes of all GPUs
+\cite{survival}. For these analyses, we take apart the location string
+of each GPU into variables {\em col, row, cage, slot, and node} and
+study the influence of the locations on the GPU life times. The
+construction of a GPU life time is more complex than it initially
+appears because the units are observed only at reboot time, because
+most units were proactively replaced to prevent failure, and because
+some units continue in operation after OTB and DBE events (when a
+second reboot may be successful).
 
 A unit that experiences at least one OTB or DBE event and is removed
 from the system is considered failed and its operation time until the
