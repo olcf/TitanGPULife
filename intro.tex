@@ -15,12 +15,12 @@ years.
 From a realiability perspective, Titan was a very interesting
 machine. Its operation was forced to execute three very significant
 rework cycles, two on the mechanical assembly affecting the PCIe
-connector from the GPU daughtercard to the motherboard, and a
-replacement of about 11,000 GPU assemblies because of a failing
-resistor on a printed circuit board. We write primarily about the epoch
-that includes this last rework cycle. This includes Titan's most
-stable and failure free period and contains the most reliable data on
-GPU operation.
+connector from the GPU daughtercard to the motherboard, and one to
+replace about 11,000 GPU assemblies because of a failing resistor on
+their printed circuit board. We write primarily about the GPU
+operation epoch that includes this last rework cycle. This epoch of
+nearly 6 years includes Titan's most stable and failure free period
+and contains the most reliable data on GPU operation.
 
 \begin{figure*}[tb]
   \centering
@@ -33,17 +33,17 @@ GPU operation.
 \end{figure*}
 Figure~\ref{fig:chronology} illustrates the chronology of the rework
 cycles and stable periods as indicated by the number of GPU changes at
-periodic inventories.  The first two rework cycles before 2014 can be
-characterized as a break-in period on a new system that is first of
-its kind and pushes many technological boundaries, in this case mainly
-regarding blade mechanical assembly. The resulting field engineering
-and data collection changes generated high GPU swap counts before
-2014. Late 2013 begins a very long period of high reliability and
-stable operation with very few issues until about mid 2016, when GPU
-failures begin to rise. This results in the final rework cycle,
+periodic inventories.  The first two rework cycles before 2014
+involving blade mechanical assembly can be characterized as a break-in
+period on a new system that is first of its kind and pushes many
+technological boundaries. The resulting field engineering as well as
+data collection changes are responsible for the high GPU swap counts
+before 2014. Late 2013 begins a very long period of high reliability
+and stable operation with very few issues until about mid 2016, when
+GPU failures begin to rise. This results in the final rework cycle,
 replacing 11,000 GPUs throughout much of 2017. The peak at the end in
 the figure is an artifact of turning off or ``removing'' all the
-units. 
+units as Titan is shut down and disassembled.
 
 Finding the root cause for the 2016 failures took a great deal of
 testing and involvement of materials science and microscopy
@@ -54,13 +54,16 @@ with its GPU chip.
 
 Our analysis focuses on GPU boards that were installed in the second
 rework cycle and later, essentially units installed near the beginning
-of 2014 and later. We will make the data as well as our analysis codes
-producing the graphics available in a public repository (see,
-\cite[repository]{repositoryreference}).  While the data is only a 7 MB
-file, due to the size of Titan it represents over 100,000 years of GPU
-operation and may be the largest publicly available GPU reliability
-data set. Our hope is that others will use it for reliability research
-and go beyond the results presented here.
+of 2014 and later. Figure~\ref{fig:chronology} is the only one
+involving data prior to 2014. All analyses and figures that follow use
+only data from 2014 onward. We make the data as well as our analysis
+codes to reproduce the graphics available in a public repository (see,
+\cite[repository]{repositoryreference}).  While the data is only a 7
+MB file, due to the size of Titan it represents over 100,000 years of
+GPU operation and may be the largest publicly available GPU
+reliability data set. Our hope is that others will use it for
+reliability and survival analysis research and go beyond the results
+presented here.
 
 We begin by describing related work in Sec.~\ref{section:related}. Our
 data collection is desctibed in Sec.~\ref{section:dataprep} and the
@@ -69,8 +72,11 @@ Sec.~\ref{section:dataclean}. A time between failures (TBF) analysis
 is given in Sec.~\ref{section:tbf}. Survival analysis based on
 Kaplan-Meier modeling (KM) and Cox regression modeling (CR) of
 relative hazard rates in various locations are in
-Sec.~\ref{section:survival}. Finally, we discuss our main conclusions
-and recommendations in Sec.~\ref{section:discussion}.
+Sec.~\ref{section:survival}. A high-level difference between a TBF
+analysis and survival analysis (SA) is that TBF studies largely how
+GPU reliability affects the machine, wheras SA studies largely how the
+machine affects GPU reliability.  Finally, we discuss our main
+conclusions and recommendations in Sec.~\ref{section:discussion}.
  
 
 
