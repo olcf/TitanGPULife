@@ -4,12 +4,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 \label{section:introduction}
-The Cray XK7 Titan supercomputer~\cite{olcf:titan} was the \#1 system in the world for a
-very long time~\cite{top500list}, and has remained a critically important computer
-system through the end of its life in the Summer of 2019. It defied
-scale with 18,688 individual compute nodes and delivered tens of
-billions of computing hours to the U.S. Department of Energy
-mission-critical programs for nearly 7 years.
+The Cray XK7 Titan supercomputer~\cite{olcf:titan} was the \#1 system
+in the world for a very long time~\cite{top500list}, and has remained
+a critically important computer system through the end of its life in
+the Summer of 2019. It defied scale with 18,688 individual compute
+nodes and delivered tens of billions of computing hours to the
+U.S. Department of Energy mission-critical programs for nearly 7
+years.
  
 From a realiability perspective, Titan was a very interesting
 machine. Its operation was forced to execute three very significant
@@ -32,35 +33,34 @@ GPU operation.
 \end{figure*}
 Figure~\ref{fig:chronology} illustrates the chronology of the rework
 cycles and stable periods as indicated by the number of GPU changes at
-periodic inventories.
-The first two rework cycles before 2014 can be characterized as a
-break-in period on a new system that is first of its kind and pushes
-many technological boundaries, in this case mainly regarding blade
-mechanical assembly. The resulting field engineering generated high
-GPU swap counts. Late 2013 begins a very long period of stable
-operation with very few issues until about mid 2016, when GPU failures
-begin to rise. This results in the final rework cycle, replacing
-11,000 GPUs throughout much of 2017.
+periodic inventories.  The first two rework cycles before 2014 can be
+characterized as a break-in period on a new system that is first of
+its kind and pushes many technological boundaries, in this case mainly
+regarding blade mechanical assembly. The resulting field engineering
+and data collection changes generated high GPU swap counts before
+2014. Late 2013 begins a very long period of high reliability and
+stable operation with very few issues until about mid 2016, when GPU
+failures begin to rise. This results in the final rework cycle,
+replacing 11,000 GPUs throughout much of 2017. The peak at the end in
+the figure is an artifact of turning off or ``removing'' all the
+units. 
 
-The failures were traced to a failing resistor on the circuitboard
-(not the GPU chip iself). Throughout this paper, when we refer to
-replacing the GPU, we refer to the entire circuitboard along with its
-GPU chip. While the 2016 resistor failures were a surprise, there is a
-known phenomenon~\cite{referenceneeded} that describes a two phase
-process that leads to failure. It also explains why there was a very
-stable period preceding the failures. There is specific decay
-associated with the electronic components where, as these products
-age, they will eventually fail thresholds for guard band margin and
-other things. In a lot of cases, they will just fail as
-well. \fix{Give a reference and expand?}
+Finding the root cause for the 2016 failures took a great deal of
+testing and involvement of materials science and microscopy
+researchers. The failures were traced to a resistor on the GPU
+circuit board (not the GPU chip iself). Throughout this paper, when we
+refer to replacing the GPU, we refer to the entire circuitboard along
+with its GPU chip.
 
-Our analysis focuses on GPUs that were installed in the second rework
-cycle and later, essentialy units installed near the beginning of 2014
-and later. We will make the data as well as our analysis codes
-producing the graphics available in a public repository (see
-\fix{reference?}).  The data used in this study, while only a 7 MB
-file, represents over 100,000 years of operation and may be the
-largest publicly available GPU reliability data set.
+Our analysis focuses on GPU boards that were installed in the second
+rework cycle and later, essentially units installed near the beginning
+of 2014 and later. We will make the data as well as our analysis codes
+producing the graphics available in a public repository (see,
+\cite[repository]{repositoryreference}).  While the data is only a 7 MB
+file, due to the size of Titan it represents over 100,000 years of GPU
+operation and may be the largest publicly available GPU reliability
+data set. Our hope is that others will use it for reliability research
+and go beyond the results presented here.
 
 We begin by describing related work in Sec.~\ref{section:related}. Our
 data collection is desctibed in Sec.~\ref{section:dataprep} and the
