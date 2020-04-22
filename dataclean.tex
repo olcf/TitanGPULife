@@ -12,7 +12,7 @@
 \end{figure*}
 \section{Viewing and Cleaning the Data}
 \label{section:dataclean}
-As we need to recover durations in operation from this data, correct
+As we need to recover durations of GPU operation from this data, correct
 processing involves time adjustments for switching between daylight
 saving time and standard time and leap years. We perform this by
 setting a reference time zone (Eastern time) and converting all
@@ -34,7 +34,7 @@ of recorded life in the raw records by simply dropping the overlapping
 life times.
 
 Next, we aggregate into one record per serial number with a total life
-time the first insert time, the last remove time, and a number of
+time, the first insert time, the last remove time, and a number of
 other quantities such as location where the longest time is spent, the
 proportion of time at the longest location, and the number of DBE or
 OTB events.
@@ -59,8 +59,9 @@ events, and whether a removal was the last time the unit was seen on
 the system. These views were critical to understanding the data and to
 verifying various data processing decisions.
 
-The third rework cycle was used to label GPUs as old batch and new
-batch. The two batches are clearly identifiable in the GPU view. More
+The third rework cycle was used to label GPUs as {\em old} batch and
+{\em new} batch. The two batches are clearly identifiable in the GPU
+view of Fig.~\ref{fig:gpuview} as starting near 2017 timeframe. More
 frequent OTB and DBE events are apparent in the old batch. It is also
 clear from this view that practically all new GPUs stayed at their
 initial install location whereas the old GPUs were occasionally
