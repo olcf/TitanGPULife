@@ -28,22 +28,22 @@ most or all of its resources, were still impacted by the failing GPUs and
 corresponding low system MTBF.
 
 The options of replacing failed components and employing reliability-aware
-resource management may not be available or cost effective for other
+resource management may not be available or be cost effective for other
 supercomputing centers dealing with similar unexpected reliability issues.
 %
 Replacement components may not be readily available and may have to be
-manufactured, which can be impossible for technology that is no longer supported
+manufactured, which can be impossible for a technology that is no longer supported
 by the original manufacturer. Experienced errors or failures may be caused by
 software, which can be difficult to fix if the software itself or the deployed
 version is no longer supported by the vendor.
 
-There is also a financial aspect, such as service contract and/or warranty
+There is also a financial aspect, such as a service contract and/or warranty
 expiration and the operational budget of a supercomputing center not having
 significant funds for replacement/reengineering costs or a manufacturer or
 vendor not paying for them.
 %
 There is additionally the time and financial cost for root-cause analysis and
-developing a hardware and/or software mitigation strategy in the first place.
+for developing a hardware and/or software mitigation strategy in the first place.
 Fixing a problem requires finding and understanding it, which can be difficult 
 in today's complex systems and may require knowledge that only the original 
 manufacturer or vendor possesses.
@@ -54,7 +54,10 @@ certainly more challenges for efficient job allocations, than the fat tree
 network of Titan's successor, Summit~\cite{olcf:summit}. Nodes associated with
 the same job need to be close to each other on the network for maximum
 application performance. Also, node outages or less reliable nodes within a
-tight group of reliable nodes create resource allocation holes.
+tight group of reliable nodes create resource allocation
+holes. Saparating two lower nodes in each cage 0 on Titan would not
+create a contiguous partition, yet this group would be the most
+reliable in 2016 as was shown in the preceeding section.
 %
 Alternatively, partially or completely replacing the aging and failing
 supercomputer with a new system, even if this solution offers less capability,
@@ -92,4 +95,4 @@ allocation and checkpointing strategies need to be powerful and flexible enough
 to facilitate mitigation for such unexpected reliability threats. System
 acquisition contracts may need to include performance requirements for degraded
 operation, such as a certain percentage of performance capability if the MTBF
-drops by a magnitude.
+drops by an order of magnitude.
