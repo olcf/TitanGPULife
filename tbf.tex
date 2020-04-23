@@ -16,8 +16,8 @@ mostly having MTBFs around or less than 3 years.}
   \label{fig:Device_MTBFs}
 \end{figure}
 
-Using the processed data, we analyze the inter-arrival times between the DBE and OTB events. 
-This analysis is done at the device level and the system level. 
+Using the cleaned data, we analyze the inter-arrival times between the DBE and OTB events. 
+This analysis is done at the device level and at the system level. 
 It provides important insights into the reliability of large-scale machines, where the 
 failure rate of an individual device is significantly different from the overall reliability
 of the machine.  
@@ -25,30 +25,33 @@ of the machine.
 A histogram of MTBFs measured across GPUs which had at least one failure event is shown 
 in Figure~\ref{fig:Device_MTBFs}. This is a practical assessment of device reliabilities 
 as opposed to those provided in the device datasheet. The failures are tracked using the
-SN of the GPUs even though a GPU might have been placed at different locations in the 
+{\em sn} of the GPUs even though a GPU might have been placed at different locations in the 
 machine during its lifetime. The time to the first failure on a device is measured by taking
 the insert time as the reference point, whereas, a simple difference is taken for subsequent
 failures. It can be noticed that MTBFs due to DBE and OTB failures of most GPUs are clustered around 
 25,000 hours or 2.8 years. This corresponds to the lifetime of most GPUs in the system after accounting 
-for relocations and replacements done in the machine. The new batch of GPUs almost all of them lie below 
-the average since most of them have a lifetime close to 3 years. It must be pointed out that the new batch did 
-see a significantly less number of failures than the old batch as highlighted in the results presented later on.
+for relocations and replacements done in the machine. Almost all of the new batch of GPUs lie below 
+the average since most have a lifetime close to 3 years. We point out
+that the new batch had a much smaller number of failures than
+the old batch as we highlight in the next section.
 
-Apart from the center cluster, a significant portion of GPUs have a very 
-low MTBF (greater than zero and less than 1.5 hours) due to both DBE and OTB failures. 
-This failure characteristic of the GPUs highlights a period when experiments 
-were being done with putting the GPUs out of service on seeing a failure and moving them to new locations 
-in the machine to possibly mitigate further failures. However, it turned out that the failures re-appeared 
-even with putting the GPU in a new location. In some cases, the failures happened immediately after it is 
-put into service at a different location. The use of insert time as a reference for first failure on a relocated
-GPU to discount the out of service time and in some cases multiple back-to-back failures relatively immediately afterward,
-cause a lot of GPUs to appear in the first bin of the histogram. These experiments continued until machine operators
-figured out the root cause of the GPU failures as discussed earlier.  
+Apart from the center cluster, a considerable portion of GPUs also have a very 
+low MTBF. This failure characteristic is mainly an artifact from
+troubleshooting a period of increasing failures in mid to late 2016.
+After a GPU experienced an OTB or a DBE a second reboot was attempted at
+the same or possibly different location. Usually, but not always, a
+second OTB or DBE was generated immediately or possibly after a short
+time. When moved to a new location, this generates an artifact in our
+data with an unusually short MTBF because we use the {\em insert} time as
+a reference for the first failure on a relocated GPU. This drawback is
+balanced by the advantage that this way we can discount out of service times
+which were frequent particularly during early 2017 as can be seen in
+Fig.~\ref{fig:sample_loc}.
 
 On the other end of the spectrum, a noticeable portion of GPUs have very high
-MTBFs due to DBE failures. This indicates the population of the GPUs that see a continuous operation in the machine 
+MTBFs and their failures are mostly DBEs. This is the population of the GPUs that see a continuous operation in the machine 
 despite its various episodes and see a single DBE event during their lifetime.
-Apart from this behavior, the distribution of MTBF due to DBE events looks very similar to that due 
+Apart from this, the distribution of MTBF due to DBE events looks very similar to that due 
 to OTB events. It can also be noted from Figure~\ref{fig:Device_MTBFs} that the number of recorded 
 DBE events is significantly higher than the OTB events. This highlights the targeted replacement of GPUs 
 with OTB events causing a substantial decrease in OTB events.  
@@ -76,36 +79,40 @@ considered independently as well as together to represent failures occurring on 
   \label{fig:MTBF_sys}
 \end{figure}
 
-Although individual device MTBFs provide important insights into the varying failure rates
-observed across the machine. It is worthwhile to perform a system-wide MTBF analysis since 
-most high-performance computing applications use a significant number of GPUs in parallel. 
+Now we turn to a system-wide MTBF analysis. Most high-performance
+computing applications, especially on leadership computing
+systems such as Titan, use a large fraction of the entire machine in parallel.  
 In the following analysis, failures occurring across all GPUs are consolidated and time between failures
 is calculated. The old and new GPUs are all considered. At any given time, only a fixed number of GPUs
-are in operation so any variation in time-between-failures is due to individual device reliabilities.
+is in the system so any variation in time-between-failures is due to individual device reliabilities.
 
 That said, a single MTBF number does not give an accurate picture of this machine.
 With many GPU relocations and replacements across the machine over its lifetime, it is 
-best to consider the variation of MTBF across fixed periods. Herein, we calculate 
-the mean of time-between-failures across three months. Figure~\ref{fig:MTBF_sys}
-clearly shows the considerable change in system-wide MTBF from one period to another. 
-The observation of the MTBF trend shows the different phases which the machine went through. 
-Relatively higher MTBFs are noted before 2015-Q4, with some quarters not having any OTB events 
-and overall MTBF being determined solely by DBE events. During this phase, MTBF variation is seen
-from quarter to quarter, but generally, system MTBF remains higher than a day (33 hours) and even reaches as high
-as 10 days in one instance. An alarming drop in system MTBF to less than a day, i.e., 7.7 hours, is observed in 2015-Q4.
+best to consider the variability of MTBF across fixed periods. Here, we calculate 
+the mean of quarterly (three months) time-between-failures. Figure~\ref{fig:MTBF_sys}
+shows the considerable change in system-wide MTBF from one period to another. 
+We can see that MTBF tells the different phases that occurred on the machine. 
+Relatively high MTBFs are seen before 2015-Q4, with some quarters not having any OTB events 
+and overall MTBF being determined solely by DBE events. During this
+phase, we see some MTBF variation from quarter to quarter, but
+generally, the system MTBF remains higher than one day (33 hours) and reaches as high
+as 10 days in one instance. An alarming drop in the system MTBF to less than a day, (7.7 hours), is observed in 2015-Q4.
 A consistent drop in system-wide MTBF is observed starting from 2015-Q2 until 2016-Q4. 
 The corresponding increase in the number of failures during this phase can be seen in Figure~\ref{fig:NumFails_sys},
-with the peak obtained in 2016-Q4. The usability of the machine comes into question with such low MTBFs, which triggered 
+with a peak in 2016-Q4. The usability of the machine comes into
+question with such low MTBFs and it eventually triggered 
 a phase of installing new GPUs in the machine.
 
 When GPU replacements start to take place in late 
 2016, it triggers a slight increase in MTBF. However, this change only lasts until 2018-Q1, when we see another 
 downward trend of system MTBF. Incidentally, 2018-Q1 also marks the completion of all GPU replacements. 
-So the upward trend noted in the period from 2016-Q4 to 2018-Q1 might be attributed to a portion of the machine 
-being unavailable while the reworks were taking place. A single replacement cycle lasted multiple weeks. 
+So the upward trend noted in the period from 2016-Q4 to 2018-Q1 is
+likely due to phased replacements, each time a portion of the machine 
+being unavailable, thus having a smaller number of GPUs than the full
+machine in operation. 
 %\fix{need to verify how long the replacement took}
-There is no definite way to incorporate this unavailability of the machine into MTBF analysis, so it has to
-be said that overall there has been an increase in MTBF of the machine due to the replacements. 
+There is not definitive way to incorporate this unavailability of the
+machine into MTBF analysis, unless we know how the down times were scheduled.
 For example, the lowest MTBF obtained in 2016-Q4 is 2.7 hours, with the subsequent periods having the 
 lowest MTBF of 5.9 hours. With system MTBF less than a day, even slight variations in MTBF make it 
 difficult to reliably run applications despite using failure recovery approaches such as checkpoint restart, 
@@ -116,20 +123,21 @@ as discussed later on in Section~\ref{section:discussion}.
     \includegraphics[width=\columnwidth]{figs/NumFailures_Quarterly_newOld.pdf}
   \end{center}
   \caption{The number of DBE and OTB failures observed over the lifetime of the machine.
-A distinction is made for GPU failures happening across old GPUs to highlight the number
-of failures across the newer GPUs. The peak failures are seen in 2016-Q4 (813 failures), 
-which marked the commencement of major replacement of GPUs in the machine.}
+A distinction is made between failures on old GPUs to highlight the number
+of failures on the newer GPUs. The peak failures are seen in 2016-Q4 (813 failures), 
+which marks the commencement of major replacement of GPUs in the machine.}
   \label{fig:NumFails_sys}
 \end{figure}
 
-The mean-time-between DBE and OTB failures are also separately tracked in this analysis.
-One observation is the drastic increase in mean-time-between OTB failures after the GPU replacements.
-This is also evident from the reduction of the absolute number of OTB failures in Figure~\ref{fig:NumFails_sys}.
-However, the system MTBF is determined by the weakest link and the occurrence of DBE events tends to dictate it.
-Even though the replacements helped to increase the MTBF due to DBE events by a factor, the overall system 
-reliability is dictated by the components with the most age in the system. There is a re-emergence of upward trend towards 
-the end of life in the number of DBE failures in Figure~\ref{fig:NumFails_sys} which almost all of them are due to 
-older GPUs in the system. 
+We also separate the DBE and OTB failures in this analysis. After the
+2017 replacement of many GPUs, there is a drastic increase in
+mean-time-between OTB failures, which is also evident in a reduction of OTB failures in Figure~\ref{fig:NumFails_sys}.
+However, the system MTBF is determined by the weakest link and here the occurrence of DBE events tends to dictate it.
+Even though the replacements helped to increase the MTBF due to DBE events, the overall system 
+reliability is dictated by the components with the most age in the
+system. There is a re-emergence of an upward trend towards 
+the end in DBE failures in Figure~\ref{fig:NumFails_sys}, which
+appears to be due to older GPUs in the system. 
 
 \begin{figure}[bt]
   \begin{center}
@@ -146,14 +154,12 @@ as well as the minute difference in MTBF measured across the old partition and t
 To better understand the difference in reliability of newer and old portions of the machine, 
 Figure~\ref{fig:MTBF_sys_NewOld} shows the drastic difference in system MTBF measured in two hypothetical
 partitions of the machine starting from the time when the majority of GPU replacements have been completed. 
-The new partition of the machine has always 12X better MTBF than the older partition
-of the machine. For example, in 2018-Q4, the MTBF recorded across old partition is about 7.9 hours, whereas it is about
-96 hours (4 days) for the newer partition. The implications of such a huge disparity on applications running on the 
-system are discussed in Section~\ref{section:discussion}. The insignificant difference in MTBF measured across all GPUs and
-old partition of the machine can also be noted in Figure~\ref{fig:MTBF_sys_NewOld}.  
-Therefore, the old GPUs that occupy a minority portion of the machine after GPU replacements, 
-and have a disproportionately high number of failures and contribute towards a low system MTBF play a major role 
-in determining the overall reliability of the machine.
-The next section quantifies the survivability of this machine with its varied MTBF characteristics beyond its operational lifetime.
-%\fix{George, can you please check the last sentence, where I make a connection with the next section.}
+The new partition of the machine has a 12X better MTBF than the older
+partition.
 
+For example, in 2018-Q4, the old partition MTBF is about 7.9 hours,
+whereas the newer partitio is 96 hours (4 days). The implications of such a huge disparity on applications running on the 
+system are discussed in
+Section~\ref{section:discussion}. Moreover, while the old partition is
+smaller than the new partition, the old partition drives the overall reliability of
+the machine.
