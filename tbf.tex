@@ -7,7 +7,7 @@
 
 \begin{figure}[bt]
   \begin{center}
-    \includegraphics[width=\columnwidth]{figs/MTBF_GPUwise.pdf}
+    \includegraphics[trim={0 1em 0 1em},clip,width=\columnwidth]{figs/MTBF_GPUwise.pdf}
   \end{center}
   \caption{Distribution of device-level MTBFs due to DBE and OTB failures across all GPUs during the
 entire lifetime of the machine. DBE and OTB events are separated for each GPU to distinguish between 
@@ -35,7 +35,7 @@ the average since most have a lifetime close to 3 years. We point out
 that the new batch had a much smaller number of failures than
 the old batch as we highlight in the next section.
 
-Apart from the center cluster, a considerable portion of GPUs also have a very 
+Apart from the center cluster, many GPUs also have a very 
 low MTBF. This failure characteristic is mainly an artifact from
 troubleshooting a period of increasing failures in mid to late 2016.
 After a GPU experienced an OTB or a DBE a second reboot was attempted at
@@ -46,14 +46,14 @@ data with an unusually short MTBF because we use the {\em insert} time as
 a reference for the first failure on a relocated GPU. This drawback is
 balanced by the advantage that this way we can discount out of service times
 which were frequent particularly during early 2017 as can be seen in
-Fig.~\ref{fig:sample_loc}.
+Fig.~\ref{fig:locview}.
 
 On the other end of the spectrum, a noticeable portion of GPUs have very high
-MTBFs and their failures are mostly DBEs. This is the population of the GPUs that see a continuous operation in the machine 
+MTBFs and their failures are mostly DBEs. These are the GPUs that see continuous operation in the machine 
 despite its various episodes and see a single DBE event during their lifetime.
 Apart from this, the distribution of MTBF due to DBE events looks very similar to that due 
-to OTB events. It can also be noted from Figure~\ref{fig:Device_MTBFs} that the number of recorded 
-DBE events is significantly higher than the OTB events. This highlights the targeted replacement of GPUs 
+to OTB events. We also note in Figure~\ref{fig:Device_MTBFs} that the number of recorded 
+DBE events is much higher than the OTB events. This highlights the targeted replacement of GPUs 
 with OTB events causing a substantial decrease in OTB events.  
 
 %\begin{figure}[bt]
@@ -69,7 +69,7 @@ with OTB events causing a substantial decrease in OTB events.
 
 \begin{figure}[bt]
   \begin{center}
-    \includegraphics[width=\columnwidth]{figs/MTBF_quaterly_sys.pdf}
+    \includegraphics[trim={0 1em 0 1em},clip,width=\columnwidth]{figs/MTBF_quaterly_sys.pdf}
   \end{center}
   \caption{Variation of system-wide MTBF over the lifetime of the machine. System MTBF is calculated over 
 three month periods to understand the various episodes of the machine. The three month periods are 
@@ -113,14 +113,14 @@ machine in operation.
 %\fix{need to verify how long the replacement took}
 There is not definitive way to incorporate this unavailability of the
 machine into MTBF analysis, unless we know how the down times were scheduled.
-For example, the lowest MTBF obtained in 2016-Q4 is 2.7 hours, with the subsequent periods having the 
+The lowest MTBF obtained in 2016-Q4 is 2.7 hours, with subsequent periods having the 
 lowest MTBF of 5.9 hours. With system MTBF less than a day, even slight variations in MTBF make it 
 difficult to reliably run applications despite using failure recovery approaches such as checkpoint restart, 
 as discussed later on in Section~\ref{section:discussion}. 
 
 \begin{figure}[bt]
   \begin{center}
-    \includegraphics[width=\columnwidth]{figs/NumFailures_Quarterly_newOld.pdf}
+    \includegraphics[trim={0 1em 0 1em},clip,width=\columnwidth]{figs/NumFailures_Quarterly_newOld.pdf}
   \end{center}
   \caption{The number of DBE and OTB failures observed over the lifetime of the machine.
 A distinction is made between failures on old GPUs to highlight the number
@@ -129,6 +129,18 @@ which marks the commencement of major replacement of GPUs in the machine.}
   \label{fig:NumFails_sys}
 \end{figure}
 
+\begin{figure}[bt]
+  \begin{center}
+    \includegraphics[trim={0 1em 0 1em},clip,width=\columnwidth]{figs/MTBF_quaterly_sys_NewOldALL.pdf}
+  \end{center}
+  \caption{Variation of system-wide MTBF across hypothetical new and
+    old partitions of the machine after a substantial number of new GPUs
+were put in service.
+DBE and OTB events both determine the MTBF.
+Results highlight the difference in reliability for jobs using the new GPUs as compared to old GPUs,
+as well as now MTBF is driven by the weaker old partition.}
+  \label{fig:MTBF_sys_NewOld}
+\end{figure}
 We also separate the DBE and OTB failures in this analysis. After the
 2017 replacement of many GPUs, there is a drastic increase in
 mean-time-between OTB failures, which is also evident in a reduction of OTB failures in Figure~\ref{fig:NumFails_sys}.
@@ -138,18 +150,6 @@ reliability is dictated by the components with the most age in the
 system. There is a re-emergence of an upward trend towards 
 the end in DBE failures in Figure~\ref{fig:NumFails_sys}, which
 appears to be due to older GPUs in the system. 
-
-\begin{figure}[bt]
-  \begin{center}
-    \includegraphics[width=\columnwidth]{figs/MTBF_quaterly_sys_NewOldALL.pdf}
-  \end{center}
-  \caption{Variation of system-wide MTBF across hypothetical new and old partitions of the machine over time.
-Results are presented from 2017-Q1 which marked the beginning of when a substantial number of new GPUs are in service.
-DBE and OTB events are both considered as a failure for calculating the MTBF.
-Results highlight the difference in reliability observed by jobs using the new GPUs as compared to old GPUs,
-as well as the minute difference in MTBF measured across the old partition and the whole machine.}
-  \label{fig:MTBF_sys_NewOld}
-\end{figure}
 
 To better understand the difference in reliability of newer and old portions of the machine, 
 Figure~\ref{fig:MTBF_sys_NewOld} shows the drastic difference in system MTBF measured in two hypothetical
