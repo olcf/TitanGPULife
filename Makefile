@@ -19,3 +19,5 @@ clean:
 
 distclean:
 		latexmk -bibtex -C $(PAPER)
+review:
+		pandoc -o reviews/pap537.html reviews/pap537.md
