@@ -11,7 +11,8 @@
 \end{figure*}
 \section{Survival Analysis}
 \label{section:survival}
-\renewcommand{\pkg}[1]{\textsf{#1}} Survival analysis (SA) methods,
+\renewcommand{\pkg}[1]{\textsf{#1}} Survival analysis (SA) methods
+\cite{survival-book}, 
 sometimes referred as time to event methods, focus on the effect of
 the machine on the GPU units. These methods have roots in biomedical
 statistics, where the effect on the patient is most important. So here
@@ -50,7 +51,8 @@ difference in our conclusions. However, we are making our data
 publicly available and expect that others, especially in the survival
 analysis community, will dive deeper.
 
-Kaplan-Meier survival analysis (KM) starts with computing the
+Kaplan-Meier survival analysis (KM)
+\cite{kaplan-meier1958,survival-book} starts with computing the
 probability of survival beyond a given time. It is a nonparametric
 technique that makes no specific failure model assumptions, such as
 Weibull, Exponential, etc. The technique is able to use censored
@@ -64,11 +66,12 @@ a GPU fails by duration $t$. The survival function is its complement
   S(t) = Pr\{T \geq t\} = 1 - F(t).
 \end{displaymath}
 It is the probability of being operational at duration $t$.  We use
-the R packages \pkg{survival} and \pkg{survminer} for the KM analysis,
-which is reported in Figure~\ref{fig:km-all-cage-node}. Within each
-{\em batch}, separate survival curves are computed for each {\em cage}
-by {\em node} combination. Along with the survival curve estimate,
-this analysis provides 95\% confidence region for survival probability
+the R packages \pkg{survival} \cite{survival-package} and
+\pkg{survminer} \cite{survminer-package} for the KM analysis, which is
+reported in Figure~\ref{fig:km-all-cage-node}. Within each {\em
+  batch}, separate survival curves are computed for each {\em cage} by
+{\em node} combination. Along with the survival curve estimate, this
+analysis provides 95\% confidence region for survival probability
 shaded around the curves.
 % Inserting figure here so it appears at top of next page
 \begin{figure}
