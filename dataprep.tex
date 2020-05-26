@@ -24,7 +24,8 @@ inter-inventory times that appear in the data.
   \end{center}
   \caption{Inter-inventory times, taken as time intervals between
     unique dates in the data and removing those less than a day. Note
-    square root scale on the vertical axis.}
+    square root scale on the vertical axis and missing days for 15,
+    17, 19, and 22-55.}
   \label{fig:inventory}
 \end{figure}
 Notably, there was a period of over a month and many periods of over a
@@ -58,27 +59,25 @@ Fig.~\ref{fig:dataraw},
 where records for three are shown. Each record starts
 with a serial number and locations are coded with {\tt c{\it
     col-row}c{\it cage}s{\it slot}n{\it node}}. The location
-references are cabinet column (0-24), row (0-7), cage (0-3), slot
+references are cabinet column (0-24), row (0-7), cage (0-2), slot
 (0-7), and node (0-3) with respect to the layout shown in
 Figure~\ref{fig:layout}.
 \begin{figure}
   \centering
-  \begin{minipage}{0.49\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/TitanCabinet.png}
-    \includegraphics[width=0.9\columnwidth]{figs/TitanCabinetSide.png}
-  \end{minipage}
-  \begin{minipage}{0.49\columnwidth}
+  \includegraphics[width=\columnwidth]{figs/TitanCabinet.png}
+  \begin{minipage}{0.35\columnwidth}
     \includegraphics[width=\columnwidth]{figs/TitanBlade.png}
-
-    \vspace{0.8\columnwidth}
+  \end{minipage}
+  \hfil
+  \begin{minipage}{0.49\columnwidth}
     \includegraphics[width=\columnwidth]{figs/TitanLayout.png}
   \end{minipage}
-  \caption{Titan cabinet (front view and side view with air flow) on
-    the left, blade layout and floor layout on the right. Cooling
-    airflow is bottom to top within a cabinet, taking ambient air in
-    at the foot and relasing it back out at the top. Cooling fluid is
-    passed through two heat exchange evaporators, one below Cage 0 and
-    one above Cage 2.}
+  \caption{Titan cabinet (front view and side view with air flow) and
+    single blade layout (bottom left) and floor layout (bottom
+    right). Cooling airflow is bottom to top within a cabinet, taking
+    ambient air in mostly at the foot and relasing it back out at the
+    top. Cooling fluid is passed through two heat exchange
+    evaporators, one below Cage 0 and one above Cage 2.}
   \label{fig:layout}
 \end{figure}
 
