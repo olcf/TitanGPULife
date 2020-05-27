@@ -32,8 +32,8 @@ week that Titan operated without a single reboot in the
 failure rates started to increase and lead to more frequent reboots.
 
 Initial processing updates an inventory by checking the Serial Number
-(SN) and Location of each GPU and creating or updating a separate
-record for each contiguously observed SN-Location
+(\rev{{\em SN}}) and Location of each GPU and creating or updating a separate
+record for each contiguously observed \rev{{\em{SN-Location}}}
 combination. Resulting GPU data records are of the form shown in
 Fig.~\ref{fig:dataraw},
 \begin{figure}[tb]
@@ -59,9 +59,9 @@ where records for three are shown. Each record starts with a serial
 number and locations are coded with {\tt c{\it col-row}c{\it
     cage}s{\it slot}n{\it node}}. The location references are cabinet
 column (0-24), row (0-7), cage (0-2), slot (0-7), and node (0-3) with
-respect to the layout shown in Figure~\ref{fig:layout}. \rev{For
+respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{For
   example, we mark location {\tt c17-4c1s3n1} with a yellow dot in
-  each view of the Figure.}
+  each view of the figure.}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{figs/TitanCabinet.png}
