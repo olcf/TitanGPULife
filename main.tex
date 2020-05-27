@@ -13,9 +13,6 @@
 \usepackage[section]{placeins}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
-\makeatletter
-\newcommand\notsotiny{\@setfontsize\notsotiny\@vipt\@viipt}
-\makeatother
 %\usepackage[pdftex,
 %            bookmarksopen=true,
 %            colorlinks,
@@ -30,12 +27,18 @@
 %\newcommand{\doubleblind}[2]{#1} % Use this command for final submission
 \newcommand{\doubleblind}[2]{#2} % Use this command for review submission
 
+\newcommand{\rev}[1]{{\color{blue} #1}} % color changes for reviewers
+%\newcommand{\rev}[1]{#1} % remove color changes for reviewers
+
 %%%%%%%%%%%%%%%%%
 % Custom Commands
 %%%%%%%%%%%%%%%%%
 \newcommand{\fix}[1]{\textcolor{red}{#1}}
 \newcommand{\pkg}[1]{{\tt #1}}
 \newcommand{\indf}[1]{$\rightarrow$~\textcolor{blue}{#1}}
+\makeatletter
+\newcommand\notsotiny{\@setfontsize\notsotiny\@vipt\@viipt}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Document Body

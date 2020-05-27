@@ -37,7 +37,7 @@ record for each contiguously observed SN-Location
 combination. Resulting GPU data records are of the form shown in
 Fig.~\ref{fig:dataraw},
 \begin{figure}[tb]
-{\notsotiny\bf
+{\notsotiny
 \begin{verbatim}
 0323812007945 | c17-4c1s3n1 | 01/10/2013 02:54:45 | 02/02/2013 11:32:29
  | c13-1c1s3n3 | 01/21/2014 21:10:42 | 08/01/2017 02:15:02
@@ -55,12 +55,13 @@ Fig.~\ref{fig:dataraw},
   processed further in our analysis.}
 \label{fig:dataraw}
 \end{figure}
-where records for three are shown. Each record starts
-with a serial number and locations are coded with {\tt c{\it
-    col-row}c{\it cage}s{\it slot}n{\it node}}. The location
-references are cabinet column (0-24), row (0-7), cage (0-2), slot
-(0-7), and node (0-3) with respect to the layout shown in
-Figure~\ref{fig:layout}.
+where records for three are shown. Each record starts with a serial
+number and locations are coded with {\tt c{\it col-row}c{\it
+    cage}s{\it slot}n{\it node}}. The location references are cabinet
+column (0-24), row (0-7), cage (0-2), slot (0-7), and node (0-3) with
+respect to the layout shown in Figure~\ref{fig:layout}. \rev{For
+  example, we mark location {\tt c17-4c1s3n1} with a yellow dot in
+  each view of the Figure.}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{figs/TitanCabinet.png}
