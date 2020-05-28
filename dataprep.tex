@@ -26,16 +26,17 @@ inter-inventory times that appear in the data.
     unique dates in the data and removing those less than a day.}
   \label{fig:inventory}
 \end{figure}
-Notably, there was a period of nearly two months and many periods of over a
-week that Titan operated without a single reboot in the
-2014-2015 time frame. By the time the weekly inventories were added,
-failure rates started to increase and lead to more frequent reboots.
+Notably, there was a period of nearly two months and many periods of
+over a week that Titan operated without a single reboot in the
+2014-2015 time frame. \rev{However, by the time the weekly inventories
+  were added, failure rates started to increase and lead to more
+  frequent reboots.}
 
 Initial processing updates an inventory by checking the Serial Number
-(\rev{{\em SN}}) and Location of each GPU and creating or updating a separate
-record for each contiguously observed \rev{{\em{SN-Location}}}
-combination. Resulting GPU data records are of the form shown in
-Fig.~\ref{fig:dataraw},
+(\rev{{\em SN}}) and Location of each GPU and creating or updating a
+separate record for each contiguously observed
+\rev{{\em{SN-Location}}} combination. Resulting GPU data records are
+of the form shown in Fig.~\ref{fig:dataraw},
 \begin{figure}[tb]
 {\notsotiny
 \begin{verbatim}
@@ -51,8 +52,8 @@ Fig.~\ref{fig:dataraw},
  | | DBE | 11/02/2018 14:42:34
 \end{verbatim}
 }
-\caption{A few records of raw data produced from inventories that is
-  processed further in our analysis.}
+\caption{A few records of raw data produced from inventories \rev{and
+    log files} that is processed further in our analysis.}
 \label{fig:dataraw}
 \end{figure}
 where records for three are shown. Each record starts with a serial
@@ -72,17 +73,18 @@ respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{For
   \begin{minipage}{0.49\columnwidth}
     \includegraphics[width=\columnwidth]{figs/TitanLayout.png}
   \end{minipage}
-  \caption{Titan cabinet (front view and side view with air flow) and
-    single blade layout (bottom left) and floor layout (bottom
-    right). Cooling airflow is bottom to top within a cabinet, taking
-    ambient air in mostly at the foot and relasing it back out at the
-    top. Cooling fluid is passed through heat exchange
-    evaporators, below Cage 0 and above Cage 2.}
+  \caption{\rev{Titan cabinet (front view and side view with air flow)
+      and single blade layout (bottom left) and floor layout (bottom
+      right). Cooling airflow is bottom to top within a cabinet,
+      taking ambient air in mostly at the foot and relasing it back
+      out at the top. Cooling fluid is passed through heat exchange
+      evaporators, below Cage 0 and above Cage 2. Yellow dot marks
+      location {\tt c17-4c1s3n1}}}
   \label{fig:layout}
 \end{figure}
 
 
-The first GPU record
+The first GPU record in \rev{Fig.~\ref{fig:dataraw}}
 shows installation in locations {\tt c17-4c1s3n1}, {\tt c21-1c2s5n0},
 {\tt c0-1c1s3n3}, with periods off the system, and finally in {\tt
   c13-1c1s3n3}, where it stays until August 1, 2017, after which it is
