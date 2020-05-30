@@ -1,0 +1,8 @@
+To run .Rmd file:
+
+Download and install R and RStudio.
+Open the file with RStudio
+Click on Knit in the top left pane.
+Follow any prompts to install a number of packages.
+
+
