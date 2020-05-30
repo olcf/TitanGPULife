@@ -83,6 +83,18 @@ shaded around the curves.
 \end{figure}
 \begin{figure}
   \centering
+  \includegraphics[width=\columnwidth]{figs/cox_o_t001.pdf}
+  \caption{\rev{GPU hazard ratios from Cox regression model on {\em
+        old} batch. Putting columns in logical torus order removes the
+      peculiar interleaving pattern and presents a more physically
+      reasonable response. This suggests that scheduling job fill from
+      X-0 had measurable temperature impact on the cooler side of
+      Titan (evaporators get engaged only at a temperature
+      threshold).}}
+  \label{fig:cox-torus}
+\end{figure}
+\begin{figure}
+  \centering
   \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\em new}
     batch.}
