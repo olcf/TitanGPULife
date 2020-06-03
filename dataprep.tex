@@ -81,35 +81,32 @@ respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{Note
     \includegraphics[width=\columnwidth]{figs/TitanLayout.png}
   \end{minipage}
   \caption{\rev{Titan cabinet (front view and side view with air flow)
-      and single blade layout (bottom left) and floor layout (bottom
-      right). Cooling airflow is bottom to top within a cabinet,
+      and single blade layout (bottom left with {\em node} numbers)
+      and floor layout (bottom right with {\em col} and {\em row}
+      numbers). Cooling airflow is bottom to top within a cabinet,
       taking ambient air in mostly at the foot and relasing it back
       out at the top. Cooling fluid is passed through heat exchange
       evaporators, below Cage 0 and above Cage 2. Ambient air in the
-      room is conditioned at nominal 75$^\circ$~F. This system has a
-      dozen intakes near the ceiling and dumps cool air under the
-      floor in several locations. A number of floor tiles are
-      perforated.  Yellow dot marks GPU location {\tt c17-4c1s3n1}}}
+      room is conditioned at nominal 75$^\circ$~F. The room air system
+      has a dozen intakes near the ceiling and dumps cool air under
+      the floor in several locations. A number of floor tiles are
+      perforated.  Yellow dot marks GPU location {\tt c17-4c1s3n1}.}}
   \label{fig:layout}
 \end{figure}
 
-
-The first GPU record in \rev{Fig.~\ref{fig:dataraw}}
-shows installation in locations {\tt c17-4c1s3n1}, {\tt c21-1c2s5n0},
-{\tt c0-1c1s3n3}, with periods off the system, and finally in {\tt
+The first GPU record in \rev{Fig.~\ref{fig:dataraw}} shows
+installation in locations {\tt c17-4c1s3n1}, {\tt c21-1c2s5n0}, {\tt
+  c0-1c1s3n3}, with periods off the system, and finally in {\tt
   c13-1c1s3n3}, where it stays until August 1, 2017, after which it is
 not seen again. The second is installed in location {\tt c18-4c1s5n1},
 where it stays until the last data collection date on March 3, 2019,
 at 3:19:11 AM. The third GPU is first installed in locations {\tt
   c5-4c0s7n0}, {\tt c3-3c1s5n0}, {\tt c0-6c1s7n2}, and {\tt
   c23-6c1s7n2}, where a ``DBE'' is observed on November 2, 2018, and
-it is not seen again.
+it is not seen again. \rev{This is the data set we make publicly
+  available.}
 
-
-% \fix{Where does cool air arrive? Is it just dumped out at the top of
-%   the heat exchanger and circulate down? I noticed airholes in some
-%   floor tiles (more on the right than on the left). Is there cool air
-%   under the floor?}
-
-% \fix{How does the coolant circulate? I notice three sets of pipes on
-%   each side of each row: (2 x 3) x 8 = 48 sets.}
+% I noticed more perforated floor tiles on the right than on the left
+% in the Titan decomissioning disassembly video. Anecdotally, the
+% right side of the machine was hotter than the left so some
+% perforated floor tiles were moved to the right.

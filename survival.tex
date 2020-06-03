@@ -2,13 +2,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Survival Analysis
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure*}
-  \centering
-  \includegraphics[width=7in]{figs/km_cage-node_a001.pdf}
-  \caption{Comparison of the old and new batches, including survival
-    differences based on {\tt cage} and {\tt node} GPU locations.}
-  \label{fig:km-all-cage-node}
-\end{figure*}
 \section{Survival Analysis}
 \label{section:survival}
 Survival analysis (SA) methods
@@ -50,6 +43,13 @@ of data and length of operation time, this would not make much
 difference in our conclusions. However, we are making our data
 publicly available and expect that others, especially in the survival
 analysis community, will dive deeper.
+\begin{figure*}
+  \centering
+  \includegraphics[width=7in]{figs/km_cage-node_a001.pdf}
+  \caption{Comparison of the old and new batches, including survival
+    differences based on {\tt cage} and {\tt node} GPU locations.}
+  \label{fig:km-all-cage-node}
+\end{figure*}
 
 Kaplan-Meier survival analysis (KM)
 \rev{\cite{kaplan-meier1958,survival-book}} starts with computing the
@@ -74,7 +74,7 @@ reported in \rev{Fig.}~\ref{fig:km-all-cage-node}. Within each {\em
 analysis provides 95\% confidence region for survival probability
 shaded around the curves.
 % Inserting figure here so it appears at top of next page
-\begin{figure}
+\begin{figure}[bt]
   \centering
   \includegraphics[width=\columnwidth]{figs/cox_o001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\em old}
@@ -84,15 +84,15 @@ shaded around the curves.
     physical columns of cabinets.}}
   \label{fig:cox-old}
 \end{figure}
-\begin{figure}
+\begin{figure}[bt]
   \centering
   \includegraphics[width=\columnwidth]{figs/cox_o_t001.pdf}
   \caption{\rev{GPU hazard ratios from Cox regression model on {\em
-        old} batch, with the {\em col} variable in logical
-      X-coordinate torus order. The torus order removes the peculiar
+        old} batch, with the {\em col} variable in interconnect torus
+      X-coordinate order. The torus order removes the peculiar
       interleaving pattern in Fig.~\ref{fig:cox-old} and presents a
       response that can be explained by an interaction of system
-      cooling and job scheduling.}}
+      cooling and job  scheduling.}}
   \label{fig:cox-torus}
 \end{figure}
 

@@ -7,6 +7,11 @@ output:
     theme: cerulean
 ---
 ```{r setup, include=FALSE}
+options(repos = c(CRAN = "http://cran.rstudio.com")) # set CRAN mirror
+install.packages("remotes")
+remotes::install_github("NikNakk/forestmodel") # only package from GitHub
+## all other packages will prompt to install from CRAN
+
 out_dir = "../figs/" # paper related figures will go here
 in_dir = "../data/" # input files live here
 history_file = paste0(in_dir, "titan.gpu.history.txt")
