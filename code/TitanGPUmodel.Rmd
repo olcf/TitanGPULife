@@ -81,31 +81,26 @@ trd = trd_all[c(1:7, 20:25), ]
 
 ggp(ggplot(filter(g_ev %>% filter(event == "life"), remove < max(remove)), aes(remove)) + 
       geom_histogram(
-        data = filter(g_ev, remove < max(remove)),
-#        data = filter(g_ev, remove >= good_date_remove, remove < max(remove)),
-        mapping = aes(remove), binwidth = 60*60*24*182.5, alpha = 0.2,
+#        data = filter(g_ev, remove < max(remove)),
+        data = filter(g_ev, remove >= good_date_remove, remove < max(remove)),
+        mapping = aes(remove), binwidth = 60*60*24*365, alpha = 0.2,
         boundary = good_date_remove) +
       geom_histogram(binwidth = 60*60*24, color = "blue") + theme_bw() +
       theme(axis.title.x = element_blank()) + scale_x_datetime(breaks = "1 year"), #+
 #      scale_y_continuous(limits = c(0, 9250), breaks = seq(0, 9000, 1000)),
     file = "chronology", width = 10, height = 3)
-
-removes_life = table((g_ev$remove[g_ev$event == "life"]))
-removes_life0 = table((g_ev$remove[g_ev$event == "life0"]))
-removes_OTB = table((g_ev$remove[g_ev$event == "OTB"]))
-removes_DBE = table((g_ev$remove[g_ev$event == "DBE"]))
-chron = data.frame(remove = lubridate::ymd_hms(names(removes_life)), count = as.numeric(removes_life))
-ggplot(chron, aes(count, remove)) + geom_point() + facet_grid(year(remove) ~ ., scales = "free")
 ```
 The next analysis looks at *life0* events, plots their frequency, and lists a sample of 10 such events in the raw input data.
 ```{r}
-zeros = g_ev[g_ev$event == "life0", ]
+d2013a = as.POSIXlt.character("2014-05-30 00:00:00 EST")
+d2013b = as.POSIXlt.character("2014-06-23 00:00:00 EST")
+zeros = g_ev %>% filter(event == "life0" | event == "life", remove > d2013a, remove < d2013b)
 ggplot(zeros, aes(remove)) + 
-      geom_histogram(data = zeros,
-        mapping = aes(remove), binwidth = 60*60*24*182.5, alpha = 0.2,
-        boundary = good_date_remove) +
-      geom_histogram(binwidth = 60*60*24, color = "blue") + theme_bw() +
-      theme(axis.title.x = element_blank()) + scale_x_datetime(breaks = "1 year")
+#      geom_histogram(data = zeros,
+#        mapping = aes(remove), binwidth = 60*60*24*182.5, alpha = 0.2,
+#        boundary = good_date_remove) +
+      geom_histogram(binwidth = 60*60, color = "blue") + theme_bw() +
+      theme(axis.title.x = element_blank()) + scale_x_datetime(breaks = "1 day") + ylim(c(0, 25))
 sn_zeros = zeros$SN[sample(length(zeros$SN), 10)]
 for(sn in sn_zeros) print(g_raw[(i = which(g_raw$SN == sn)):(i+10), ])
 ```
@@ -323,8 +318,9 @@ ggp(ggsurvplot(survfit(
   legend = c(0.08, 0.73), legend.labs = 0:3, ylim = c(0.08, 1), size = 0.4, 
   break.y.by = 0.1, censor = FALSE),
   width = 10.5, height = 6, file = "km_cage-node_a")
-
-
+```
+Consider diagnostics for proportionalty.
+```{r}
 fit = coxph(Surv(years, dead, type = 'right') ~ row + col + cage + slot + node,
             data = gc_summary_loc_o)
 ## below seems to have an issue with RStudio: 
@@ -332,24 +328,6 @@ fit = coxph(Surv(years, dead, type = 'right') ~ row + col + cage + slot + node,
 ## ggcoxdiagnostics(fit, type = "schoenfeld", ox.scale = "time")
 test.ph = cox.zph(fit)
 ggcoxzph(test.ph)
-```
-
-Try PAMM models via pammtools
-```{r}
-library(dplyr)
-library(tidyr)
-library(pammtools)
-mdat = gc_summary_loc_o %>% select(SN, years, dead, col, row, cage, slot, node)
-ped = as_ped(Surv(years, dead, type = "right") ~ ., data = mdat, id = "SN",
-             cut = seq(0, 6, 1/12)) #c(0, 1.5, 2, 2.5, 3, 4, 6))
-library(survival)
-library(mgcv)
-base_df = basehaz(coxph(Surv(years, dead) ~ 1, data = mdat)) %>% rename(nelson_aalen = hazard)
-ggplot(base_df, aes(x = time, y = nelson_aalen)) + geom_stephazard() +
-  ylab(expression(hat(Lambda)(t))) + xlab("Years") +
-  ggtitle("Nelson-Aalen estimate of the cumulative hazard")
-pam = gam(ped_status ~ s(tend), data = ped, offset = offset, family = poisson())
-plot(pam)
 ```
 The Cox proportional hazards (CPH) regression analys takes the hazard function above and a set of covariates $x$ and models $k$s GPU hazard as
 $$H_k(t) = H_0(t)e^{\sum\limits_{i=1}^n{\beta x}}$$
@@ -361,6 +339,7 @@ response = "Surv(time, event = dead) ~"
 gc_summary_loc_o = gc_summary_loc %>% filter(batch == "old")
 gc_summary_loc_n = gc_summary_loc %>% filter(batch == "new")
 
+col2torus = order(c(0, seq(1, 23, 2), seq(24, 2, -2)))
 library(forestmodel)
 panels = list(
   forest_panel(width = 0.03),
@@ -375,10 +354,9 @@ panels = list(
   forest_panel(width = 0.03))
 
 covariates = c("col", "row", "cage", "slot", "node")
-col2torus = order(c(0, seq(1, 23, 2), seq(24, 2, -2)))
 levels(gc_summary_loc_o$col) = 
   paste0(formatC(levels(gc_summary_loc_o$col), width = 2),
-         " (X-", formatC(col2torus, width = 2), ")")
+         "   (X-", formatC(col2torus, width = 2), ")")
 mv_model = coxph(as.formula(paste(response, paste(covariates, collapse = " + "))),
                  data = gc_summary_loc_o)
 ggp(forest_model(mv_model, panels, factor_separate_line = TRUE), width = 5,
@@ -393,7 +371,7 @@ ggp(forest_model(mv_model, panels, factor_separate_line = TRUE), width = 5,
 
 levels(gc_summary_loc_n$col) = 
   paste0(formatC(levels(gc_summary_loc_n$col), width = 2),
-         " (X-", formatC(col2torus, width = 2), ")")
+         "   (X-", formatC(col2torus, width = 2), ")")
 mv_model = coxph(as.formula(paste(response, paste(covariates, collapse = " + "))),
                  data = gc_summary_loc_n)
 ggp(forest_model(mv_model, panels, factor_separate_line = TRUE), width = 5,

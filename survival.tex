@@ -78,27 +78,21 @@ shaded around the curves.
   \centering
   \includegraphics[width=\columnwidth]{figs/cox_o001.pdf}
   \caption{GPU hazard ratios from Cox regression model on {\em old}
-    batch.}
+    batch. \rev{All variables, {\em col}, {\em row}, {\em cage}, {\em
+      slot}, and {\em node} are with respect to spatial locations
+    shown in Fig.~\ref{fig:layout}}}
   \label{fig:cox-old}
 \end{figure}
 \begin{figure}
   \centering
   \includegraphics[width=\columnwidth]{figs/cox_o_t001.pdf}
   \caption{\rev{GPU hazard ratios from Cox regression model on {\em
-        old} batch. Putting columns in logical torus order removes the
-      peculiar interleaving pattern and presents a more physically
-      reasonable response. This suggests that scheduling job fill from
-      X-0 had measurable temperature impact on the cooler side of
-      Titan (evaporators get engaged only at a temperature
-      threshold).}}
+        old} batch, with the {\em col} variable in logical
+      X-coordinate torus order. The torus order removes the peculiar
+      interleaving pattern in Fig.~\ref{fig:cox-old} and presents a
+      response that can be explained by a combination of system
+      cooling and job scheduling.}}
   \label{fig:cox-torus}
-\end{figure}
-\begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
-  \caption{GPU hazard ratios from Cox regression model on {\em new}
-    batch.}
-  \label{fig:cox-new}
 \end{figure}
 
 It appears that transport of cooling air provides a complete
@@ -151,6 +145,13 @@ proportional. However, survival functions partitioned on {\em batch}
 do cross and so we fit the model to the new and the old batches
 separately. The results are presented in \rev{Fig.}~\ref{fig:cox-old}
 and~\ref{fig:cox-new}.
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\em new}
+    batch.}
+  \label{fig:cox-new}
+\end{figure}
 
 We find that the average hazard ratios strongly correlate with
 detailed nuances of the system cooling architecture.  The figures give

@@ -38,16 +38,21 @@ and contains the most reliable data on GPU operation.
 Figure~\ref{fig:chronology} illustrates the chronology of the rework
 cycles and stable periods as indicated by the number of GPU changes at
 periodic inventories. The first two rework cycles before 2014
-involving blade mechanical assembly can be characterized as a break-in
-period on a new system that is first of its kind and pushes many
-technological boundaries. The resulting field engineering as well as
-data collection changes are responsible for the high GPU swap counts
-before 2014. Late 2013 begins a very long period of high reliability
-and stable operation with very few issues until about mid 2016, when
-GPU failures begin to rise. This results in the final rework cycle,
-replacing 11,000 GPUs throughout much of 2017. The peak at the end in
-the figure is an artifact of turning off or ``removing'' all the
-units as Titan is shut down and disassembled.
+involving blade mechanical assemblies can be characterized as a
+break-in period on a new system that is first of its kind and pushes
+many technological boundaries. \rev{This early period included
+  extensive field engineering and experimentation to determine cause,
+  down times, and large temporal and completeness gaps in inventory
+  runs. We include the early swap data in this figure only for
+  completeness and to underscore the amount of work required to field
+  a world's largest supercomputer. However, we exclude this period
+  from further analysis because we have a gap in explanation for one
+  of the swap spikes and because the separation is made possible by
+  the second, late 2013, GPU rework cycle.} Late 2013 begins a very
+long period of high reliability and stable operation with very few
+issues until about mid 2016, when GPU failures begin to rise. This
+results in the final rework cycle, replacing 11,000 GPUs throughout
+much of 2017.
 
 Finding the root cause for the 2016 failures took a great deal of
 testing and involvement of materials science and microscopy
@@ -60,7 +65,7 @@ Our analysis focuses on GPU boards that were installed in the second
 rework cycle and later, essentially units installed near the beginning
 of 2014 and later. Figure~\ref{fig:chronology} is the only one
 involving data prior to 2014. All analyses and figures that follow use
-only data from 2014 onward. We make the data as well as our analysis R
+data from 2014 onward. We make the data as well as our analysis R
 codes and Python codes to reproduce the graphics in this paper
 publicly available (see, \cite[repository to be added in final
 version]{repositoryreference,rcodes,pycodes}).  While the data is only
@@ -78,7 +83,7 @@ is given in Sec.~\ref{section:tbf}. Survival analysis \rev{(SA)} based on
 Kaplan-Meier modeling (KM) and Cox regression modeling (CR) of
 relative hazard rates in various locations are in
 Sec.~\ref{section:survival}. The goals of a TBF analysis and of
-SA are different: TBF studies largely show GPU
+SA are different: TBF studies largely \rev{show} GPU
 reliability affects the machine, whereas SA studies largely how the
 machine affects GPU reliability.  Finally, we discuss our main
 conclusions and recommendations in Sec.~\ref{section:discussion}.

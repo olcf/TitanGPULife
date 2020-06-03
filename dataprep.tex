@@ -5,19 +5,23 @@
 \section{Data Collection and Preprocessing}
 \label{section:dataprep}
 Data on Titan GPU life times is constructed from two sources:
-inventory runs and failure event records. Two types of failure events
-were collected: Double Bit Error (DBE) and Off the Bus (OTB). Both
-errors were found to be the ``signature'' event of GPU failures and a
-trigger for their replacement.
+inventory runs and failure event \rev{log} records. Two types of
+failure events were collected \rev{for this study}: Double Bit Error
+(DBE) and Off the Bus (OTB). \rev{While other types of errors were
+  recorded in log files, as is reported in \cite{7266836}, these two
+  kinds of errors became dominant in 2016 and were found to be the
+  ``signature'' event of the GPU board failing resistor and a trigger
+  for GPU replacement.}
 
 An inventory of GPU serial numbers and their locations is recorded
 each time the system boots. This typically occurs once every few days
 but can be as frequent as a few times per day. A weekly inventory was
 later added to run independently of system boots when they were fewer
 and farther apart. A single inventory takes about a minute and is
-recorded in a separate file. The DBE and OTB events are also recorded
-separately from the inventories.  Figure~\ref{fig:inventory} shows
-inter-inventory times that appear in the data.
+recorded in a separate file. \rev{An inventory can be incomplete if a
+  node response times out but such occurrences were relatively rare}.
+Figure~\ref{fig:inventory} shows inter-inventory times that appear in
+the data.
 \begin{figure}[bt]
   \begin{center}
     \includegraphics[width=\columnwidth]{figs/attention_intervals001.pdf}
@@ -30,7 +34,7 @@ Notably, there was a period of nearly two months and many periods of
 over a week that Titan operated without a single reboot in the
 2014-2015 time frame. \rev{However, by the time the weekly inventories
   were added, failure rates started to increase and lead to more
-  frequent reboots.}
+  frequent reboots and thus inventories.}
 
 Initial processing updates an inventory by checking the Serial Number
 (\rev{{\em SN}}) and Location of each GPU and creating or updating a
@@ -60,7 +64,9 @@ where records for three are shown. Each record starts with a serial
 number and locations are coded with {\tt c{\it col-row}c{\it
     cage}s{\it slot}n{\it node}}. The location references are cabinet
 column (0-24), row (0-7), cage (0-2), slot (0-7), and node (0-3) with
-respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{For
+respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{Note
+  that there is an extra empty cabinet between columns 10 and 11 to
+  accommodate a few ceiling support columns. For
   example, we mark location {\tt c17-4c1s3n1} with a yellow dot in
   each view of the figure.}
 \begin{figure}
@@ -78,8 +84,11 @@ respect to the layout shown in \rev{Fig.}~\ref{fig:layout}. \rev{For
       right). Cooling airflow is bottom to top within a cabinet,
       taking ambient air in mostly at the foot and relasing it back
       out at the top. Cooling fluid is passed through heat exchange
-      evaporators, below Cage 0 and above Cage 2. Yellow dot marks
-      location {\tt c17-4c1s3n1}}}
+      evaporators, below Cage 0 and above Cage 2. Ambient air in the
+      room is conditioned at nominal 75$^\circ$~F. This system has a
+      dozen intakes near the ceiling and dumps cool air under the
+      floor in several locations. A number of floor tiles are
+      perforated.  Yellow dot marks GPU location {\tt c17-4c1s3n1}}}
   \label{fig:layout}
 \end{figure}
 
