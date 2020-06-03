@@ -156,9 +156,10 @@ dates_life = sort(unique(c(life_insert, life_remove))) # unique insert,remove
 life_intervals =
   data.frame(days = as.numeric(diff(dates_life))/(60*60*24),
              year = factor(as.character(year(dates_life[-1])))) %>% filter(days >= 1) %>% 
-  mutate(days = factor(as.integer(floor(days))))
+  mutate(days = factor(as.integer(floor(days)), levels = 1:56))
 ggp(ggplot(life_intervals, aes(days, fill = year)) + stat_count() +
-      theme_bw(), file = "attention_intervals", height = 3)
+      scale_x_discrete(breaks = seq(1, 56, 2), drop = FALSE) + theme_bw(),
+    file = "attention_intervals", height = 3)
 ```
 
 ```{r}

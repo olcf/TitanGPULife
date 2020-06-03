@@ -12,7 +12,7 @@
 \section{Survival Analysis}
 \label{section:survival}
 Survival analysis (SA) methods
-\cite{survival-book}, 
+\rev{\cite{survival-book}}, 
 sometimes referred to as time to event methods, focus on the effect of
 the machine on the GPU units. These methods have roots in biomedical
 statistics, where the effect on the patient is most important. So here
@@ -52,7 +52,7 @@ publicly available and expect that others, especially in the survival
 analysis community, will dive deeper.
 
 Kaplan-Meier survival analysis (KM)
-\cite{kaplan-meier1958,survival-book} starts with computing the
+\rev{\cite{kaplan-meier1958,survival-book}} starts with computing the
 probability of survival beyond a given time. It is a nonparametric
 technique that makes no specific failure model assumptions, such as
 Weibull, Exponential, etc. The technique is able to use censored
@@ -80,7 +80,8 @@ shaded around the curves.
   \caption{GPU hazard ratios from Cox regression model on {\em old}
     batch. \rev{All variables, {\em col}, {\em row}, {\em cage}, {\em
       slot}, and {\em node} are with respect to spatial locations
-    shown in Fig.~\ref{fig:layout}}}
+    shown in Fig.~\ref{fig:layout}. Notably, the {\em col} are
+    physical columns of cabinets.}}
   \label{fig:cox-old}
 \end{figure}
 \begin{figure}
@@ -90,7 +91,7 @@ shaded around the curves.
         old} batch, with the {\em col} variable in logical
       X-coordinate torus order. The torus order removes the peculiar
       interleaving pattern in Fig.~\ref{fig:cox-old} and presents a
-      response that can be explained by a combination of system
+      response that can be explained by an interaction of system
       cooling and job scheduling.}}
   \label{fig:cox-torus}
 \end{figure}
@@ -125,7 +126,7 @@ To get more comparison power across the locations, we can use a
 technique that in a sense averages over time. Cox proportional hazards
 (CPH) regression analysis, can include covariates and estimates relative
 risk averaged over time based on the covariates
-\cite{Cox1972,Harrell2015}. The CPH regression function takes the form
+\rev{\cite{Cox1972,Harrell2015}}. The CPH regression function takes the form
 \begin{displaymath}
   h(t) = h_0(t)e^{b_1 x_1 + b_2 x_2 \ldots b_k x_k},
 \end{displaymath}

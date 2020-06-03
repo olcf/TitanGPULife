@@ -7,21 +7,22 @@
 Data on Titan GPU life times is constructed from two sources:
 inventory runs and failure event \rev{log} records. Two types of
 failure events were collected \rev{for this study}: Double Bit Error
-(DBE) and Off the Bus (OTB). \rev{While other types of errors were
-  recorded in log files, as is reported in \cite{7266836}, these two
-  kinds of errors became dominant in 2016 and were found to be the
-  ``signature'' event of the GPU board failing resistor and a trigger
-  for GPU replacement.}
+(DBE) and Off the Bus (OTB). \rev{DBE is a memory error detected by
+  parity bit checking, which can correct a single bit flip and detect
+  but not correct a double bit flip. OTB is the loss of data swim lane
+  connections to the GPU. While other types of errors were recorded in
+  log files, as is reported in \cite{7266836}, OTB and DBE became
+  dominant in 2016 and were found to be the ``signature'' event of the
+  GPU board failing resistor and a trigger for GPU replacement.}
 
-An inventory of GPU serial numbers and their locations is recorded
-each time the system boots. This typically occurs once every few days
-but can be as frequent as a few times per day. A weekly inventory was
-later added to run independently of system boots when they were fewer
-and farther apart. A single inventory takes about a minute and is
-recorded in a separate file. \rev{An inventory can be incomplete if a
-  node response times out but such occurrences were relatively rare}.
-Figure~\ref{fig:inventory} shows inter-inventory times that appear in
-the data.
+An inventory of GPU serial numbers and their locations was recorded
+each time the system boots, \rev{typically for software updates and
+  patches but sometimes for hardware swaps, although warm swaps of
+  blades were usually possible.} Boots typically occured once every
+few days but sometimes even a few times per day. A single inventory
+takes about a minute and is recorded in a separate file. \rev{It can
+  be incomplete if a node response times out but such occurrences were
+  relatively rare.
 \begin{figure}[bt]
   \begin{center}
     \includegraphics[width=\columnwidth]{figs/attention_intervals001.pdf}
@@ -30,11 +31,11 @@ the data.
     unique dates in the data and removing those less than a day.}
   \label{fig:inventory}
 \end{figure}
-Notably, there was a period of nearly two months and many periods of
-over a week that Titan operated without a single reboot in the
-2014-2015 time frame. \rev{However, by the time the weekly inventories
-  were added, failure rates started to increase and lead to more
-  frequent reboots and thus inventories.}
+Figure~\ref{fig:inventory} shows that during 2014 and 2015,
+inventories were far apart, even 56 days once in 2014. The purpose is
+to illustrate that exact times for GPU removal from service are
+``censored'' and we only get the inventory time information. We discuss
+censoring and its implications in Sec.~\ref{section:survival}.}
 
 Initial processing updates an inventory by checking the Serial Number
 (\rev{{\em SN}}) and Location of each GPU and creating or updating a
