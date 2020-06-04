@@ -2,22 +2,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Viewing and Cleaning the Data
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{figure*}[bt]
-  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_sn.pdf}
-  \caption{Serial number view of GPU life and failures. Legend: black
-    dots are installs, black lines are lifetimes at installed
-    location, blue squares are OTB events, red triangles are DBE
-    events, and black ] are ``last seen'' events.}
-  \label{fig:gpuview}
-\end{figure*}
-\begin{figure*}[tb]
-  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_loc.pdf}
-  \caption{Location view of GPU life and failures.  Legend: black dots
-    are installs, black lines are lifetimes at installed location,
-    blue squares are OTB events, red triangles are DBE events, and
-    black ] are ``last seen'' events.}
-  \label{fig:locview}
-\end{figure*}
 \section{Viewing and Cleaning the Data}
 \label{section:dataclean}
 As we need to recover durations of GPU operation from this data, correct
@@ -50,8 +34,23 @@ proportion of time at the longest location, and the number of DBE or
 OTB events.
 
 To get some intuition for the GPU lifetimes on Titan, we give two
-views of 60 randomly selected GPUs (\rev{Fig.}~\ref{fig:gpuview}) and 80
-randomly selected locations (\rev{Fig.}~\ref{fig:locview}).
+views of \rev{80} randomly selected GPUs and \rev{80} randomly
+selected locations (\rev{Fig.}~\ref{fig:gpu-view}).
+\begin{figure*}[p]
+  \begin{center}
+  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_sn.pdf} \\
+  (a) \\[1em]
+  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_loc.pdf} \\
+  (b)
+  \end{center}
+  \caption{\rev{Serial number view (a) and location view (b) of GPU
+      life and failures. Both SN and locations are randomly
+      selected. Legend: black dots are installs, black lines are
+      lifetimes at installed location, blue squares are OTB events,
+      red triangles are DBE events, and black ] are ``last seen''
+      events.}}
+  \label{fig:gpu-view}
+\end{figure*}
 The GPU view
 visually documents the life of each GPU unit: when it was installed and
 removed at various locations, its DBE and OTB events, and the last
@@ -62,14 +61,15 @@ the system. These views were critical to understanding the data and to
 verifying various data processing decisions.
 
 The third rework cycle was used to label GPUs as {\em old} batch and
-{\em new} batch. The two batches are clearly identifiable in the GPU
-view of Fig.~\ref{fig:gpuview} as starting near 2017 timeframe. More
-frequent OTB and DBE events are apparent in the old batch. It is also
-clear from this view that practically all new GPUs stayed at their
-initial install location whereas the old GPUs were occasionally
-reinstalled at new locations. Nevertheless, a separate analysis
-determined that the vast majority of time of the vast majority of
-units is spent at one location by both the new and the old units.
+{\em new} batch. The two batches are clearly identifiable in the
+\rev{SN} view of Fig.~\ref{fig:gpu-view} as those starting near 2017
+timeframe. More frequent OTB and DBE events are apparent in the old
+batch. It is also clear from this view that practically all new GPUs
+stayed at their initial install location whereas the old GPUs were
+occasionally reinstalled at new locations. Nevertheless, a separate
+analysis determined that the vast majority of time of the vast
+majority of units is spent at one location by both the new and the old
+units.
 
 The location view shows that each location was operational almost all
 the time with small gaps when GPUs were changed out. It is also
