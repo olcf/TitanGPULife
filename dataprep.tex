@@ -9,11 +9,12 @@ inventory runs and failure event \rev{log} records. Two types of
 failure events were collected \rev{for this study}: Double Bit Error
 (DBE) and Off the Bus (OTB). \rev{DBE is a memory error detected by
   parity bit checking, which can correct a single bit flip and detect
-  but not correct a double bit flip. OTB is the loss of data swim lane
-  connections to the GPU. While other types of errors were recorded in
-  log files, as is reported in \cite{7266836}, OTB and DBE became
-  dominant in 2016 and were found to be the ``signature'' event of the
-  GPU board failing resistor and a trigger for GPU replacement.}
+  but not correct a double bit flip. OTB is the loss of host CPU
+  connection to the GPU. While other types of errors were recorded in
+  log files, as is reported in \cite{7266836,tiwari15Understand}, OTB
+  and DBE became dominant in 2016 and were found to be the
+  ``signature'' event of the GPU board failing resistor and a trigger
+  for GPU replacement.}
 
 An inventory of GPU serial numbers and their locations was recorded
 each time the system boots, \rev{typically for software updates and

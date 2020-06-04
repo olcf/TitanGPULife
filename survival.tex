@@ -84,6 +84,13 @@ shaded around the curves.
     physical columns of cabinets.}}
   \label{fig:cox-old}
 \end{figure}
+\begin{figure}
+  \centering
+  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
+  \caption{GPU hazard ratios from Cox regression model on {\em new}
+    batch.}
+  \label{fig:cox-new}
+\end{figure}
 \begin{figure}[bt]
   \centering
   \includegraphics[width=\columnwidth]{figs/cox_o_t001.pdf}
@@ -107,7 +114,10 @@ through the cabinet to the top. The survival curves can be ordered
 ({\em cage 0, cage 1, cage 2}) in decreasing order of survival. As the
 blades are placed vertically within the cabinet, pairs of nodes too
 experience the same relationship with distance to the bottom, nodes 2
-and 3 having lower failure rates than nodes 0 and 1.
+and 3 having lower failure rates than nodes 0 and 1. \rev{An
+  increasing temperature gradient averaging about $4^\circ$C per
+  cage is reported in \cite[p.7]{tiwari15Understand}, independently
+  confirming our airflow temperature interpretation.}
 
 Very few failures have occurred in the new batch and they are clearly
 less prone to failure at the 2.5 year mark. There is a slight change
@@ -124,9 +134,10 @@ middle, associated with the unexpected resistor failures.
 
 To get more comparison power across the locations, we can use a
 technique that in a sense averages over time. Cox proportional hazards
-(CPH) regression analysis, can include covariates and estimates relative
-risk averaged over time based on the covariates
-\rev{\cite{Cox1972,Harrell2015}}. The CPH regression function takes the form
+(CPH) regression analysis, can include covariates and estimates
+relative risk averaged over time based on the covariates
+\rev{\cite{Cox1972,Harrell2015}}. The CPH regression function takes
+the form
 \begin{displaymath}
   h(t) = h_0(t)e^{b_1 x_1 + b_2 x_2 \ldots b_k x_k},
 \end{displaymath}
@@ -144,18 +155,12 @@ covariates do not cross. We ran these diagnostics and concluded that
 the hazards for our location categories are approximately
 proportional. However, survival functions partitioned on {\em batch}
 do cross and so we fit the model to the new and the old batches
-separately. The results are presented in \rev{Fig.}~\ref{fig:cox-old}
+separately. The results are presented in \rev{Fig.}~\ref{fig:cox-old},
 and~\ref{fig:cox-new}.
-\begin{figure}
-  \centering
-  \includegraphics[width=\columnwidth]{figs/cox_n001.pdf}
-  \caption{GPU hazard ratios from Cox regression model on {\em new}
-    batch.}
-  \label{fig:cox-new}
-\end{figure}
 
 We find that the average hazard ratios strongly correlate with
-detailed nuances of the system cooling architecture.  The figures give
+detailed nuances of the system cooling architecture \rev{and are also
+  impacted by job scheduling}.  The figures give
 hazard ratios for each of the location variables, giving the ratio for
 each level compared to its first (0) level (consequently the 0 level
 is always 1). Due to the exponential nature of the CPH model, the
@@ -186,7 +191,7 @@ analysis earlier. Its ratio value near 20 has to be interpreted with
 caution because it is a time averaged value on a log scale and suffers
 from the degrading balance mentioned in the previous paragraph. This
 aspect is not captured by the uncertainty, which accounts for the
-randomness of the failures and not for the geometric time averaging
+randomness of the failures but not for the geometric time averaging
 \rev{\cite{Hernn2010TheHO}}. Consequently, we interpret the pattern of
 relative hazards rather than actual ratio magnitudes. More in-depth
 analysis with penalized estimation methods like \cite{bender2019} can
@@ -198,9 +203,23 @@ differences that increase with distance from the bottom of the
 cabines, seen in both KM and CPH results, there is a weaker but
 peculiar pattern in the {\em row} and {\em col} hazard rates. The
 different behavior in {\em col} 0-11 from {\em col} 12-24 is likely
-due to separate supply lines of chilled water to the two sets. While
-the temperature was a consistent 42$^\circ$F, there may have been
-minor flow or pressure differences. But the interleaving pattern of
-the first set is still a mystery. We also have yet to explain the
-apparent row effects. A very minor airflow effect across slots also
-seems to be present as it mimics faster airflow for the middle slots.
+\rev{due to the presence of the file system to the right of {\em col}
+  24, as can be seen in the floor layout of Fig.~\ref{fig:layout}. An
+  explanation due to separate supply lines of chilled water to the two
+  sets is not likely as the evaporators (see Fig.~\ref{fig:layout})
+  are thermostat controlled.}
+
+\rev{The peculiar interleaving pattern of the first set of columns can
+  be explained by Titan's folded torus interconnect. If we order the
+  columns by their torus X coordinate \cite{ezell2013}, seen in
+  Fig.~\ref{fig:cox-torus}, the column pattern retains the proximity
+  to the file system explanation and loses the interleaving pattern
+  peculiarity. Moreover, Titan filled temporal and spatial gaps in
+  nodes starting with low torus {\em X} coordinate. This potentially
+  explains that the low {\em col} and low {\em X} coordinate columns
+  have higher hazard due to higher workload than the low {\em col} and
+  high {\em X} coordinate columns.  It is possible that the torus Y
+  coordinate can help explain the apparent row effects, but we have
+  difficulty interpreting the row description in \cite{ezell2013}.} A
+very minor airflow effect across slots also seems to be present as it
+mimics faster airflow for the middle slots.

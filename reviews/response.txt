@@ -1,0 +1,13 @@
+We thank all the reviewers for their exceptionally helpful and
+thorough comments. Thorough reviews take time and interest! We have
+incorporated suggested changes in our revised version and marked the
+revised text in blue. Here, we respond to reviewers' "Comments for
+Revision" and due to limited space explain mostly only those detailed
+comments that are not marked or incorporated in our revised paper
+version.
+
+Overall, there were two substantive additions in addition to numerous
+smaller cosmetic and presentation improvements. The first is a
+corroboration of our airflow implications on temperature with data
+from another publication. The second is finding a contributing factor
+to temperature in job scheduling  
