@@ -5,19 +5,23 @@
 \section{Time Between Failures Analysis}
 \label{section:tbf}
 
+% figure put here for better placement in compiled document
 \begin{figure*}[p]
   \begin{center}
-  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_sn.pdf} \\
-  (a) \\[1em]
-  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_loc.pdf} \\
-  (b)
+    \raisebox{-.5\height}{
+      \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_sn.pdf}
+     }(a) \\[1em]
+     \raisebox{-.5\height}{
+       \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_loc.pdf}
+     }(b)
   \end{center}
   \caption{\rev{Serial number view (a) and location view (b) of GPU
       life and failures. Both SN and locations are randomly
-      selected. Legend: black dots are installs, black lines are
-      lifetimes at installed location, blue squares are OTB events,
-      red triangles are DBE events, and black ] are ``last seen''
-      events.}}
+      selected. Black dots are installs, black lines are lifetimes at
+      installed location, blue squares are OTB events, red triangles
+      are DBE events, and black ] are ``last seen'' events. Such views
+      were critical to understanding the data and to verifying various
+      data processing decisions.}}
   \label{fig:gpu-view}
 \end{figure*}
 Using the cleaned data, we analyze the inter-arrival times between the DBE and OTB events. 
