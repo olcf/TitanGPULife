@@ -5,6 +5,27 @@
 \section{Time Between Failures Analysis}
 \label{section:tbf}
 
+\begin{figure*}[p]
+  \begin{center}
+  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_sn.pdf} \\
+  (a) \\[1em]
+  \includegraphics[trim=0 7 0 5,clip,width=6.5in]{figs/sample_loc.pdf} \\
+  (b)
+  \end{center}
+  \caption{\rev{Serial number view (a) and location view (b) of GPU
+      life and failures. Both SN and locations are randomly
+      selected. Legend: black dots are installs, black lines are
+      lifetimes at installed location, blue squares are OTB events,
+      red triangles are DBE events, and black ] are ``last seen''
+      events.}}
+  \label{fig:gpu-view}
+\end{figure*}
+Using the cleaned data, we analyze the inter-arrival times between the DBE and OTB events. 
+This analysis is done at the device level and at the system level. 
+It provides important insights into the reliability of large-scale machines, where the 
+failure rate of an individual device is significantly different from the overall reliability
+of the machine.  
+
 \begin{figure}[bt]
   \begin{center}
     \includegraphics[trim={0 1em 0 1em},clip,width=\columnwidth]{figs/MTBF_GPUwise.pdf}
@@ -15,13 +36,6 @@ the failure pattern of each event type. Data includes both old and new batch of 
 mostly having MTBFs around or less than 3 years.}
   \label{fig:Device_MTBFs}
 \end{figure}
-
-Using the cleaned data, we analyze the inter-arrival times between the DBE and OTB events. 
-This analysis is done at the device level and at the system level. 
-It provides important insights into the reliability of large-scale machines, where the 
-failure rate of an individual device is significantly different from the overall reliability
-of the machine.  
-
 A histogram of MTBFs measured across GPUs which had at least one failure event is shown 
 in \rev{Fig.}~\ref{fig:Device_MTBFs}. This is a practical assessment of device reliabilities 
 as opposed to those provided in the device datasheet. The failures are tracked using the
