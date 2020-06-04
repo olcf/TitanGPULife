@@ -3,9 +3,9 @@
 knitr::opts_chunk$set(echo = TRUE)
 options(width = 150)
 
-suppressMessages(library(data.table))
-suppressMessages(library(tidyverse))
-suppressMessages(library(lubridate))
+#suppressMessages(library(data.table))
+#suppressMessages(library(tidyverse))
+#suppressMessages(library(lubridate))
 
 ## Function to mark overlapping life spans in unit (sn or location). Adds two
 ## variables: overlap_unit and overlap_rec, marking all records in a unit and

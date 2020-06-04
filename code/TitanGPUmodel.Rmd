@@ -13,6 +13,16 @@ if(! "remotes" %in% installed) install.packages("remotes")
 if(! ("forestmodel" %in% installed && packageVersion("forestmodel") >= "0.6.1"))
   remotes::install_github("NikNakk/forestmodel") # only package from GitHub
 ## all other packages will prompt to install from CRAN
+library(data.table)
+library(magrittr)
+library(dplyr)
+library(ggplot2)
+library(forcats)
+library(lubridate)
+library(survival)
+library(survminer)
+library(forestmodel)
+
 
 out_dir = "../figs/" # paper related figures will go here
 in_dir = "../data/" # input files live here
@@ -21,7 +31,7 @@ service_nodes = paste0(in_dir, "titan.service.txt")
 source("TitanGPUsetup.R")
 Rmd.time = proc.time()
 ```
-`r today()`
+`r`
 Read the data. Last inventory was run 01/20/2020 but Titan was turned off on 08/01/2019
 ```{r}
 g_raw = fread(history_file, col.names = c("SN", "location", "insert", "remove"))
@@ -192,7 +202,7 @@ plot.life_ev(life_sample, ev_sample, SN, "sample_SN", overlaps = FALSE)
 loc_sample = sample(unique(gc_ev_nzg$location), nsample)
 ev_sample = gc_ev_nzg %>% filter(location %in% loc_sample)
 life_sample = gc_life %>% filter(location %in% loc_sample) %>% 
-  separate(location, c(NA, "col", "row", "cage", "slot", "node"),
+  tidyr::separate(location, c(NA, "col", "row", "cage", "slot", "node"),
            sep = "[-csn]", convert = TRUE, remove = FALSE) %>%
   mutate(location = reorder(location, col)) # orders in increasing col
 plot.life_ev(life_sample, ev_sample, location, "sample_loc", overlaps = FALSE)
@@ -214,7 +224,7 @@ gc_full = gc_fulljoin %>% group_by(SN, remove, location) %>%
 **Output** gc_full data frame to a CSV file for TBF analysis with Python code
 ```{r}
 gc_write = as.data.frame(lapply(gc_full, as.character), stringsAsFactors = FALSE)
-write_csv(gc_write, paste0(out_dir, "gc_full.csv"), na = "", col_names = TRUE)
+readr::write_csv(gc_write, paste0(out_dir, "gc_full.csv"), na = "", col_names = TRUE)
 ```
 **Message to reader of file:** All fields are character strings. Dates are with timezone. Missing values as "<NA>" strings.
 
@@ -247,7 +257,7 @@ gc_summary
 
 **Separate max_loc** into components (col, row, cage, slot, node). Note that this is the place this *SN* was located the longest. This muddies the hazard analysis somewhat as several locations can be the "treatment" for a given *SN*. But the proportions of time at max_loc tend to be very high. Time-dependent covariates, see: https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf
 ```{r}
-gc_summary_loc = gc_summary %>% separate(max_loc, c(NA, "col", "row", "cage", "slot", "node"),
+gc_summary_loc = gc_summary %>% tidyr::separate(max_loc, c(NA, "col", "row", "cage", "slot", "node"),
            sep = "[-csn]", convert = TRUE, remove = TRUE) %>% # c{col}-{row}c{cage}s{slot}n{node}
   mutate( col = as.factor(col), row = as.factor(row), cage = as.factor(cage), 
           slot = as.factor(slot), node = as.factor(node),
@@ -279,7 +289,7 @@ gc_summary_loc_censor4 = gc_summary_loc %>%
 **Output** gc_full to a CSV file
 ```{r}
 gc_write = as.data.frame(lapply(gc_summary_loc, as.character), stringsAsFactors = FALSE)
-write_csv(gc_write, paste0(out_dir, "gc_summary_loc.csv"), na = "", col_names = TRUE)
+readr::write_csv(gc_write, paste0(out_dir, "gc_summary_loc.csv"), na = "", col_names = TRUE)
 ```
 Get some stats for sanity check.
 ```{r}
