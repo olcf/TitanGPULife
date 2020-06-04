@@ -3,10 +3,6 @@
 knitr::opts_chunk$set(echo = TRUE)
 options(width = 150)
 
-#suppressMessages(library(data.table))
-#suppressMessages(library(tidyverse))
-#suppressMessages(library(lubridate))
-
 ## Function to mark overlapping life spans in unit (sn or location). Adds two
 ## variables: overlap_unit and overlap_rec, marking all records in a unit and
 ## specific overlapping record in a unit, respectively.
@@ -69,7 +65,7 @@ plot.life_ev = function(glife, gevents, unit, file = FALSE, overlaps = TRUE,
                        axis.title.x = element_blank())
 
   if(is.character(file)) {
-    pdf(paste0(out_dir, file, ".pdf"),
+    pdf(paste0(out_figs, file, ".pdf"),
       height = as.integer(nu/18 + 0.1, width = 6))
     print(p)
     dev.off()
@@ -82,7 +78,7 @@ plot.life_ev = function(glife, gevents, unit, file = FALSE, overlaps = TRUE,
 ## blanks replaced by underscores and .pdf appended. Also echoes to console 
 ## print by default - optional.
 ggp = function(p, width = 7, height = 7, file = "gpp", echo = TRUE) {
-  pdf(paste0(out_dir, file, "%03d.pdf"), width, height,
+  pdf(paste0(out_figs, file, "%03d.pdf"), width, height,
       onefile = FALSE)
   print(p)
   dev.off()

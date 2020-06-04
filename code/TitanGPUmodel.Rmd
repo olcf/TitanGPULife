@@ -24,10 +24,10 @@ library(survminer)
 library(forestmodel)
 
 
-out_dir = "../figs/" # paper related figures will go here
-in_dir = "../data/" # input files live here
-history_file = paste0(in_dir, "titan.gpu.history.txt")
-service_nodes = paste0(in_dir, "titan.service.txt")
+out_figs = "../figs/" # paper related figures will go here
+data_dir = "../data/" # input files live here
+history_file = paste0(data_dir, "titan.gpu.history.txt")
+service_nodes = paste0(data_dir, "titan.service.txt")
 source("TitanGPUsetup.R")
 Rmd.time = proc.time()
 ```
@@ -224,7 +224,7 @@ gc_full = gc_fulljoin %>% group_by(SN, remove, location) %>%
 **Output** gc_full data frame to a CSV file for TBF analysis with Python code
 ```{r}
 gc_write = as.data.frame(lapply(gc_full, as.character), stringsAsFactors = FALSE)
-readr::write_csv(gc_write, paste0(out_dir, "gc_full.csv"), na = "", col_names = TRUE)
+readr::write_csv(gc_write, paste0(data_dir, "gc_full.csv"), na = "", col_names = TRUE)
 ```
 **Message to reader of file:** All fields are character strings. Dates are with timezone. Missing values as "<NA>" strings.
 
@@ -289,7 +289,7 @@ gc_summary_loc_censor4 = gc_summary_loc %>%
 **Output** gc_full to a CSV file
 ```{r}
 gc_write = as.data.frame(lapply(gc_summary_loc, as.character), stringsAsFactors = FALSE)
-readr::write_csv(gc_write, paste0(out_dir, "gc_summary_loc.csv"), na = "", col_names = TRUE)
+readr::write_csv(gc_write, paste0(data_dir, "gc_summary_loc.csv"), na = "", col_names = TRUE)
 ```
 Get some stats for sanity check.
 ```{r}
@@ -327,8 +327,6 @@ I tried disassembling the *SN* into digits and did not find any compelling resul
 
 Now for Kaplan-Meier analysis ...
 ```{r fig.height = 8}
-library(survival)
-library(survminer)
 ggp(ggsurvplot(survfit(
   Surv(years, dead, type = 'right') ~ node, data = gc_summary_loc),
   facet.by = c("batch", "cage"), conf.int = TRUE, risk.table = TRUE,
@@ -358,7 +356,6 @@ gc_summary_loc_o = gc_summary_loc %>% filter(batch == "old")
 gc_summary_loc_n = gc_summary_loc %>% filter(batch == "new")
 
 col2torus = order(c(0, seq(1, 23, 2), seq(24, 2, -2)))
-library(forestmodel)
 panels = list(
   forest_panel(width = 0.03),
   forest_panel(width = 0.10, display = variable, fontface = "bold",
