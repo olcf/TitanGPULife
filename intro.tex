@@ -55,18 +55,22 @@ the final rework cycle, replacing 11,000 GPUs throughout much of 2017.
 Finding the root cause for the 2016 failures took a great deal of
 testing and the involvement of materials science and microscopy
 researchers. The failures were traced to a resistor on the GPU circuit
-board (not the GPU chip iself) \fix{Was anything published about this?
-  If not, let's use \cite{Vargas2009TheCO}}. Throughout this paper,
-  when we refer to replacing the GPU, we refer to the entire
-  circuitboard along with its GPU chip.
+board (not the GPU chip iself) due to silver sulphide
+corrosion. \fix{Was anything published about this?  If not, let's use:
+  Growth of such corrosion products in ambient air on microelectroncs
+  parts is described in \cite{Vargas2009TheCO} and is cosistent with
+  failures starting only after a critical amount of corrosion builds
+  up, a situation that matches the experience on Titan}.
 
-Our analysis focuses on GPU boards that were installed in the second
-rework cycle and later, essentially units installed near the beginning
-of 2014 and later. Figure~\ref{fig:chronology} is the only one
-involving data prior to 2014. All analyses and figures that follow use
-data from 2014 onward. We make the data as well as our analysis R
-codes and Python codes to reproduce the graphics in this paper
-publicly available (see, \cite[repository to be added in final
+Throughout this paper, when we refer to replacing the GPU, we refer to
+the entire circuitboard along with its GPU chip. Our analysis focuses
+on GPU boards that were installed in the second rework cycle and
+later, essentially units installed near the beginning of 2014 and
+later. Figure~\ref{fig:chronology} is the only one involving data
+prior to 2014. All analyses and figures that follow use data from 2014
+onward. We make the data as well as our analysis R codes and Python
+codes to reproduce the graphics in this paper publicly available (see,
+\cite[repository to be added in final
 version]{repositoryreference,rcodes,pycodes}).  While the data is only
 a 7 MB file, due to the size of Titan it represents over 100,000
 collective years of GPU operation and may be the largest publicly
