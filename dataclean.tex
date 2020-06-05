@@ -23,9 +23,10 @@ remaining, which we also removed to have a clean set of units for the
 analysis. We do some further processing to handle time overlaps in a
 tiny fraction (under 0.0007 in GPU life and 0.0002 in location life)
 of recorded life in the raw records by simply dropping the overlapping
-life times. \rev{A detailed followup of a few overlaps found that they
-  are caused by incomplete inventories, where a node query times out,
-  creating the appearance that a unit is in two locations.}
+life times. \rev{A detailed followup of a few of these overlaps found
+  that they are caused by incomplete inventories, where for a moved
+  GPU a node query of times out, creating the appearance that a unit
+  is in two locations.}
 
 Next, we aggregate into one record per serial number with a total life
 time, the first insert time, the last remove time, and a number of

@@ -14,9 +14,13 @@ substantive addition is a new result that job scheduling and folded
 torus interconnect were contributing factors to temperature patterns,
 and explain a peculiar interleaving column hazard variability.
 
+We have added more explantion to most figures, making them more
+self-contained and relevant to our conclusions.
+
 Reviewer 1:
 
-(C) Figure 2 is improved and corrected. The inventory dates are the same
+(C)
+Figure 2 is improved and corrected. The inventory dates are the same
 for old and new batches, except that new units begin to appear in 2016 and
 this is evident from the year colors.
 
@@ -30,4 +34,37 @@ interpretation (V.-6th paragraph).
 
 Reviewer 2:
 
-(C) We have strengthened our explanations
+(C)
+We have strengthened our explanations in several sections and
+particularly around our airflow explanation in Fig.4. Both substantive
+improvements described above relate to this point, on one hand
+strengthening it with temperature data, and on the other hand also finding
+a more nuanced impact of scheduling.
+
+(D)
+Section 3: see changes in first paragraph.
+
+
+Reviewer 3:
+
+(C)
+Generalization: This analysis is already generating interest from
+Summit operations. A lesson learned is that Titan was not well
+instrumented for data collection - thus our difficulty in obtaining
+temperature data. Frontier will likely have even more
+instrumentation.
+
+Novelty in graphics: Figures 1 and 5 were specifically designed for
+this data using R's amazingly high-level and flexible ggplot2
+concepts. Figures 10-13 are standard in R's survival analysis
+packages. 
+
+(D)
+
+
+Reviewer 4:
+
+(C)
+
+
+(D)
