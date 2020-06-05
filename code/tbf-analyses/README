@@ -1,0 +1,11 @@
+The tbf_analyses.py code requires the following data file:
+    - 'gc_full.csv' which is assumed to be present in the following directory: ../../data/
+    
+All output figures (in PDF format) will be written to the following directory: ../../figs/
+
+Prerequisite: Python 3 is required to run this code. This code was tested with python 3.8, 
+	      although there are no strict requirements as long as Python 3 is available.
+
+	      The matplotlib library is required for generating the plots.
+
+
