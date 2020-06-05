@@ -55,12 +55,10 @@ Generalization: This analysis is already generating interest from
 Summit operations. A lesson learned is that Titan was not well
 instrumented for data collection - thus our difficulty in obtaining
 temperature data. Frontier will likely have even more
-instrumentation.
+instrumentation. We now note this in our conclusions.
 
-Novelty in graphics: Figures 1 and 5 were specifically designed for
-this data using R's amazingly high-level and flexible ggplot2
-concepts. Figures 10-13 are standard in R's survival analysis
-packages. 
+Novelty: We have added notes about novelty in the visualizations and
+our analysis in the introduction.
 
 (D)
 
