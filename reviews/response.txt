@@ -15,7 +15,10 @@ torus interconnect were contributing factors to temperature patterns,
 and explain a peculiar interleaving column hazard variability.
 
 We have added more explantion to most figures, making them more
-self-contained and relevant to our conclusions.
+self-contained and relevant to our conclusions. We also made some
+small but useful tweaks in our narrative that is not highlited in blue
+so as to not distract from the more substantive changes responding to
+reviewer comments.
 
 Reviewer 1:
 
