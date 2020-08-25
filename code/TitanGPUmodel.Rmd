@@ -1,12 +1,16 @@
 ---
-title: "Titan GPU model"
-author: "GO"
+title: "Titan GPU models"
+author: "George Ostrouchov"
 output:
   html_document:
     css: style.css
     theme: cerulean
 ---
-```{r setup, include=FALSE}
+
+R scripts to accompany SC20 paper "GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability" by George Ostrouchov, Don Maxwell, Rizwan Ashraf, Christian Engelmann, Mallikarjun Shankar, and James Rogers.
+
+
+```{r setup}
 options(repos = c(CRAN = "http://cran.rstudio.com")) # set CRAN mirror
 installed = installed.packages()
 if(! "remotes" %in% installed) install.packages("remotes")
@@ -22,21 +26,28 @@ library(lubridate)
 library(survival)
 library(survminer)
 library(forestmodel)
+sessionInfo()
+```
 
-
+The above documents software versions and platform that was used to run the analysis.
+```{r}
 out_figs = "../figs/" # paper related figures will go here
 data_dir = "../data/" # input files live here
 history_file = paste0(data_dir, "titan.gpu.history.txt")
 service_nodes = paste0(data_dir, "titan.service.txt")
-source("TitanGPUsetup.R")
+
+source("TitanGPUsetup.R") ## define some additional functions
 Rmd.time = proc.time()
 ```
-`r`
-Read the data. Last inventory was run 01/20/2020 but Titan was turned off on 08/01/2019
+
+**Read the data**. 
+
+Last inventory files processing was done on 01/20/2020 but Titan was turned off on 08/01/2019 so change these *remove* dates.
 ```{r}
 g_raw = fread(history_file, col.names = c("SN", "location", "insert", "remove"))
-g_raw$remove[stringr::str_starts(g_raw$remove, "01/20/2020")] =
-  "08/01/2019 20:07:33"
+lastrun_dates = stringr::str_starts(g_raw$remove, "01/20/2020")
+g_raw$remove[lastrun_dates] = "08/01/2019 20:07:33"
+cat("Total of", sum(lastrun_dates), "remove dates changed to lights-out date")
 cat("Total of", (unique_SN = length(unique(g_raw$SN))), "unique SN\n")
 cat("Total of", (unique_loc = length(unique(g_raw$location))),
     "unique locations\n")
@@ -44,7 +55,7 @@ cat("Total of", (unique_loc = length(unique(g_raw$location))),
 
 **Enable DST corrected dates** for *insert* and *remove* with Eastern time zone.
 **Enable missing values**, and **create** some new variables.
-Variable *event* is "life" when both *insert* and *remove* are present, "life0" when *insert* = *remove*, otherwise it is whatever string is in *insert*, which is "DBE" or "Off The BUS" (renamed to "OTB"). 
+Variable *event* is "life" when both *insert* and *remove* are present, "life0" when *insert* = *remove*, otherwise it is whatever string is in *insert*, which is "DBE" or "Off The BUS" (re-coded to "OTB"). 
 **Fill in** (repeat) serial numbers and locations for all records.
 ```{r}
 time_zone = "America/New_York"
@@ -62,18 +73,22 @@ g_ev = g_raw %>%
          SN = ifelse(SN == "", as.character(NA), SN), # blank to NA for zoo
          SN = zoo::na.locf(SN), # fill in missing SN (forward)
          SN_ok = grepl("[0-9]{13}", SN), # verify that SN is 13 numbers
-         location = zoo::na.locf(location), # fill in missing location (forward)
+         location = zoo::na.locf(location), # fill in missing location forward
          location_ok = grepl("c[0-9][0-9]?-[0-7]c[0-2]s[0-7]n[0-3]", location))
 ```
 
-**List** bad SN and bad location raw data. **Remove** bad SN and bad location data. **Read and remove** service node data.
-```{r fig.width = 10}
+**List** bad SN and bad location raw data. **Remove** bad SN and bad location data. Cause is unknown but there are very few.
+```{r}
 good_date_remove = lubridate::mdy_hms("01/01/2014 00:00:00", tz = time_zone)
 good_date_insert = lubridate::mdy_hms("11/01/2013-00:00:00", tz = time_zone)
 good_date_last = lubridate::mdy_hms("12/01/2016 00:00:00", tz = time_zone)
 
 g_raw[!g_ev$SN_ok, ]  # list bad SN records
 g_raw[!g_ev$location_ok, ] # list bad location records
+```
+
+**Read** service nodes and remove associated data.
+```{r}
 service = fread(service_nodes, col.names = c("node", "loc", "location", "type", "up", "run"))
 cat("Total of", (unique_sloc = length(unique(service$location))),
     "unique service locations\n")
@@ -87,18 +102,12 @@ gc_ev = g_ev %>%
 cat("Total of", (unique_SN = length(unique(gc_ev$SN))), "unique clean SN\n")
 cat("Total of", (unique_loc = length(unique(gc_ev$location))),
     "unique clean locations\n")
-top_remove_dates = sort(table(g_ev$remove), decreasing = TRUE)[1:25]
-trdat = top_remove_dates[order(names(top_remove_dates))]
-top_insert_dates = sort(table(g_ev$remove), decreasing = TRUE)[1:25]
-top_insert_dates[order(names(top_insert_dates))]
-trd_all = data.frame(ht = ifelse(as.numeric(trdat) < 2000, 2000, 
-                                 as.numeric(trdat)*0.95),
-                     date = as.POSIXct(names(trdat)))
-trd = trd_all[c(1:7, 20:25), ]
+```
 
+Make a chronology plot of Titan GPU life. Overlay yearly histogram over daily histogram. Yearly excludes data before *good_date_remove*. Both plots are restricted to "life" records only. (Note to reviewers: an earlier manuscript version included "life0" "DBE" "OTB" events in this chronology, artificially inflating GPU swap numbers, mostly in the first year.)
+```{r  fig.width = 10}
 ggp(ggplot(filter(g_ev %>% filter(event == "life"), remove < max(remove)), aes(remove)) + 
       geom_histogram(
-#        data = filter(g_ev, remove < max(remove)),
         data = filter(g_ev, remove >= good_date_remove, remove < max(remove)),
         mapping = aes(remove), binwidth = 60*60*24*365, alpha = 0.2,
         boundary = good_date_remove) +
@@ -106,20 +115,6 @@ ggp(ggplot(filter(g_ev %>% filter(event == "life"), remove < max(remove)), aes(r
       theme(axis.title.x = element_blank()) + scale_x_datetime(breaks = "1 year"), #+
 #      scale_y_continuous(limits = c(0, 9250), breaks = seq(0, 9000, 1000)),
     file = "chronology", width = 10, height = 3)
-```
-The next analysis looks at *life0* events, plots their frequency, and lists a sample of 10 such events in the raw input data.
-```{r}
-d2013a = as.POSIXlt.character("2014-05-30 00:00:00 EST")
-d2013b = as.POSIXlt.character("2014-06-23 00:00:00 EST")
-zeros = g_ev %>% filter(event == "life0" | event == "life", remove > d2013a, remove < d2013b)
-ggplot(zeros, aes(remove)) + 
-#      geom_histogram(data = zeros,
-#        mapping = aes(remove), binwidth = 60*60*24*182.5, alpha = 0.2,
-#        boundary = good_date_remove) +
-      geom_histogram(binwidth = 60*60, color = "blue") + theme_bw() +
-      theme(axis.title.x = element_blank()) + scale_x_datetime(breaks = "1 day") + ylim(c(0, 25))
-sn_zeros = zeros$SN[sample(length(zeros$SN), 10)]
-for(sn in sn_zeros) print(g_raw[(i = which(g_raw$SN == sn)):(i+10), ])
 ```
 
 Begin data selection by removing all GPU life times that have *remove* date before *good_date* and all that have zero life times. The premise is that record keeping was different and possibly inconsistent before *r good_date*. **gc_ev_nzg** is used in many analyses going forward. Five original SNs remain after this and are removed manually to have a clean "post 2nd rework cycle" data set. 
@@ -134,7 +129,8 @@ cat("gc_ev dim", dim(gc_ev), "processed into gc_ev_nzg dim", dim(gc_ev_nzg), "\n
 cat("before good_date", sum(gc_ev$remove <= good_date_remove, na.rm = TRUE), ": life0",
     sum(gc_ev$event == "life0", na.rm = TRUE), "remove is NA", sum(is.na(gc_ev$remove)), "\n")
 ```
-**Mark time overlaps within SN, then remove SN records that overlap and plot before-after**. 
+
+**Mark time overlaps within SN, then remove the overlap record and plot before-after**. 
 SN time overlaps are possible when an inventory is incomplete. A unit is not detected as removed, yet is detected as inserted in a different location - thus the SN appears at both locations until the next inventory.
 ```{r fig.height = 10}
 gc_life = mark.overlaps(gc_ev_nzg %>% filter(event == "life") %>%
@@ -143,18 +139,32 @@ gc_ev_fail = gc_ev_nzg %>% select(SN, remove, location, event) %>%
   filter(event != "life") %>% arrange(SN, remove, location) %>%
   mutate(event = fct_drop(event))
 plot.life_ev(gc_life, gc_ev_nzg, SN, overlaps = TRUE, outs = FALSE, file = "overlap_SN")
+```
+
+Now the same SN after removing overlap records:
+```{r fig.height=10}
 gc_life = gc_life %>% filter(!overlap_rec)
 plot.life_ev(gc_life, gc_ev_nzg, SN, overlaps = TRUE, outs = FALSE, file = "overlap_SN_after") 
 ```
-For locations, **remove only the overlapping life** but keep the rest of the SN. The overlaps seem very short so this makes sense. Why do location overlaps exist? In some cases, they seem to be the full blade of 4 GPUs. Blades were sometimes hot-swapped by CRAY and if this was during an inventory run, the results could be unpredictable. **Plot overlap at locations again after removing the offending life spans.*
+
+For locations, **remove only the overlapping life** but keep the rest of the SN. The overlaps seem very short so this makes sense. Why do location overlaps exist? In some cases, they seem to be the full blade of 4 GPUs. Blades were sometimes hot-swapped by CRAY and if this was during an inventory run, the results could be unpredictable.
 ```{r fig.height = 10}
 gc_life = mark.overlaps(gc_life, location)
-plot.life_ev(gc_life, gc_ev_nzg, location, overlaps = TRUE, outs = FALSE, file = "overlap_Loc")
+plot.life_ev(gc_life, gc_ev_nzg, location, overlaps = TRUE, outs = FALSE, 
+             file = "overlap_Loc")
+```
 
-for(i in which(g_raw$location == "c7-7c0s7n3")) print(g_raw[(i-5):i, ])
-for(i in which(g_raw$location == "c22-0c2s0n0")) print(g_raw[(i-5):i, ])
+Print raw data for a few overlap locations to understand reasons:
+```{r}
+for(i in which(g_raw$location == "c7-7c0s7n3")) print(g_raw[(i-5):(i+5), ])
+for(i in which(g_raw$location == "c22-0c2s0n0")) print(g_raw[(i-5):(i+5), ])
+```
+
+**Plot overlap at locations again after removing the offending life spans.**
+```{r fig.height = 10}
 gc_life = gc_life %>% filter(!overlap_rec)
-plot.life_ev(gc_life, gc_ev_nzg, location, overlaps = TRUE, outs = FALSE, file = "overlap_Loc_after")
+plot.life_ev(gc_life, gc_ev_nzg, location, overlaps = TRUE, outs = FALSE, 
+             file = "overlap_Loc_after")
 ```
 After removing overlaps, determine *out* = "last seen" record that may indicate censoring
 ```{r}
@@ -162,28 +172,33 @@ gc_life = gc_life %>% group_by(SN) %>%
   mutate(out = if_else(remove == max(remove) & remove < last_inventory,
                                      TRUE, FALSE)) %>% ungroup()
 ```
-**Inventory interval analysis**
+
+**Inventory interval analysis**. Use differences between sorted unique *insert* and *remove* dates of "life" records to determine inventory intervals.
 ```{r fig.width=10, fig.height=4}
 life_insert = gc_life$insert # collect insert dates
 life_remove = gc_life$remove # collect remove dates
-dates_dbe = sort(unique(filter(gc_ev_fail, event == "DBE")$remove)) # unique DBE dates
-dates_otb = sort(unique(filter(gc_ev_fail, event == "OTB")$remove)) # unique OTB dates
 dates_life = sort(unique(c(life_insert, life_remove))) # unique insert,remove
 
 life_intervals =
   data.frame(days = as.numeric(diff(dates_life))/(60*60*24),
-             year = factor(as.character(year(dates_life[-1])))) %>% filter(days >= 1) %>% 
+             year = factor(as.character(year(dates_life[-1])))) %>% 
+  filter(days >= 1) %>% 
   mutate(days = factor(as.integer(floor(days)), levels = 1:56))
 ggp(ggplot(life_intervals, aes(days, fill = year)) + stat_count() +
       scale_x_discrete(breaks = seq(1, 56, 2), drop = FALSE) + theme_bw(),
     file = "attention_intervals", height = 3)
 ```
 
+Seems longest interval without an inventory is 56 days!
+
+Next, sample a few SN and locations to display a sense of GPU life for the paper.
 ```{r}
-nsample = 88 # the max number for a full page pair of figures
+## set sampling for SN and Locations display
+nsample = 90 # the max number for a full page pair of figures
 set.seed(76513)  # for reproducibility!
 fig_height = as.integer(nsample*0.1 + 0.5)
 ```
+
 **Plot a sample** of `r nsample` GPUs to check that things look right ...
 * starts: black dots (gray for zero lifetime)
 * lifetimes: black lines
@@ -208,8 +223,6 @@ life_sample = gc_life %>% filter(location %in% loc_sample) %>%
 plot.life_ev(life_sample, ev_sample, location, "sample_loc", overlaps = FALSE)
 ```
 
-Add a % uptime in a location histogram. Might be a good diagnostic
-
 Reduce to only "life" records and mark them with ending DBE, OTB, "out", or none events. The result is just *insert* and *remove* with *event* marks to indicate DBE or OTB or "out" (last seen). *bad* indicates that a DBE or OTB occurred yet the GPU was not taken out. For a first cut, keep the *bad* ones in. Also keep *duration* to later aggregate into full life times.
 
 ```{r}
@@ -221,12 +234,21 @@ gc_full = gc_fulljoin %>% group_by(SN, remove, location) %>%
          duration = if_else(row_number() > 1, as.numeric(NA), as.numeric(duration)),
          out = if_else(row_number() > 1, as.logical(NA), out)) %>% ungroup()
 ```
+
 **Output** gc_full data frame to a CSV file for TBF analysis with Python code
 ```{r}
 gc_write = as.data.frame(lapply(gc_full, as.character), stringsAsFactors = FALSE)
 readr::write_csv(gc_write, paste0(data_dir, "gc_full.csv"), na = "", col_names = TRUE)
 ```
+
 **Message to reader of file:** All fields are character strings. Dates are with timezone. Missing values as "<NA>" strings.
+
+**Print raw records** for Figure 3:
+```{r}
+for(i in which(g_raw$SN == "0323812007945")) print(g_raw[(i-5):(i+5), ])
+for(i in which(g_raw$SN == "0325216047736")) print(g_raw[(i-5):(i+5), ])
+for(i in which(g_raw$SN == "0323812008856")) print(g_raw[(i-5):(i+5), ])
+```
 
 Next, aggregate into one record per *SN* with total life time and first *insert* time. Indicate if event occurred or still in service: out = fail, dbe = fail, otb = fail, NA = right censored (still in service). Add some other variables, such as GPU in single location or moved one or more times, mark *new_batch* group, etc. to use in modeling later.
 
@@ -255,7 +277,7 @@ gc_summary = gc_full %>% arrange(SN, remove) %>% group_by(SN) %>%
 gc_summary
 ```
 
-**Separate max_loc** into components (col, row, cage, slot, node). Note that this is the place this *SN* was located the longest. This muddies the hazard analysis somewhat as several locations can be the "treatment" for a given *SN*. But the proportions of time at max_loc tend to be very high. Time-dependent covariates, see: https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf
+**Separate max_loc** into components (col, row, cage, slot, node) to be used as covariates in survival analysis. Note that this location is the place this *SN* was located the longest. This muddies the survival analysis somewhat as several locations can be the "treatment" for a given *SN*. But the proportions of time at max_loc tend to be very high (see later analysis below). 
 ```{r}
 gc_summary_loc = gc_summary %>% tidyr::separate(max_loc, c(NA, "col", "row", "cage", "slot", "node"),
            sep = "[-csn]", convert = TRUE, remove = TRUE) %>% # c{col}-{row}c{cage}s{slot}n{node}
@@ -286,11 +308,14 @@ gc_summary_loc_censor4 = gc_summary_loc %>%
          days = if_else(batch == "old" & years > 4, 4*365, days),
          years = if_else(batch =="old" & years > 4, 4, years))  # censor at 4 years
 ```
+
+This is the second data set we make available.
 **Output** gc_full to a CSV file
 ```{r}
 gc_write = as.data.frame(lapply(gc_summary_loc, as.character), stringsAsFactors = FALSE)
 readr::write_csv(gc_write, paste0(data_dir, "gc_summary_loc.csv"), na = "", col_names = TRUE)
 ```
+
 Get some stats for sanity check.
 ```{r}
 cat("Total", nrow(gc_summary_loc), "unique lifetimes\n")
@@ -298,9 +323,12 @@ cat("  Censored:", sum(!gc_summary_loc$dead), "  dead:", sum(gc_summary_loc$dead
     "  Known alive:", sum(!gc_summary_loc$out), "\n")
 cat("  DBE or OTB during life:", sum(gc_summary_loc$dbe > 0 | gc_summary_loc$otb >0), "\n")
 cat("           More than one:", sum(gc_summary_loc$dbe + gc_summary_loc$otb > 1, na.rm = TRUE), "\n")
-ggplot(gc_summary_loc, aes(x = time)) + geom_histogram(bins = 60) + ggtitle("GPU Life Times")
-ggplot(gc_summary_loc, aes(x = time)) + geom_histogram(bins = 60) + 
-  facet_wrap(~ batch) + ggtitle(paste("GPU Life Times - new and old"))
+```
+
+Nothing really remarkable in the stats. Censored + dead = total unique. Most with a DBE or OTB are marked dead. A few, 101 units (= 5190 - 5089) with DBEs or OTBs are still alive (that's just under 2%). 551 units (about 10%) had more than one DBE or OTB.
+
+Look at life proportion at longest location:
+```{r}
 ggplot(gc_summary_loc, aes(x = time_max_loc)) + geom_histogram(bins = 200) +
   ggtitle("Life Proportion at Longest Location") + theme_bw()
 ggplot((gc_summary_loc %>% filter(dead)), aes(x = time_max_loc)) +
@@ -308,24 +336,12 @@ ggplot((gc_summary_loc %>% filter(dead)), aes(x = time_max_loc)) +
       ggtitle("Life Proportion at Longest Location - Dead Only")
 ```
 
-Kaplan-Meier survival analysis gives the probability of survival beyond a given time. It is a nonparametric technique that makes no specific failure model assumptions, such as Weibull, Exponential, etc. It can also split the data into subpopulations and compute separate survival curves.
-
-If $T$ is taken to be the random variable of a GPU fail time, then its probability density function is $f(t)$ and its cumulative distribution function $F(t) = Pr\{T < t\}$ gives the probability that a GPU fails by duration $t$. The survival function is then
-$$S(t) = Pr\{T \geq t\} = 1 - F(t) = \int_t^\infty f(x)dx,$$ 
-which is the probability of being operational just before duration $t$.
-
-A sister concept to the survival function is the hazard function:
-$$H(t) = \frac{f(t)}{S(t)},$$
-which is what is sometimes called the "bathtub" curve in reliability.
-
-Units removed without a DBE are right-censored! They are not failures!
-
-Next, we consider splitting the GPU into groups - installed before 2016 (old) or later (new).
+The overwhelming majority of time is spent in the "longest" location so it is reasonable to assume the the longest location is the "treatment" of a GPU. But a time-dependent analysis is possible from the current data with some additional re-coding and following this time-dependent covariates technique: https://cran.r-project.org/web/packages/survival/vignettes/timedep.pdf. We hope that others will undertake this more detailed analysis from our data.
 
 **SN categories**
-I tried disassembling the *SN* into digits and did not find any compelling results.
+We tried disassembling the *SN* into digits but did not find compelling relationship with life times except the known new-batch old-batch differences.
 
-Now for Kaplan-Meier analysis ...
+**Kaplan-Meier survival analysis** gives the probability of survival beyond a given time. It is a nonparametric technique that makes no specific failure model assumptions, such as Weibull, Exponential, etc. It can also split the data into subpopulations based on the covariates and compute separate survival curves.
 ```{r fig.height = 8}
 ggp(ggsurvplot(survfit(
   Surv(years, dead, type = 'right') ~ node, data = gc_summary_loc),
@@ -335,21 +351,22 @@ ggp(ggsurvplot(survfit(
   break.y.by = 0.1, censor = FALSE),
   width = 10.5, height = 6, file = "km_cage-node_a")
 ```
-Consider diagnostics for proportionalty.
-```{r}
-fit = coxph(Surv(years, dead, type = 'right') ~ row + col + cage + slot + node,
-            data = gc_summary_loc_o)
-## below seems to have an issue with RStudio: 
-## https://community.rstudio.com/t/ggcoxdiagnostics-warning-message/51867
-## ggcoxdiagnostics(fit, type = "schoenfeld", ox.scale = "time")
-test.ph = cox.zph(fit)
-ggcoxzph(test.ph)
-```
+
 The Cox proportional hazards (CPH) regression analys takes the hazard function above and a set of covariates $x$ and models $k$s GPU hazard as
 $$H_k(t) = H_0(t)e^{\sum\limits_{i=1}^n{\beta x}}$$
 That is, a base hazard rate multiplied by a function of covariates. The key assumption in the CPH model is that the "hazards" are multipliers on the "baseline hazard" but the estimate of the baseline hazard is nonparametric, meaning it makes no specific distributional assumption and just learns from the data (unlike analyses that assume for example a Weibul or an exponential model). The multiplicative assumption is that the hazard curves do not cross and are multiples of each other. The multiplier is the *hazard coefficient*. For example, if the baseline is *node0* and the *node2* hazard is 2, then *node2* sees twice as many failures as *node0* on average.
 
-For our comparison of hazards, we use as *covariates* all the unpacked location variables, indicators whether the GPU has been moved, and our notion of old and new GPUs based on first install date. Some GPUs experience time at more than one location but these are few. We use the longest period location in this analysis. We do separate analysis for old and new batches.
+First, consider some diagnostics for proportionalty:
+```{r fig.width = 10, fig.height = 11}
+fit = coxph(Surv(years, dead, type = 'right') ~ row + col + cage + slot + node,
+            data = gc_summary_loc_o)
+test.ph = cox.zph(fit)
+ggcoxzph(test.ph)
+```
+
+The fit lines are supposed to be horizontal for the proportionality assumption to be satisfied. They are all nearly horizontal. On the other hand, all the significance tests can detect a departure from horizontal because we have so much data. We interpret this that we have enough data to do time-dependent analysis (see comment on this above) but that the hazard proportionality is fairly good. To err on the conservative side, we use the results to make qualitative conclusions and are careful to not over-interpret the actual hazard levels.
+
+So now the CPH model:
 ```{r fig.width = 5, fig.height = 10}
 response = "Surv(time, event = dead) ~"
 gc_summary_loc_o = gc_summary_loc %>% filter(batch == "old")
