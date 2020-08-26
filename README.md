@@ -12,6 +12,6 @@ George Ostrouchov, Don Maxwell, Rizwan A. Ashraf, Mallikarjun Shankar, and James
 - Includes output data files produced by code/TitanGPUmodel.Rmd
   - data/gc_full.csv - cleaned up data (see paper and R code)
   - data/gc_summary_loc.csv - one record per GPU (variables: SN,time,nlife,nloc,last,col,row,cage,slot,node,max_loc_events,time_max_loc,dbe,dbe_loc,otb,otb_loc,out,batch,days,years,dead,dead_otb,dead_dbe) (see paper and R code)
-- Includes .Rmd analysis document as TitanGPUmode.html
+- Includes .Rmd analysis output document as TitanGPUmodel.html
 - Includes Python code to process data/gc_full.csv into graphics from time-between-failure analyses
   - See code/tbf-analyses/README for instructions
