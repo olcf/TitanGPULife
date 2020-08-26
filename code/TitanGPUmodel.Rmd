@@ -9,6 +9,8 @@ output:
 
 R scripts to accompany SC20 paper "GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability" by George Ostrouchov, Don Maxwell, Rizwan Ashraf, Christian Engelmann, Mallikarjun Shankar, and James Rogers.
 
+If using this code or this work, please cite the above paper in your work.
+
 
 ```{r setup}
 options(repos = c(CRAN = "http://cran.rstudio.com")) # set CRAN mirror

@@ -4,6 +4,8 @@ This repository contains data, R code, and Python code to accompany the SC20 pap
 
 George Ostrouchov, Don Maxwell, Rizwan A. Ashraf, Christian Engelmann, Mallikarjun Shankar, and James H. Rogers. 2020. GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC '20). Association for Computing Machinery, New York, NY, USA
 
+If using this data or code, please cite the above paper in your work.
+
 - Includes R code to generate graphics for paper and additional analyses
   - See code/README for instructions
 - Includes original Titan GPU reliability data on over 100,000 collective hours of operation
