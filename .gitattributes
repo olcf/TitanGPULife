@@ -1,2 +1,2 @@
 *.Rmd linguist-language=R
-*.html -linguist-documentation
+*.html linguist-documentation
