@@ -1,5 +1,8 @@
 #### This code was used for time-between-failure (TBF) analysis in the following paper:
-## George Ostrouchov, Don Maxwell, Rizwan A. Ashraf, Christian Engelmann, Mallikarjun Shankar, and James H. Rogers. 2020. GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC '20). Association for Computing Machinery, New York, NY, USA.
+## George Ostrouchov, Don Maxwell, Rizwan A. Ashraf, Christian Engelmann, Mallikarjun Shankar, and James H. Rogers. 2020. 
+## GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability. In Proceedings of the International Conference  
+## for High Performance Computing, Networking, Storage and Analysis (SC '20).  
+## Association for Computing Machinery, New York, NY, USA.
 ## ...
 #### If using this code or this work, please cite the above paper in your work.
 
@@ -7,7 +10,9 @@
 #### This code reads in a csv file with GPU failure data and does the following:
 ## 1. GPU-wise mean-time-between-failure (MTBF) analyses (see Fig-6 in paper).
 ## 2. System-wide mean-time-between-failure analyses over lifetime (see Fig-7 through 9 in paper).
-## Note: currently, system-wide MTBF lifetime analysis is done over quarters (Jan-Mar, Apr-Jun, ...). It can be easily modified to be done over months or years. Moreover, GPU-wise MTBFs can be easily calculated based on locations in the machine (cages, columns, rows).  
+## Note: currently, system-wide MTBF lifetime analysis is done over quarters (Jan-Mar, Apr-Jun, ...). 
+## The code can be easily modified to perform MTBF calculations over months or years. 
+## Moreover, GPU-wise MTBFs can be easily calculated based on locations in the machine (cages, columns).  
 ####
 
 #### last modified: 2020-06-04 ##################################################################
