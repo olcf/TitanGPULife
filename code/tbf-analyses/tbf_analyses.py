@@ -1,14 +1,13 @@
-#### This code was used for time-between-failure analysis in the following paper (pending acceptance):
-## Authors list (TBD, hidden for review), ``GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability,'' 
-## The International Conference for High Performance Computing, Networking, Storage, and Analysis (SC20),
-## Atlanta, GA, Nov. 15-20, 2020.
+#### This code was used for time-between-failure (TBF) analysis in the following paper:
+## George Ostrouchov, Don Maxwell, Rizwan A. Ashraf, Christian Engelmann, Mallikarjun Shankar, and James H. Rogers. 2020. GPU Lifetimes on Titan Supercomputer: Survival Analysis and Reliability. In Proceedings of the International Conference for High Performance Computing, Networking, Storage and Analysis (SC '20). Association for Computing Machinery, New York, NY, USA.
 ## ...
 #### If using this code or this work, please cite the above paper in your work.
 
 
 #### This code reads in a csv file with GPU failure data and does the following:
-## 1. GPU-wise mean-time-between-failure analyses (see Fig-6 in paper).
+## 1. GPU-wise mean-time-between-failure (MTBF) analyses (see Fig-6 in paper).
 ## 2. System-wide mean-time-between-failure analyses over lifetime (see Fig-7 through 9 in paper).
+## Note: currently, system-wide MTBF lifetime analysis is done over quarters (Jan-Mar, Apr-Jun, ...). It can be easily modified to be done over months or years. Moreover, GPU-wise MTBFs can be easily calculated based on locations in the machine (cages, columns, rows).  
 ####
 
 #### last modified: 2020-06-04 ##################################################################
@@ -32,19 +31,27 @@ def epoch(timestring):
 def convertToTime(timestring):  
     return time.strptime(timestring, "%Y-%m-%d %H:%M:%S")
 
-#### Parse failure data, while recording failure times ##########################################
+#### Parse failure data #########################################################################
+## Populate various data-structures for use in analysis later on.
+## The following are recorded below:
+## failure times and type of failure (DBE: double bit error, or OTB: off-the-bus failure), 
+## insert times to calculate time to first failure (in some cases, insert times need to be gathered
+## from clean records based on location in the system. See input data for examples).
 
-# for time-wise breakdown of TBF
-ALL_RAW_DBE_DATETIMES = [] # includes both new and old
-ALL_RAW_OTB_DATETIMES = []
+# file path where csv file is located
+CSV_FILE_LOCATION = '../../data/gc_full.csv'
 
-ALL_DBE_EPOCHS = []
+# for time-wise breakdown of TBF (system-wide MTBF analysis)
+ALL_RAW_DBE_DATETIMES = [] # includes both new and old batch
+ALL_RAW_OTB_DATETIMES = [] 
+
+ALL_DBE_EPOCHS = [] # epoch: see https://www.epochconverter.com/ 
 ALL_OTB_EPOCHS = []
 
 ALL_RAW_DBE_dict = {} # these are later used to form old/new sets
 ALL_RAW_OTB_dict = {}
 
-# GPUwise TBF 
+# GPU-wise TBF 
 DBE_TBF_GPUwise = [] # includes both new and old
 OTB_TBF_GPUwise = []
 
@@ -68,11 +75,12 @@ bad_data_repeat = []
 DBE_count = 0
 OTB_count = 0
 
+### All data is parsed in the loop below.
 ## csv file: row[0] serial number, row[1] location, row[2] insert datetime, row[3] remove datetime, 
 ##           row[4] duration (seconds between insert and remove), 
 ##           row[5] indicates whether the GPU was seen after remove (true/false), 
 ##           row[6] event_type (DBE/OTB/None).
-with open ('../../data/gc_full.csv') as csv_file:
+with open (CSV_FILE_LOCATION) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
@@ -222,7 +230,7 @@ with open ('../../data/gc_full.csv') as csv_file:
 
 print ('Number of GPU SNs found: ', len(oldNew_dict_GPUwise), '\n')
 
-#### create old/new sets for DBE and OTB DATETIME/EPOCH #####################################
+#### Create old/new sets for DBE and OTB DATETIME/EPOCH #####################################
 ALL_RAW_DBE_DATETIMES__new = []  # to diff. old and new
 ALL_RAW_DBE_DATETIMES__old = []
 ALL_RAW_OTB_DATETIMES__new = []  # to diff. old and new
@@ -232,6 +240,9 @@ ALL_DBE_EPOCHS__new = []         # to diff. old and new
 ALL_DBE_EPOCHS__old = []
 ALL_OTB_EPOCHS__new = []         # to diff. old and new
 ALL_OTB_EPOCHS__old = []
+
+### Compare earliest insert time of each GPU with cutoff epoch for each failure type,
+### and populate data-structures for use in analysis later on.
 
 ### *** 1. DBE *** ###
 for i in ALL_RAW_DBE_dict:
@@ -288,7 +299,9 @@ for i in ALL_RAW_OTB_dict:
         print('ERR: logic issue while separating old and new OTB RAW data for GPU: ', i)
 
 #### PART A: TBF Analysis #####################################################################
-cnode = 'c\d+-\d+c(\d)+s\d+n\d+'
+cnode = 'c\d+-\d+c(\d)+s\d+n\d+'  # GPU location, see paper: Section III (pgs. 3 & 4)
+
+### Take simple difference of successive failure (DBE, OTB) times.
 
 ### *** 1. DBE *** ###
 DBE_TBF_dict_GPUwise = {}
@@ -346,7 +359,7 @@ for i in OTB_dict_GPUwise:
     # populate dict, everything should be unique
     OTB_TBF_dict_GPUwise[i] = times
 
-#### calculate avg TBF for each GPU #########################################################################
+#### Calculate MTBF for each GPU #######################################################################
 MTBF_DBE_GPUwise__old = []
 MTBF_DBE_GPUwise__new = []
 MTBF_OTB_GPUwise__old = []
@@ -394,13 +407,13 @@ for i in OTB_TBF_dict_GPUwise:
     else:
         print('ERR: old/new record not found during OTB TBF formation for GPU: ', i)
 
-### convert TBF to years for each GPU
+### Convert MTBF to years for each GPU
 MTBF_DBE_GPUwise_yrs__old = [x/(60*60*8760) for x in MTBF_DBE_GPUwise__old]
 MTBF_DBE_GPUwise_yrs__new = [x/(60*60*8760) for x in MTBF_DBE_GPUwise__new]
 MTBF_OTB_GPUwise_yrs__old = [x/(60*60*8760) for x in MTBF_OTB_GPUwise__old]
 MTBF_OTB_GPUwise_yrs__new = [x/(60*60*8760) for x in MTBF_OTB_GPUwise__new]
 
-# fig-6 SC20 paper
+### *** fig-6 SC20 paper. See page 6 *** Distribution of device-level MTBFs ###
 plt.figure(figsize=(16,8))
 
 # each bin is approx 2 weeks.
@@ -422,7 +435,7 @@ plt.tight_layout()
 
 plt.savefig('../../figs/MTBF_GPUwise_yrs_OldNew.pdf', dpi=600)
 
-#### PART B: Time sliced Analysis ######################################################################
+#### PART B: Time sliced System-wide MTBF Analysis #####################################################
 
 ### helper functions for time-slice analysis ###########################
 
@@ -631,22 +644,6 @@ for i in oldNew_dict_GPUwise:
 byMonthOutput_num__new = TimeSlicer(ALL_RAW_DATETIMES__new, byYear=False, byMonth=True)
 new_yrs, overall_Counts_Quarters_num__new = SortTimeSlicer(byMonthOutput_num__new, byYear=False, byMonth=False, byQuarter=True)
 
-# prepare num over time for plot starting from 2017-Q1
-proportions = [] # 2017-Q1 to 2019-Q2
-temp_sum = 0
-idx = 0
-flatten__overall_Counts_Quarters_num__new = sum(overall_Counts_Quarters_num__new, [])
-for i in range(len(flatten__overall_Counts_Quarters_num__new)):
-    if i < 5:
-        temp_sum += flatten__overall_Counts_Quarters_num__new[i]
-        if i == 4: 
-            proportions.append(temp_sum)
-    elif i > 4 and i < 14:
-        proportions.append(proportions[idx]+flatten__overall_Counts_Quarters_num__new[i])
-        idx = idx+1
-        
-proportions = [(x/TOTAL_NODES)*100 for x in proportions]
-
 # DBExOTB formed by union of DBE and OTB sets
 ALL_RAW_DBExOTB_DATETIMES = set(ALL_RAW_DBE_DATETIMES).union(set(ALL_RAW_OTB_DATETIMES))
 # DBExOTB formed by union of DBE and OTB sets  -- REDO for new/old  
@@ -773,8 +770,7 @@ MTBF_OTB_sys_Quarters__old = [x/(60*60) for x in MTBF_OTB_sys_Quarters__old]
 MTBF_DBExOTB_sys_Quarters__new = [x/(60*60) for x in MTBF_DBExOTB_sys_Quarters__new]
 MTBF_DBExOTB_sys_Quarters__old = [x/(60*60) for x in MTBF_DBExOTB_sys_Quarters__old]
 
-#### plot system-wide MTBF over time
-# fig-7 SC20 paper
+### *** fig-7 SC20 paper. See page 7 *** system-wide MTBF over time ###
 plt.figure(figsize=(12,6))
 
 # this includes data from 2014-Q1 to 2019-Q2. 2019-Q3 and 2019-Q4 are not included, 
@@ -801,7 +797,24 @@ plt.tight_layout()
 
 plt.savefig('../../figs/MTBF_quaterly_sys.pdf', dpi=600)
 
-# fig-9 SC20 paper
+### *** fig-9 SC20 paper. See page 7 *** system-wide MTBF over new and old partitions ###
+
+### prepare num over time for plot starting from 2017-Q1 
+proportions = [] # 2017-Q1 to 2019-Q2. the size of the new partition.
+temp_sum = 0
+idx = 0
+flatten__overall_Counts_Quarters_num__new = sum(overall_Counts_Quarters_num__new, [])
+for i in range(len(flatten__overall_Counts_Quarters_num__new)):
+    if i < 5:
+        temp_sum += flatten__overall_Counts_Quarters_num__new[i]
+        if i == 4:
+            proportions.append(temp_sum)
+    elif i > 4 and i < 14:
+        proportions.append(proportions[idx]+flatten__overall_Counts_Quarters_num__new[i])
+        idx = idx+1
+
+proportions = [(x/TOTAL_NODES)*100 for x in proportions]
+
 ### put 'inf' to match data lengths for NEW datasets -- REDO: diff b/w new and old
 ## 1. DBE (quarters)
 plot___MTBF_DBE_sys_Quarters__new = []
@@ -863,7 +876,7 @@ plt.tight_layout()
 
 plt.savefig('../../figs/MTBF_quaterly_sys_NewOldALL_newPart.pdf', dpi=600)
 
-#### plot number of failures over time #####################################################
+### *** fig-8 SC20 paper. See page 7 *** Number of DBE and OTB failures over time ###
 ## condition data for plotting using helper function
 plot__overall_Counts_Quarters_DBEs = plotCountDataConditioner(overall_Counts_Quarters_DBEs)
 plot__overall_Counts_Quarters_OTBs = plotCountDataConditioner(overall_Counts_Quarters_OTBs)
@@ -878,11 +891,10 @@ for i in range(len(overall_Counts_Quarters_DBEs__old)):
         else:
             plot___overall_Counts_Quarters_DBEs__new.append(overall_Counts_Quarters_DBEs__new[i-2][j])
 
-## condition data for plotting using helper function
 plot__overall_Counts_Quarters_DBEs__old = plotCountDataConditioner(overall_Counts_Quarters_DBEs__old)
 plot__overall_Counts_Quarters_OTBs__old = plotCountDataConditioner(overall_Counts_Quarters_OTBs__old)
 
-# fig-8 SC20 paper                                                                                                           
+## do the plot...
 plt.figure(figsize=(12,6))
 
 ind = np.arange(len(plot__overall_Counts_Quarters_DBEs[0:22]))    # the x locations for the groups
