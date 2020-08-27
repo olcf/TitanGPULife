@@ -16,6 +16,8 @@
 ####
 
 #### last modified: 2020-06-04 ##################################################################
+## author: Rizwan Ashraf
+## email: rizwan.ashraf@knights.ucf.edu
 
 #### package imports ############################################################################
 ## for data parsing 
@@ -80,7 +82,8 @@ bad_data_repeat = []
 DBE_count = 0
 OTB_count = 0
 
-### All data is parsed in the loop below.
+### All data is parsed in the loop below. 
+### For more info on data collection, preprocessing and cleaning, see paper, Sections III and IV.
 ## csv file: row[0] serial number, row[1] location, row[2] insert datetime, row[3] remove datetime, 
 ##           row[4] duration (seconds between insert and remove), 
 ##           row[5] indicates whether the GPU was seen after remove (true/false), 
@@ -927,6 +930,7 @@ plt.tight_layout()
 plt.savefig('../../figs/NumFailures_Quarterly_newOld.pdf', dpi=600)
 
 #### write bad serial numbers ################################################################
+## for more info: see paper, Section IV, page 4.
 MyFile=open('bad_serials.dat','w')
 MyFile.write('# no record for loc insert found for following GPU Serial Numbers:\n')
 for element in bad_data_serials_set:
