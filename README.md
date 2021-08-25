@@ -8,7 +8,7 @@ If using this data or code, please cite the above paper in your work.
 
 - Includes R code to generate graphics for paper and additional analyses
   - See code/README for instructions
-- Includes original Titan GPU reliability data on over 100,000 collective hours of operation
+- Includes original Titan GPU reliability data on over 100,000 collective years of operation
   - data/titan.gpu.history.txt - history data
   - data/titan.service.txt - service nodes for exclusion
 - Includes output data files produced by code/TitanGPUmodel.Rmd
